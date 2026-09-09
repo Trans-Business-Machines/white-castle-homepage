@@ -1,17 +1,22 @@
-import { Geist, Geist_Mono, Inter, Manrope } from "next/font/google"
-
+import { Inter, Manrope } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { Metadata } from "next"
 
-const manropeHeading = Manrope({subsets:['latin'],variable:'--font-heading'});
+export const metadata: Metadata = {
+  title: "White castle Motel",
+  keywords: ["Motel", "Hotel", "Eldoret", "Bookings"],
+  description: "Eldoret white castle motel ltd",
+}
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
+const manropeHeading = Manrope({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-heading",
 })
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export default function RootLayout({
   children,
@@ -22,10 +27,17 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, manropeHeading.variable)}
+      className={cn(
+        "antialiased",
+        "font-sans",
+        inter.variable,
+        manropeHeading.variable
+      )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
