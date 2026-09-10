@@ -4,9 +4,14 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Metadata } from "next"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "White castle Motel",
+  title: {
+    default: "White Castle Motel · Eldoret",
+    template: "%s",
+  },
   keywords: ["Motel", "Hotel", "Eldoret", "Bookings"],
   description: "Eldoret white castle motel ltd",
 }
@@ -35,8 +40,14 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>
-          <TooltipProvider>{children}</TooltipProvider>
+        <ThemeProvider defaultTheme="light" enableSystem={false}>
+          <TooltipProvider>
+            <div className="flex min-h-svh flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
