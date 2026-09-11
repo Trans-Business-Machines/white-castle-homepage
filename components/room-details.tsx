@@ -50,16 +50,19 @@ export function RoomDetails() {
       <hr className="mt-8" />
 
       <h3 className="mt-6 font-heading text-lg font-bold">In every room</h3>
-      <ul className="mt-4 space-y-4">
+      <ul className="mt-4 flex flex-wrap items-center gap-4">
         {amenities.map(({ icon: Icon, label }) => (
-          <li key={label} className="flex items-center gap-3 text-base">
+          <li
+            key={label}
+            className="flex items-center gap-3 rounded-full border border-secondary-foreground/80 px-4 py-1 text-base"
+          >
             <Icon className="size-5 shrink-0" strokeWidth={1.5} />
             {label}
           </li>
         ))}
       </ul>
 
-      <div className="mt-8 flex flex-col items-start gap-3">
+      <div className="mt-8 flex items-start gap-3">
         <Button
           asChild
           size="lg"

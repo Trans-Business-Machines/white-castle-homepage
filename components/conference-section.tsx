@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Board from "@/public/assets/images/board.jpeg"
 
 const tags = [
   "Seats 120",
@@ -17,7 +18,7 @@ export function ConferenceSection() {
     >
       <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
         <Image
-          src="https://picsum.photos/id/1039/1000/750"
+          src={Board}
           alt="The conference hall set for a full day"
           fill
           priority

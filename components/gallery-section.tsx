@@ -8,14 +8,20 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+import SingleRoom from "@/public/assets/images/single_room.jpeg"
+import Terrace from "@/public/assets/images/terrace.jpeg"
+import ConferenceHall from "@/public/assets/images/board.jpeg"
+import Bathroom from "@/public/assets/images/bathroom1.jpeg"
+import Restaurant from "@/public/assets/images/restaurant.jpeg"
+import Bar from "@/public/assets/images/rootop_bar.jpeg"
 
 const shots = [
-  { id: 1011, alt: "Guest photographing the Eldoret skyline" },
-  { id: 1043, alt: "Morning mist over the Nandi hills" },
-  { id: 1076, alt: "The conference hall ceiling" },
-  { id: 1062, alt: "A guest on the walk up to reception" },
-  { id: 1031, alt: "Uganda Road at dusk" },
-  { id: 1002, alt: "The main block seen from the terrace" },
+  { id: 1011, imageURI: SingleRoom },
+  { id: 1043, imageURI: Terrace },
+  { id: 1076, imageURI: ConferenceHall },
+  { id: 1062, imageURI: Bathroom },
+  { id: 1031, imageURI: Restaurant },
+  { id: 1002, imageURI: Bar },
 ]
 
 export function GallerySection() {
@@ -53,8 +59,8 @@ export function GallerySection() {
                 className="relative block aspect-4/3 overflow-hidden rounded-xl"
               >
                 <Image
-                  src={`https://picsum.photos/id/${shot.id}/800/600`}
-                  alt={shot.alt}
+                  src={shot.imageURI}
+                  alt={`Image`}
                   fill
                   sizes="340px"
                   className="object-cover"

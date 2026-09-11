@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { WhatsappIcon } from "@/components/whatsapp-icon"
 import { exploreNav, onSiteNav, siteConfig } from "@/lib/site-config"
+import { MapPin, Mail, Phone } from "lucide-react"
 
 export function Footer() {
   return (
@@ -11,18 +12,23 @@ export function Footer() {
           <div>
             <p className="font-heading text-lg font-bold">Get in touch</p>
             <ul className="mt-4 space-y-3 text-neutral-300">
-              <li>
+              <li className="inline-flex items-center gap-5">
+                <Phone size={20} />
                 <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
                   {siteConfig.phone}
                 </a>
               </li>
-              <li>
+              <li className="inline-flex items-center gap-5">
+                <Mail size={20} />
                 <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
               </li>
-              <li className="leading-relaxed">
-                {siteConfig.address.street}
-                <br />
-                {siteConfig.address.region}
+              <li className="inline-flex items-center gap-5">
+                <MapPin size={20} />
+                <p className="leading-relaxed">
+                  {siteConfig.address.street}
+                  <br />
+                  {siteConfig.address.region}
+                </p>
               </li>
             </ul>
 

@@ -28,7 +28,7 @@ export function BookingSteps() {
               <span className="font-semibold">
                 {index + 1} · {step.title}
               </span>{" "}
-              <span className="text-muted-foreground">— {step.detail}</span>
+              <span className="text-muted-foreground">&nbsp;{step.detail}</span>
             </li>
           ))}
         </ol>

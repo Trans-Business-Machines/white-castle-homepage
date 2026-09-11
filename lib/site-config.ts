@@ -1,3 +1,10 @@
+import { Bath, Bed, Users } from "lucide-react"
+import SingleRoom from "@/public/assets/images/single_room.jpeg"
+import Terrace from "@/public/assets/images/terrace.jpeg"
+import ConferenceHall from "@/public/assets/images/board.jpeg"
+import { type StayCardProps } from "@/components/stay-card"
+
+
 export const siteConfig = {
   name: "White Castle",
   fullName: "White Castle Motel",
@@ -37,3 +44,39 @@ export const onSiteNav = [
   { label: "Cafe", href: "/facilities#cafe" },
   { label: "SAMS Discotheque", href: "/facilities#discotheque" },
 ] as const
+
+
+export const stays: StayCardProps[] = [
+  {
+    title: "Self-contained single",
+    subtitle: "Main block, Eldoret CBD",
+    image: SingleRoom.src,
+    href: "/accommodation",
+    tags: ["Hot shower", "Room service"],
+    features: [
+      { icon: Bed, label: "1" },
+      { icon: Bath, label: "1" },
+      { icon: Users, label: "1-2" },
+    ],
+    price: "$35",
+    priceSuffix: "/n",
+  },
+  {
+    title: "Conference hall",
+    subtitle: "Ground floor · seats 120",
+    image: ConferenceHall.src,
+    href: "/facilities#conference",
+    tags: ["Projector & PA", "Tea service"],
+    features: [{ icon: Users, label: "20-120" }],
+    price: "On request",
+  },
+  {
+    title: "The Terrace",
+    subtitle: "Open-air · hill views",
+    image: Terrace.src,
+    href: "/facilities#terrace",
+    tags: ["Open air", "Hill views"],
+    features: [{ icon: Users, label: "10-60" }],
+    price: "On request",
+  },
+]

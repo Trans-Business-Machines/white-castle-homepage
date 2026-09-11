@@ -284,12 +284,12 @@ export function BookingForm() {
             </div>
           </div>
 
-          <div className="mt-7 flex flex-col items-start gap-3">
+          <div className="mt-7 flex  items-start gap-3">
             <Button
               type="submit"
               size="lg"
               disabled={isSubmitting}
-              className="h-12 rounded-full px-7 text-base font-semibold"
+              className="h-12 rounded-full px-7 text-base font-semibold flex-2"
             >
               Send request
             </Button>
@@ -297,7 +297,7 @@ export function BookingForm() {
               asChild
               variant="outline"
               size="lg"
-              className="h-12 rounded-full bg-background px-7 text-base font-semibold"
+              className="h-12 flex-1 rounded-full bg-background px-7 text-base font-semibold"
             >
               <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
                 <WhatsappIcon />

@@ -1,32 +1,35 @@
 import Image from "next/image"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import Cafe from "@/public/assets/images/restaurant.jpeg"
+import Terrace from "@/public/assets/images/terrace.jpeg"
+import Bar from "@/public/assets/images/rootop_bar.jpeg"
 
 const venues = [
   {
     id: "cafe",
     title: "Cafe",
-    image: "https://picsum.photos/id/1062/900/700",
+    image: Cafe,
     description:
       "Breakfast from six, chai all day, and plates that arrive quickly when you have a bus to catch. Open to guests and to town.",
   },
   {
     id: "terrace",
     title: "The Terrace",
-    image: "https://picsum.photos/id/1025/900/700",
+    image: Terrace,
     description:
       "Open-air tables under the sky, good for a long lunch or a quiet beer while the light goes down over the hills.",
   },
   {
     id: "bar",
     title: "Main bar",
-    image: "https://picsum.photos/id/1031/900/700",
+    image: Bar,
     description:
       "The long counter where Eldoret meets after work. Cold beer, the match on, and nyama choma from the kitchen.",
   },
   {
     id: "discotheque",
     title: "SAMS Discotheque",
-    image: "https://picsum.photos/id/1002/900/700",
+    image: Bar,
     description:
       "Weekends only, in its own wing away from the bedrooms — so the music stays where the dancing is.",
   },
@@ -44,7 +47,7 @@ export function VenuesSection() {
           <Card
             key={venue.id}
             id={venue.id}
-            className="scroll-mt-24 gap-0 border-0 bg-transparent p-0 py-0 ring-0"
+            className="scroll-mt-24 gap-0 border-0 bg-transparent p-0 py-1.5 ring-0"
           >
             <div className="relative aspect-16/10 overflow-hidden rounded-xl">
               <Image
@@ -58,7 +61,7 @@ export function VenuesSection() {
             <CardTitle className="mt-4 font-heading text-xl font-bold">
               {venue.title}
             </CardTitle>
-            <CardContent className="mt-2 px-0 text-base leading-relaxed text-muted-foreground">
+            <CardContent className="mt-2 px-3 text-base leading-relaxed text-muted-foreground">
               {venue.description}
             </CardContent>
           </Card>

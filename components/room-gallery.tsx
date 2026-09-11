@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 
-export type RoomShot = { src: string; alt: string }
+export type RoomShot = { src: string }
 
 export function RoomGallery({ shots }: { shots: readonly RoomShot[] }) {
   const [order, setOrder] = React.useState(() => shots.map((_, index) => index))
@@ -24,7 +24,7 @@ export function RoomGallery({ shots }: { shots: readonly RoomShot[] }) {
       <div className="relative aspect-4/3 overflow-hidden rounded-xl">
         <Image
           src={main.src}
-          alt={main.alt}
+          alt={`Image`}
           fill
           priority
           sizes="(min-width: 1024px) 560px, 92vw"
@@ -37,10 +37,9 @@ export function RoomGallery({ shots }: { shots: readonly RoomShot[] }) {
           const shot = shots[shotIndex]
           return (
             <button
-              key={shot.src}
+              key={position}
               type="button"
               onClick={() => promote(position + 1)}
-              aria-label={`Show ${shot.alt}`}
               className="group relative aspect-4/3 overflow-hidden rounded-lg focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               <Image

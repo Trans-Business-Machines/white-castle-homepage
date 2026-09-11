@@ -1,8 +1,17 @@
+import SingleRoom from "@/public/assets/images/single_room.jpeg"
+import ConferenceHall from "@/public/assets/images/board.jpeg"
+import Bathroom from "@/public/assets/images/bathroom1.jpeg"
+import Bathroom2 from "@/public/assets/images/bathroom2.jpeg"
+import Restaurant from "@/public/assets/images/restaurant.jpeg"
+import RooftopBar from "@/public/assets/images/rootop_bar.jpeg"
+import Bar from "@/public/assets/images/bar.jpeg"
+import SittingRoom from "@/public/assets/images/sitting_room.jpeg"
+import Bedroom from "@/public/assets/images/bedroom2.jpeg"
+
 export const GALLERY_FILTERS = [
   { id: "all", label: "All" },
   { id: "rooms", label: "Rooms" },
   { id: "eat-drink", label: "Eat & drink" },
-  { id: "events", label: "Events" },
 ] as const
 
 export type GalleryFilterId = (typeof GALLERY_FILTERS)[number]["id"]
@@ -10,24 +19,39 @@ export type GalleryCategory = Exclude<GalleryFilterId, "all">
 
 export type GalleryItem = {
   id: number
-  caption: string
   category: GalleryCategory
+  imageURL: string
+  alt: string
 }
 
 export const galleryItems: GalleryItem[] = [
-  { id: 1015, caption: "Self-contained single", category: "rooms" },
-  { id: 1024, caption: "Twin layout", category: "rooms" },
-  { id: 1043, caption: "Hot bath and shower", category: "rooms" },
-  { id: 1076, caption: "Desk by the window", category: "rooms" },
-  { id: 1003, caption: "Corridor to the rooms", category: "rooms" },
-  { id: 1025, caption: "The Terrace at dusk", category: "eat-drink" },
-  { id: 1062, caption: "The cafe, mid-morning", category: "eat-drink" },
-  { id: 1031, caption: "Main bar", category: "eat-drink" },
-  { id: 1005, caption: "Breakfast service", category: "eat-drink" },
-  { id: 1006, caption: "Reception", category: "rooms" },
-  { id: 1018, caption: "Looking towards Sergoit", category: "rooms" },
-  { id: 1039, caption: "Conference hall, theatre style", category: "events" },
-  { id: 1002, caption: "SAMS Discotheque", category: "events" },
-  { id: 1008, caption: "Tea break on the Terrace", category: "events" },
-  { id: 1012, caption: "A wedding on the lawn", category: "events" },
+  { id: 1015, category: "rooms", imageURL: SingleRoom.src, alt: "Single room" },
+  { id: 1024, category: "rooms", imageURL: Bedroom.src, alt: "Bedroom" },
+  {
+    id: 1043,
+    category: "rooms",
+    imageURL: SittingRoom.src,
+    alt: "Sitting room",
+  },
+  { id: 1076, category: "rooms", imageURL: Bathroom.src, alt: "Bathroom" },
+  { id: 1003, category: "rooms", imageURL: Bathroom2.src, alt: "Bathroom" },
+  {
+    id: 1025,
+    category: "eat-drink",
+    imageURL: RooftopBar.src,
+    alt: "Rooftop bar",
+  },
+  {
+    id: 1062,
+    category: "eat-drink",
+    imageURL: Restaurant.src,
+    alt: "Restaurant",
+  },
+  { id: 1031, category: "eat-drink", imageURL: Bar.src, alt: "Bar" },
+  {
+    id: 1006,
+    category: "rooms",
+    imageURL: ConferenceHall.src,
+    alt: "Conference hall",
+  },
 ]

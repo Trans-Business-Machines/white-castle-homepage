@@ -3,7 +3,12 @@ import { PageHeader } from "@/components/page-header"
 import { RoomGallery } from "@/components/room-gallery"
 import { RoomDetails } from "@/components/room-details"
 import { RatesSection } from "@/components/rates-section"
-import { OtherSpacesSection } from "@/components/other-spaces-section"
+import { OtherSpacesSection } from "@/components/other-spaces"
+
+import SittingRoom from "@/public/assets/images/sitting_room.jpeg"
+import Bathroom from "@/public/assets/images/bathroom1.jpeg"
+import Bedroom from "@/public/assets/images/bedroom2.jpeg"
+import Bedroom2 from "@/public/assets/images/single_room.jpeg"
 
 export const metadata: Metadata = {
   title: "Accommodation · White Castle Motel",
@@ -12,16 +17,12 @@ export const metadata: Metadata = {
 }
 
 const shots = [
-  { src: "https://picsum.photos/id/1015/1000/750", alt: "The room at sunrise" },
+  { src: SittingRoom.src },
   {
-    src: "https://picsum.photos/id/1024/1000/750",
-    alt: "The main block after dark",
+    src: Bathroom.src,
   },
-  { src: "https://picsum.photos/id/1076/1000/750", alt: "The stairwell" },
-  {
-    src: "https://picsum.photos/id/1043/1000/750",
-    alt: "Morning mist over the hills",
-  },
+  { src: Bedroom.src },
+  { src: Bedroom2.src },
 ]
 
 export default function Page() {
