@@ -19,7 +19,7 @@ const places = [
     icon: Trees,
     title: "Nandi Hills",
     description:
-      "Tea country south of town — green all year, and cool enough to want a jacket.",
+      "Tea country south of town  green all year, and cool enough to want a jacket.",
   },
   {
     icon: Waves,

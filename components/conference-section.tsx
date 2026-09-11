@@ -15,7 +15,7 @@ export function ConferenceSection() {
       id="conference"
       className="mx-auto grid max-w-7xl scroll-mt-24 items-center gap-10 px-5 pb-16 sm:px-8 sm:pb-20 lg:grid-cols-2 lg:gap-16"
     >
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+      <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
         <Image
           src="https://picsum.photos/id/1039/1000/750"
           alt="The conference hall set for a full day"

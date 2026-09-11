@@ -1,11 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import {
-  exploreNav,
-  onSiteNav,
-  siteConfig,
-  socialLinks,
-} from "@/lib/site-config"
+import { WhatsappIcon } from "@/components/whatsapp-icon"
+import { exploreNav, onSiteNav, siteConfig } from "@/lib/site-config"
 
 export function Footer() {
   return (
@@ -13,30 +9,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-3">
           <div>
-            <p className="font-heading text-xl font-extrabold tracking-[0.14em] uppercase">
-              {siteConfig.name}
-            </p>
-            <p className="mt-4 max-w-xs leading-relaxed text-neutral-300">
-              {siteConfig.description}
-            </p>
-
-            <ul className="mt-6 flex gap-3">
-              {socialLinks.map((social) => (
-                <li key={social.name}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={social.name}
-                    className="flex size-10 items-center justify-center rounded-full bg-neutral-800 text-sm transition-colors hover:bg-neutral-700"
-                  >
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
-            <p className="mt-10 font-heading text-lg font-bold">Get in touch</p>
+            <p className="font-heading text-lg font-bold">Get in touch</p>
             <ul className="mt-4 space-y-3 text-neutral-300">
               <li>
                 <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
@@ -59,6 +32,7 @@ export function Footer() {
               className="mt-6 h-12 rounded-full px-7 text-base font-semibold"
             >
               <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
+                <WhatsappIcon />
                 Chat on WhatsApp
               </a>
             </Button>

@@ -2,12 +2,15 @@ import Link from "next/link"
 import { Bath, Bed, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { StayCard, type StayCardProps } from "@/components/stay-card"
+import SingleRoom from "@/public/assets/images/single_room.jpeg"
+import Terrace from "@/public/assets/images/terrace.jpeg"
+import ConferenceHall from "@/public/assets/images/board.jpeg"
 
 const stays: StayCardProps[] = [
   {
     title: "Self-contained single",
     subtitle: "Main block, Eldoret CBD",
-    image: "https://picsum.photos/id/1015/900/700",
+    image: SingleRoom.src,
     href: "/accommodation",
     tags: ["Hot shower", "Room service"],
     features: [
@@ -21,7 +24,7 @@ const stays: StayCardProps[] = [
   {
     title: "Conference hall",
     subtitle: "Ground floor · seats 120",
-    image: "https://picsum.photos/id/1039/900/700",
+    image: ConferenceHall.src,
     href: "/facilities#conference",
     tags: ["Projector & PA", "Tea service"],
     features: [{ icon: Users, label: "20-120" }],
@@ -30,7 +33,7 @@ const stays: StayCardProps[] = [
   {
     title: "The Terrace",
     subtitle: "Open-air · hill views",
-    image: "https://picsum.photos/id/1025/900/700",
+    image: Terrace.src,
     href: "/facilities#terrace",
     tags: ["Open air", "Hill views"],
     features: [{ icon: Users, label: "10-60" }],
@@ -48,7 +51,7 @@ export function StaySection() {
         Rooms and spaces you can book today
       </h2>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-        One honest rate, one honest room — plus the conference hall and the
+        One honest rate, one honest room plus the conference hall and the
         Terrace when you need somewhere for everyone else.
       </p>
 

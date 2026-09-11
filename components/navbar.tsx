@@ -1,42 +1,25 @@
 "use client"
 
-import * as React from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, MessageCircle, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { WhatsappIcon } from "@/components/whatsapp-icon"
 import { mainNav, siteConfig } from "@/lib/site-config"
-
-function CastleMark() {
-  return (
-    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white">
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="size-5 text-primary"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M4 21V8l2.5 1.5L9 8v-.5L12 3l3 4.5V8l2.5 1.5L20 8v13" />
-        <path d="M10 21v-4a2 2 0 1 1 4 0v4" />
-      </svg>
-    </span>
-  )
-}
 
 export function Navbar() {
   const pathname = usePathname()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href)
 
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-7xl items-center gap-6 px-5 py-4 sm:px-8">
         <Link href="/" className="flex items-center gap-3">
-          <CastleMark />
           <span className="flex flex-col leading-none">
             <span className="font-heading text-lg font-extrabold tracking-[0.08em] uppercase">
               {siteConfig.name}
@@ -52,9 +35,13 @@ export function Navbar() {
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "text-[0.95rem] transition-opacity hover:opacity-100",
-                pathname === item.href ? "font-medium" : "opacity-90"
+                "relative py-1 text-[0.95rem] transition-opacity",
+                "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-current after:transition-transform after:duration-200",
+                isActive(item.href)
+                  ? "font-semibold after:scale-x-100"
+                  : "opacity-80 after:scale-x-0 hover:opacity-100 hover:after:scale-x-100"
               )}
             >
               {item.label}
@@ -70,7 +57,7 @@ export function Navbar() {
             className="h-11 rounded-full border-white/40 bg-transparent px-5 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground"
           >
             <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
-              <MessageCircle />
+              <WhatsappIcon />
               WhatsApp
             </a>
           </Button>
@@ -103,9 +90,13 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "border-b border-white/10 py-3 text-base last:border-0",
-                    pathname === item.href ? "font-medium" : "opacity-90"
+                    "relative border-b border-white/10 py-3 pl-4 text-base last:border-0",
+                    "before:absolute before:top-1/2 before:left-0 before:h-5 before:w-1 before:-translate-y-1/2 before:rounded-full before:bg-current before:transition-opacity",
+                    isActive(item.href)
+                      ? "font-semibold before:opacity-100"
+                      : "opacity-80 before:opacity-0"
                   )}
                 >
                   {item.label}
@@ -120,7 +111,7 @@ export function Navbar() {
                 className="h-11 rounded-full border-white/40 bg-transparent px-5 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground"
               >
                 <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
-                  <MessageCircle />
+                  <WhatsappIcon />
                   WhatsApp
                 </a>
               </Button>

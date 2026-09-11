@@ -1,5 +1,13 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import AutoScroll from "embla-carousel-auto-scroll"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
 
 const shots = [
   { id: 1011, alt: "Guest photographing the Eldoret skyline" },
@@ -19,29 +27,43 @@ export function GallerySection() {
         </h2>
         <Link
           href="/gallery"
-          className="font-medium text-primary underline underline-offset-4 hover:no-underline"
+          className="font-medium text-primary underline-offset-4 hover:underline"
         >
           Open the gallery →
         </Link>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {shots.map((shot) => (
-          <Link
-            key={shot.id}
-            href="/gallery"
-            className="group relative block aspect-[4/3] overflow-hidden rounded-xl"
-          >
-            <Image
-              src={`https://picsum.photos/id/${shot.id}/800/600`}
-              alt={shot.alt}
-              fill
-              sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </Link>
-        ))}
-      </div>
+      <Carousel
+        className="mt-8"
+        opts={{ loop: true, align: "start", dragFree: true }}
+        plugins={[
+          AutoScroll({
+            speed: 0.7,
+            startDelay: 0,
+            stopOnInteraction: false,
+            stopOnMouseEnter: true,
+          }),
+        ]}
+      >
+        <CarouselContent className="-ml-4">
+          {shots.map((shot) => (
+            <CarouselItem key={shot.id} className="basis-70 pl-4 sm:basis-85">
+              <Link
+                href="/gallery"
+                className="relative block aspect-4/3 overflow-hidden rounded-xl"
+              >
+                <Image
+                  src={`https://picsum.photos/id/${shot.id}/800/600`}
+                  alt={shot.alt}
+                  fill
+                  sizes="340px"
+                  className="object-cover"
+                />
+              </Link>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </section>
   )
 }

@@ -57,7 +57,7 @@ export function ContactMethods() {
                 >
                   {method.label}
                 </p>
-                <p className="mt-2 font-heading text-lg font-bold break-words">
+                <p className="wrap-break-words mt-2 font-heading text-lg font-bold">
                   {method.href ? (
                     <a
                       href={method.href}

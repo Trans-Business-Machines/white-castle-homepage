@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { WhatsappIcon } from "@/components/whatsapp-icon"
 import { siteConfig } from "@/lib/site-config"
 
 export function EnquiryCta() {
@@ -28,6 +29,7 @@ export function EnquiryCta() {
             className="h-12 rounded-full bg-white/20 px-7 text-base font-semibold text-primary-foreground hover:bg-white/30"
           >
             <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
+              <WhatsappIcon />
               WhatsApp us
             </a>
           </Button>

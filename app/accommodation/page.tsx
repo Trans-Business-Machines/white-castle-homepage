@@ -30,7 +30,7 @@ export default function Page() {
       <PageHeader
         eyebrow="Accommodation"
         title="118 rooms, one honest rate"
-        lead="Every room at White Castle is a self-contained single with a hot bath, a shower and a telephone. No confusing tiers, no surprise supplements — just a clean, quiet room and room service when you want it."
+        lead="Every room at White Castle is a self-contained single with a hot bath, a shower and a telephone. No confusing tiers, no surprise supplements just a clean, quiet room and room service when you want it."
       />
 
       <section className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 sm:px-8 sm:pb-20 lg:grid-cols-2 lg:gap-16">

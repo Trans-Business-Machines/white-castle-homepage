@@ -21,7 +21,7 @@ export function RoomGallery({ shots }: { shots: readonly RoomShot[] }) {
 
   return (
     <div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+      <div className="relative aspect-4/3 overflow-hidden rounded-xl">
         <Image
           src={main.src}
           alt={main.alt}
@@ -41,7 +41,7 @@ export function RoomGallery({ shots }: { shots: readonly RoomShot[] }) {
               type="button"
               onClick={() => promote(position + 1)}
               aria-label={`Show ${shot.alt}`}
-              className="group relative aspect-[4/3] overflow-hidden rounded-lg focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="group relative aspect-4/3 overflow-hidden rounded-lg focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
             >
               <Image
                 src={shot.src}

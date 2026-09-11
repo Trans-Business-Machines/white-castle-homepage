@@ -27,7 +27,7 @@ export function StayCard({
   return (
     <Card className="gap-0 border-0 bg-transparent p-0 py-0 ring-0">
       <Link href={href} className="group block">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+        <div className="relative aspect-4/3 overflow-hidden rounded-xl">
           <Image
             src={image}
             alt={title}
@@ -61,8 +61,8 @@ export function StayCard({
 
       <CardContent className="mt-4 flex items-center justify-between gap-4 px-0">
         <div className="flex items-center gap-2 rounded-full border px-3 py-2">
-          {features.map(({ icon: Icon, label }) => (
-            <span key={label} className="flex items-center gap-1.5 text-sm">
+          {features.map(({ icon: Icon, label }, index) => (
+            <span key={index} className="flex items-center gap-1.5 text-sm">
               <Icon className="size-4" />
               {label}
             </span>

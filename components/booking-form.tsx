@@ -5,6 +5,7 @@ import { useForm, useWatch, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { WhatsappIcon } from "@/components/whatsapp-icon"
 import { DateField } from "@/components/date-field"
 import { Textarea } from "@/components/ui/textarea"
 import {
@@ -299,6 +300,7 @@ export function BookingForm() {
               className="h-12 rounded-full bg-background px-7 text-base font-semibold"
             >
               <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
+                <WhatsappIcon />
                 Or WhatsApp instead
               </a>
             </Button>

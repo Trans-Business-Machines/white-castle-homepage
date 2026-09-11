@@ -1,4 +1,5 @@
 import Image from "next/image"
+import HeroImage from "@/public/assets/images/hero.png"
 
 export function AboutIntro() {
   return (
@@ -20,20 +21,20 @@ export function AboutIntro() {
         <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
           This is the City of Champions. At 2,100 metres above sea level, the
           air here is thin enough that the world&rsquo;s distance runners come
-          to Eldoret and the escarpment above it to train &mdash; and thin
-          enough that most visitors sleep unusually well.
+          to Eldoret and the escarpment above it to train and thin enough that
+          most visitors sleep unusually well.
         </p>
         <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          We keep 118 fully furnished self-contained single rooms — every one
-          with a hot bath, a shower and a telephone — and an excellent room
-          service that runs late. Guests come for work, for conferences, for a
-          night off the Nairobi road, and for the quiet.
+          We keep 118 fully furnished self-contained single rooms every one with
+          a hot bath, a shower and a telephone and an excellent room service
+          that runs late. Guests come for work, for conferences, for a night off
+          the Nairobi road, and for the quiet.
         </p>
       </div>
 
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:mt-24">
+      <div className="relative aspect-4/3 overflow-hidden rounded-2xl lg:mt-24">
         <Image
-          src="https://picsum.photos/id/1076/1000/750"
+          src={HeroImage}
           alt="Inside the motel, looking up through the stairwell"
           fill
           priority

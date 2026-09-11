@@ -55,10 +55,7 @@ export function LocationSection() {
           </Button>
         </div>
 
-        <MapCard
-          note="Secure parking on site, five minutes from the stage and the main market."
-          className="sm:min-h-[28rem]"
-        />
+        <MapCard className="sm:min-h-112" />
       </div>
     </section>
   )

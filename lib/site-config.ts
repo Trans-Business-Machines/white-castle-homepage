@@ -15,10 +15,10 @@ export const siteConfig = {
 
 export const mainNav = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Accommodation", href: "/accommodation" },
   { label: "Facilities", href: "/facilities" },
   { label: "Gallery", href: "/gallery" },
-  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const
 
@@ -36,11 +36,4 @@ export const onSiteNav = [
   { label: "Main bar", href: "/facilities#bar" },
   { label: "Cafe", href: "/facilities#cafe" },
   { label: "SAMS Discotheque", href: "/facilities#discotheque" },
-] as const
-
-export const socialLinks = [
-  { label: "f", href: "https://facebook.com", name: "Facebook" },
-  { label: "ig", href: "https://instagram.com", name: "Instagram" },
-  { label: "x", href: "https://x.com", name: "X" },
-  { label: "wa", href: siteConfig.whatsapp, name: "WhatsApp" },
 ] as const

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Bath, Bed, Brush, ChefHat, KeyRound, Wifi } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { WhatsappIcon } from "@/components/whatsapp-icon"
 import { siteConfig } from "@/lib/site-config"
 
 const tags = ["Sleeps 1-2", "Private bathroom", "Daily housekeeping"]
@@ -29,8 +30,8 @@ export function RoomDetails() {
       </p>
 
       <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-        A warm, simply furnished room with its own bathroom — hot bath and
-        shower — a telephone by the bed and a window that catches the morning.
+        A warm, simply furnished room with its own bathroom hot bath and shower
+        a telephone by the bed and a window that catches the morning.
         Housekeeping runs daily and the kitchen will bring food up to the room
         until late.
       </p>
@@ -73,6 +74,7 @@ export function RoomDetails() {
           className="h-12 rounded-full px-7 text-base font-semibold"
         >
           <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
+            <WhatsappIcon />
             Ask on WhatsApp
           </a>
         </Button>

@@ -48,7 +48,7 @@ export function GalleryGrid() {
       <ul className="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((item) => (
           <li key={item.id}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+            <div className="relative aspect-4/3 overflow-hidden rounded-xl">
               <Image
                 src={`https://picsum.photos/id/${item.id}/900/700`}
                 alt={item.caption}

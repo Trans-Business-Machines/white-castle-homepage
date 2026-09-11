@@ -25,7 +25,7 @@ export default function Page() {
         <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
           <BookingForm />
           <div className="flex flex-col gap-8">
-            <MapCard note="Uasin Gishu County, Kenya · secure parking on site." />
+            <MapCard />
             <BookingSteps />
           </div>
         </div>

@@ -6,6 +6,7 @@ import { FacilitiesSection } from "@/components/facilities-section"
 import { GallerySection } from "@/components/gallery-section"
 import { EnquiryCta } from "@/components/enquiry-cta"
 import { LocationSection } from "@/components/location-section"
+import { NearbySection } from "@/components/nearby-section"
 
 export const metadata: Metadata = {
   title: "White Castle Motel · Eldoret",
@@ -23,6 +24,7 @@ export default function Page() {
       <GallerySection />
       <EnquiryCta />
       <LocationSection />
+      <NearbySection />
     </>
   )
 }

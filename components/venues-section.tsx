@@ -46,7 +46,7 @@ export function VenuesSection() {
             id={venue.id}
             className="scroll-mt-24 gap-0 border-0 bg-transparent p-0 py-0 ring-0"
           >
-            <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+            <div className="relative aspect-16/10 overflow-hidden rounded-xl">
               <Image
                 src={venue.image}
                 alt={venue.title}
