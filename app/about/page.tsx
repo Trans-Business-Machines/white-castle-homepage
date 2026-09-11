@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Reveal } from "@/components/reveal"
 import { AboutIntro } from "@/components/about-intro"
 import { AboutStats } from "@/components/about-stats"
 import { NearbySection } from "@/components/nearby-section"
@@ -14,9 +15,15 @@ export default function Page() {
   return (
     <>
       <AboutIntro />
-      <AboutStats />
-      <NearbySection />
-      <AboutCta />
+      <Reveal>
+        <AboutStats />
+      </Reveal>
+      <Reveal>
+        <NearbySection />
+      </Reveal>
+      <Reveal>
+        <AboutCta />
+      </Reveal>
     </>
   )
 }

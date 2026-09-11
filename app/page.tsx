@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Reveal } from "@/components/reveal"
 import { HeroSection } from "@/components/hero-section"
 import { StatsSection } from "@/components/stats-section"
 import { StaySection } from "@/components/stay-section"
@@ -18,13 +19,27 @@ export default function Page() {
   return (
     <>
       <HeroSection />
-      <StatsSection />
-      <StaySection />
-      <FacilitiesSection />
-      <GallerySection />
-      <EnquiryCta />
-      <LocationSection />
-      <NearbySection />
+      <Reveal>
+        <StatsSection />
+      </Reveal>
+      <Reveal>
+        <StaySection />
+      </Reveal>
+      <Reveal>
+        <FacilitiesSection />
+      </Reveal>
+      <Reveal>
+        <GallerySection />
+      </Reveal>
+      <Reveal>
+        <EnquiryCta />
+      </Reveal>
+      <Reveal>
+        <LocationSection />
+      </Reveal>
+      <Reveal>
+        <NearbySection />
+      </Reveal>
     </>
   )
 }

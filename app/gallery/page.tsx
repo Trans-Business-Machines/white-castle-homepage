@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Reveal } from "@/components/reveal"
 import { PageHeader } from "@/components/page-header"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { GalleryCta } from "@/components/gallery-cta"
@@ -17,8 +18,12 @@ export default function Page() {
         title="The motel, room by room"
         lead="Rooms, the Terrace, the bar and the hall. Filter by what you came to see."
       />
-      <GalleryGrid />
-      <GalleryCta />
+      <Reveal>
+        <GalleryGrid />
+      </Reveal>
+      <Reveal>
+        <GalleryCta />
+      </Reveal>
     </>
   )
 }

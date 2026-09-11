@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { Reveal } from "@/components/reveal"
 import { PageHeader } from "@/components/page-header"
 import { ContactMethods } from "@/components/contact-methods"
 import { BookingForm } from "@/components/booking-form"
@@ -19,17 +20,21 @@ export default function Page() {
         title="Send a booking request"
         lead="Fill in the form and we will confirm your room by phone or email, usually within the hour. In a rush? WhatsApp is faster."
       />
-      <ContactMethods />
+      <Reveal>
+        <ContactMethods />
+      </Reveal>
 
-      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
-        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
-          <BookingForm />
-          <div className="flex flex-col gap-8">
-            <MapCard />
-            <BookingSteps />
+      <Reveal>
+        <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
+          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
+            <BookingForm />
+            <div className="flex flex-col gap-8">
+              <MapCard />
+              <BookingSteps />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Reveal>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import Image from "next/image"
-import HeroImage from "@/public/assets/images/hero.png"
+import Hotel from "@/public/assets/images/hotel.jpeg"
 
 export function AboutIntro() {
   return (
@@ -34,7 +34,7 @@ export function AboutIntro() {
 
       <div className="relative aspect-4/3 overflow-hidden rounded-2xl lg:mt-24">
         <Image
-          src={HeroImage}
+          src={Hotel}
           alt="Inside the motel, looking up through the stairwell"
           fill
           priority

@@ -2,19 +2,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { AvailabilityForm } from "@/components/availability-form"
-import HeroImage from "@/public/assets/images/hero.png"
+import Hotel from "@/public/assets/images/hotel.jpeg"
 
 export function HeroSection() {
   return (
     <section className="mx-auto px-5 pt-6 sm:px-8">
       <div className="relative isolate overflow-hidden rounded-2xl">
         <Image
-          src={HeroImage}
+          src={Hotel}
           alt="The road up to White Castle Motel, Eldoret"
           fill
           priority
-          sizes="(min-width: 1280px) 1216px, 100vw"
-          className="object-cover object-bottom-right"
+          sizes="(min-width: 1280px) 1216px"
+          className="object-cover object-center-left"
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/25" />
 
