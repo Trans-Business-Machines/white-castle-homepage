@@ -67,7 +67,8 @@ a fixed light or dark regardless of theme, which use `neutral-*` literals: the
 footer, the hero's "See the rooms" button, and "All rooms & rates".
 
 The site is **light-only**: `app/layout.tsx` passes
-`defaultTheme="light" enableSystem={false}`. Dark-mode tokens exist but are not
+`forcedTheme="light" enableSystem={false}`, so next-themes ignores any
+stored or system preference. Dark-mode tokens exist but are not
 exercised, so don't rely on them looking right.
 
 Headings use `font-heading` (Manrope); body text inherits Inter.

@@ -40,7 +40,7 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider defaultTheme="light" enableSystem={false}>
+        <ThemeProvider forcedTheme="light" enableSystem={false}>
           <TooltipProvider>
             <div className="flex min-h-svh flex-col">
               <Navbar />

@@ -4,6 +4,7 @@ import * as React from "react"
 import { useForm, useWatch, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CheckCircle2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { WhatsappIcon } from "@/components/whatsapp-icon"
 import { DateField } from "@/components/date-field"
@@ -25,8 +26,20 @@ import {
 
 const labelClass = "block text-sm font-medium"
 
-const fieldClass =
-  "mt-2 h-12 w-full rounded-lg border border-input bg-background px-4 text-base transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20"
+// Focus and caret take the brand colour so the panel's blue has a job beyond
+// atmosphere: it marks where the visitor is.
+const focusClass =
+  "focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/25 focus-visible:outline-none"
+
+const fieldClass = cn(
+  "mt-2 h-12 w-full rounded-lg border border-input bg-background px-4 text-base caret-primary transition-colors selection:bg-primary/20 placeholder:text-muted-foreground aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20",
+  focusClass
+)
+
+const triggerClass = cn(
+  "mt-2 h-12 w-full bg-background px-4 text-base data-[size=default]:h-12",
+  focusClass
+)
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null
@@ -45,11 +58,13 @@ function startOfToday() {
 
 export function BookingForm() {
   const [submitted, setSubmitted] = React.useState(false)
+  const successRef = React.useRef<HTMLDivElement>(null)
 
   const {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<BookingValues>({
     resolver: zodResolver(bookingSchema),
@@ -66,6 +81,12 @@ export function BookingForm() {
 
   const checkIn = useWatch({ control, name: "checkIn" })
 
+  // The submit button unmounts on success, so move focus to the confirmation
+  // rather than letting it fall back to <body>.
+  React.useEffect(() => {
+    if (submitted) successRef.current?.focus()
+  }, [submitted])
+
   async function onSubmit(values: BookingValues) {
     // TODO: POST to the booking endpoint once it exists.
     console.info("Booking request", values)
@@ -73,13 +94,18 @@ export function BookingForm() {
   }
 
   return (
-    <div className="rounded-2xl bg-muted p-6 sm:p-10">
+    <div className="relative isolate overflow-hidden rounded-2xl bg-porcelain p-6 ring-1 ring-primary/10 sm:p-10">
       <h2 className="font-heading text-xl font-extrabold sm:text-2xl">
         Booking &amp; enquiry form
       </h2>
 
       {submitted ? (
-        <div className="mt-6 flex gap-3 rounded-xl bg-background p-5 ring-1 ring-foreground/10">
+        <div
+          ref={successRef}
+          tabIndex={-1}
+          role="status"
+          className="mt-6 flex scroll-mt-28 gap-3 rounded-xl bg-background p-5 ring-1 ring-primary/15 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+        >
           <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary" />
           <div>
             <p className="font-medium">Request sent.</p>
@@ -91,7 +117,10 @@ export function BookingForm() {
               type="button"
               variant="outline"
               size="lg"
-              onClick={() => setSubmitted(false)}
+              onClick={() => {
+                reset()
+                setSubmitted(false)
+              }}
               className="mt-4 h-11 rounded-full px-6 font-semibold"
             >
               Send another request
@@ -159,7 +188,7 @@ export function BookingForm() {
                     <SelectTrigger
                       aria-label="Subject"
                       aria-invalid={Boolean(errors.subject)}
-                      className="mt-2 h-12 w-full bg-background px-4 text-base data-[size=default]:h-12"
+                      className={triggerClass}
                     >
                       <SelectValue />
                     </SelectTrigger>
@@ -189,7 +218,7 @@ export function BookingForm() {
                       onChange={field.onChange}
                       invalid={Boolean(errors.checkIn)}
                       disabledBefore={startOfToday()}
-                      className="mt-2 h-12 w-full bg-background px-4 text-base"
+                      className={triggerClass}
                     />
                   )}
                 />
@@ -208,7 +237,7 @@ export function BookingForm() {
                       onChange={field.onChange}
                       invalid={Boolean(errors.checkOut)}
                       disabledBefore={checkIn ?? startOfToday()}
-                      className="mt-2 h-12 w-full bg-background px-4 text-base"
+                      className={triggerClass}
                     />
                   )}
                 />
@@ -226,7 +255,7 @@ export function BookingForm() {
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger
                         aria-label="Adults"
-                        className="mt-2 h-12 w-full bg-background px-4 text-base data-[size=default]:h-12"
+                        className={triggerClass}
                       >
                         <SelectValue />
                       </SelectTrigger>
@@ -251,7 +280,7 @@ export function BookingForm() {
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger
                         aria-label="Children"
-                        className="mt-2 h-12 w-full bg-background px-4 text-base data-[size=default]:h-12"
+                        className={triggerClass}
                       >
                         <SelectValue />
                       </SelectTrigger>
@@ -277,27 +306,31 @@ export function BookingForm() {
                 rows={4}
                 placeholder="Number of rooms, arrival time, anything we should know."
                 aria-invalid={Boolean(errors.message)}
-                className="mt-2 bg-background text-base"
+                className={cn(
+                  "mt-2 scroll-mt-28 bg-background text-base caret-primary selection:bg-primary/20 md:text-base",
+                  focusClass
+                )}
                 {...register("message")}
               />
               <FieldError message={errors.message?.message} />
             </div>
           </div>
 
-          <div className="mt-7 flex  items-start gap-3">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-start">
             <Button
               type="submit"
               size="lg"
               disabled={isSubmitting}
-              className="h-12 rounded-full px-7 text-base font-semibold flex-2"
+              aria-busy={isSubmitting}
+              className="h-12 rounded-full px-7 text-base font-semibold sm:flex-2"
             >
-              Send request
+              {isSubmitting ? "Sending…" : "Send request"}
             </Button>
             <Button
               asChild
               variant="outline"
               size="lg"
-              className="h-12 flex-1 rounded-full bg-background px-7 text-base font-semibold"
+              className="h-12 rounded-full border-primary/20 bg-background px-7 text-base font-semibold hover:bg-background sm:flex-1"
             >
               <a href={siteConfig.whatsapp} target="_blank" rel="noreferrer">
                 <WhatsappIcon />
@@ -306,7 +339,7 @@ export function BookingForm() {
             </Button>
           </div>
 
-          <p className="mt-5 text-sm text-muted-foreground">
+          <p className="mt-5 text-sm text-foreground/70">
             Sending a request does not charge you. We hold the room until you
             confirm.
           </p>

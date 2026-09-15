@@ -5,7 +5,6 @@ import { RoomGallery } from "@/components/room-gallery"
 import { RoomDetails } from "@/components/room-details"
 import { RatesSection } from "@/components/rates-section"
 import { OtherSpacesSection } from "@/components/other-spaces"
-
 import SittingRoom from "@/public/assets/images/sitting_room.jpeg"
 import Bathroom from "@/public/assets/images/bathroom1.jpeg"
 import Bedroom from "@/public/assets/images/bedroom2.jpeg"

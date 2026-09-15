@@ -62,7 +62,7 @@ export function RoomDetails() {
         ))}
       </ul>
 
-      <div className="mt-8 flex items-start gap-3">
+      <div className="mt-8 flex flex-wrap gap-3">
         <Button
           asChild
           size="lg"

@@ -26,7 +26,7 @@ export default function Page() {
 
       <Reveal>
         <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
+          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10 *:min-w-0">
             <BookingForm />
             <div className="flex flex-col gap-8">
               <MapCard />

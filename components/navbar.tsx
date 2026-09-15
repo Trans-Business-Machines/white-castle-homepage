@@ -18,9 +18,9 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
-      <div className="mx-auto flex max-w-7xl items-center gap-6 px-5 py-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <span className="flex flex-col leading-none">
+      <div className="mx-auto flex max-w-7xl items-center gap-5 px-5 py-4 sm:px-8 xl:gap-6">
+        <Link href="/" className="flex shrink-0 items-center gap-3">
+          <span className="flex flex-col leading-none whitespace-nowrap">
             <span className="font-heading text-lg font-extrabold tracking-[0.08em] uppercase">
               {siteConfig.name}
             </span>
@@ -30,7 +30,7 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-7 lg:flex">
+        <nav className="ml-auto hidden items-center gap-5 lg:flex xl:gap-7">
           {mainNav.map((item) => (
             <Link
               key={item.href}
