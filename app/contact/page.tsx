@@ -12,7 +12,18 @@ export const metadata: Metadata = {
     "Send a booking request to White Castle Motel, Uganda Road, Eldoret. Reception is answered 24 hours, and WhatsApp is fastest for same-day rooms.",
 }
 
-export default function Page() {
+interface Props {
+  searchParams: Promise<{
+    roomId?: string
+    checkIn?: string
+    checkOut?: string
+    adults?: string
+  }>
+}
+
+export default async function Page({ searchParams }: Props) {
+  const { roomId, checkIn, checkOut, adults } = await searchParams
+
   return (
     <>
       <PageHeader
@@ -26,8 +37,13 @@ export default function Page() {
 
       <Reveal>
         <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10 *:min-w-0">
-            <BookingForm />
+          <div className="grid items-start gap-8 *:min-w-0 lg:grid-cols-2 lg:gap-10">
+            <BookingForm
+              roomId={roomId}
+              checkIn={checkIn}
+              checkOut={checkOut}
+              adults={adults}
+            />
             <div className="flex flex-col gap-8">
               <MapCard />
               <BookingSteps />

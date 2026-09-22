@@ -40,10 +40,10 @@ export function DateField({
           aria-invalid={invalid}
           className={cn("justify-between font-normal", className)}
         >
-          <span className={cn(!value && "text-muted-foreground")}>
+          <span className={cn(!value && "text-brand-hint")}>
             {value ? format(value, "d MMM yyyy") : "Add date"}
           </span>
-          <CalendarDays className="text-muted-foreground" />
+          <CalendarDays className="text-primary" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">

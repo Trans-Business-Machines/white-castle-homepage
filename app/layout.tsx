@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { QueryProvider } from "@/providers/query-provider"
+import { Toaster } from "react-hot-toast"
 
 export const metadata: Metadata = {
   title: {
@@ -41,13 +43,24 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider forcedTheme="light" enableSystem={false}>
-          <TooltipProvider>
-            <div className="flex min-h-svh flex-col">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </TooltipProvider>
+          <QueryProvider>
+            <TooltipProvider>
+              <div className="flex min-h-svh flex-col">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+              <Toaster
+                position="top-center"
+                containerStyle={{ top: 88 }}
+                toastOptions={{
+                  duration: 6000,
+                  className:
+                    "bg-background! text-foreground! text-sm! rounded-xl! shadow-lg!",
+                }}
+              />
+            </TooltipProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

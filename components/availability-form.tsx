@@ -17,10 +17,12 @@ import {
 } from "@/components/ui/select"
 import {
   ADULT_OPTIONS,
-  CHILDREN_OPTIONS,
+  ANY_ROOM_TYPE,
+  ROOM_TYPE_VALUES,
   availabilitySchema,
   type AvailabilityValues,
 } from "@/lib/schemas/availability"
+import { formatRoomType } from "@/lib/units"
 
 const fieldLabel =
   "text-[0.7rem] font-medium tracking-[0.12em] text-muted-foreground uppercase"
@@ -31,7 +33,14 @@ function startOfToday() {
   return today
 }
 
-export function AvailabilityForm({ className }: { className?: string }) {
+export function AvailabilityForm({
+  className,
+  defaultValues,
+}: {
+  className?: string
+  /** Prefilled when the form is shown above an existing set of results. */
+  defaultValues?: Partial<AvailabilityValues>
+}) {
   const router = useRouter()
 
   const {
@@ -42,7 +51,8 @@ export function AvailabilityForm({ className }: { className?: string }) {
     resolver: zodResolver(availabilitySchema),
     defaultValues: {
       adults: "1",
-      children: "0",
+      roomType: ANY_ROOM_TYPE,
+      ...defaultValues,
     },
   })
 
@@ -53,8 +63,10 @@ export function AvailabilityForm({ className }: { className?: string }) {
       checkIn: format(values.checkIn, "yyyy-MM-dd"),
       checkOut: format(values.checkOut, "yyyy-MM-dd"),
       adults: values.adults,
-      children: values.children,
     })
+    if (values.roomType !== ANY_ROOM_TYPE) {
+      params.set("roomType", values.roomType)
+    }
     router.push(`/accommodation?${params.toString()}`)
   }
 
@@ -134,27 +146,25 @@ export function AvailabilityForm({ className }: { className?: string }) {
         </div>
 
         <div className="lg:border-l lg:px-5">
-          <span className={fieldLabel}>Children</span>
+          <span className={fieldLabel}>Room type</span>
           <Controller
             control={control}
-            name="children"
+            name="roomType"
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger
                   size="default"
-                  aria-label="Children"
+                  aria-label="Room type"
                   className="mt-1 h-10 w-full border-0 px-0 text-base shadow-none data-[size=default]:h-10 dark:bg-transparent"
                 >
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {CHILDREN_OPTIONS.map((value) => (
+                  {ROOM_TYPE_VALUES.map((value) => (
                     <SelectItem key={value} value={value}>
-                      {value === "0"
-                        ? "No children"
-                        : value === "1"
-                          ? "1 child"
-                          : `${value} children`}
+                      {value === ANY_ROOM_TYPE
+                        ? "Any room type"
+                        : formatRoomType(value)}
                     </SelectItem>
                   ))}
                 </SelectContent>

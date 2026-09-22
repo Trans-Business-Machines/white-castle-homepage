@@ -1,15 +1,11 @@
 import { z } from "zod"
-import { ADULT_OPTIONS, CHILDREN_OPTIONS } from "@/lib/schemas/availability"
-
-export const SUBJECT_OPTIONS = [
-  "Room booking request",
-  "Conference or event enquiry",
-  "Group & corporate rates",
-  "Something else",
-] as const
+import { ADULT_OPTIONS } from "@/lib/schemas/availability"
 
 export const bookingSchema = z
   .object({
+    // The room the enquiry is for. Values are room UUIDs; the backend rejects
+    // anything that isn't one.
+    roomId: z.uuid({ error: "Choose the room you'd like" }),
     fullName: z
       .string()
       .trim()
@@ -24,11 +20,9 @@ export const bookingSchema = z
         error: "Use digits, spaces and an optional leading +",
       }),
     email: z.email({ error: "Add an email we can reply to" }),
-    subject: z.enum(SUBJECT_OPTIONS, { error: "Pick what this is about" }),
     checkIn: z.date({ error: "Pick a check-in date" }),
     checkOut: z.date({ error: "Pick a check-out date" }),
     adults: z.enum(ADULT_OPTIONS, { error: "Choose how many adults" }),
-    children: z.enum(CHILDREN_OPTIONS, { error: "Choose how many children" }),
     message: z
       .string()
       .trim()

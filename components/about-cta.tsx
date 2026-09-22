@@ -13,7 +13,7 @@ export function AboutCta() {
           size="lg"
           className="h-12 rounded-full bg-white px-7 text-base font-semibold text-primary hover:bg-white/90"
         >
-          <Link href="/contact">Request a booking</Link>
+          <Link href="/accommodation">Request a booking</Link>
         </Button>
       </div>
     </section>

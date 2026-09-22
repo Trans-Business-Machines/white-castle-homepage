@@ -66,7 +66,7 @@ export function Navbar() {
             size="lg"
             className="h-11 rounded-full bg-white px-6 font-semibold text-primary hover:bg-white/90"
           >
-            <Link href="/contact">Book a room</Link>
+            <Link href="/accommodation">Book a room</Link>
           </Button>
         </div>
 

@@ -1,45 +1,38 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
 import { PageHeader } from "@/components/page-header"
-import { RoomGallery } from "@/components/room-gallery"
-import { RoomDetails } from "@/components/room-details"
 import { RatesSection } from "@/components/rates-section"
 import { OtherSpacesSection } from "@/components/other-spaces"
-import SittingRoom from "@/public/assets/images/sitting_room.jpeg"
-import Bathroom from "@/public/assets/images/bathroom1.jpeg"
-import Bedroom from "@/public/assets/images/bedroom2.jpeg"
-import Bedroom2 from "@/public/assets/images/single_room.jpeg"
+import { UnitListings } from "@/components/unit-listings"
+import { parseAvailabilitySearch } from "@/lib/availability"
 
 export const metadata: Metadata = {
   title: "Accommodation · White Castle Motel",
   description:
-    "118 self-contained single rooms in central Eldoret, each with a hot bath, shower and telephone. One honest rate, $35 per night.",
+    "Single, standard, deluxe, family rooms and suites in central Eldoret, each self-contained with a hot shower. Check live availability and request a room.",
 }
 
-const shots = [
-  { src: SittingRoom.src },
-  {
-    src: Bathroom.src,
-  },
-  { src: Bedroom.src },
-  { src: Bedroom2.src },
-]
+interface Props {
+  searchParams: Promise<{
+    checkIn?: string
+    checkOut?: string
+    adults?: string
+    roomType?: string
+  }>
+}
 
-export default function Page() {
+export default async function Page({ searchParams }: Props) {
+  const search = parseAvailabilitySearch(await searchParams)
+
   return (
     <>
       <PageHeader
         eyebrow="Accommodation"
-        title="118 rooms, one honest rate"
-        lead="Every room at White Castle is a self-contained single with a hot bath, a shower and a telephone. No confusing tiers, no surprise supplements just a clean, quiet room and room service when you want it."
+        title="Rooms at an honest rate"
+        lead="Every room at White Castle is self-contained, with a hot shower and a telephone. Browse what's free right now and send us a request  we'll confirm by phone or WhatsApp."
       />
 
-      <Reveal>
-        <section className="mx-auto grid max-w-7xl gap-10 px-5 pb-16 sm:px-8 sm:pb-20 lg:grid-cols-2 lg:gap-16">
-          <RoomGallery shots={shots} />
-          <RoomDetails />
-        </section>
-      </Reveal>
+      <UnitListings search={search} />
 
       <Reveal>
         <RatesSection />

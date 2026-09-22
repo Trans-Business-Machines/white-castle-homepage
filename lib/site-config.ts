@@ -4,7 +4,6 @@ import Terrace from "@/public/assets/images/terrace.jpeg"
 import ConferenceHall from "@/public/assets/images/board.jpeg"
 import { type StayCardProps } from "@/components/stay-card"
 
-
 export const siteConfig = {
   name: "White Castle",
   fullName: "White Castle Motel",
@@ -44,7 +43,6 @@ export const onSiteNav = [
   { label: "Cafe", href: "/facilities#cafe" },
   { label: "SAMS Discotheque", href: "/facilities#discotheque" },
 ] as const
-
 
 export const stays: StayCardProps[] = [
   {
