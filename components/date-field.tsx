@@ -49,8 +49,8 @@ export function DateField({
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
+          className="p-4"
           selected={value}
-          // Close on pick so a second picker never opens over the first.
           onSelect={(date) => {
             onChange(date)
             setOpen(false)

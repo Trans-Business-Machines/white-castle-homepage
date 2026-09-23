@@ -29,7 +29,7 @@ export default async function Page({ searchParams }: Props) {
       <PageHeader
         eyebrow="Accommodation"
         title="Rooms at an honest rate"
-        lead="Every room at White Castle is self-contained, with a hot shower and a telephone. Browse what's free right now and send us a request  we'll confirm by phone or WhatsApp."
+        lead="Live availability, straight from the front desk. Browse or check for availability and pick a room and send us a request we&rsquo;ll confirm by phone or WhatsApp."
       />
 
       <UnitListings search={search} />

@@ -38,7 +38,6 @@ export function AvailabilityForm({
   defaultValues,
 }: {
   className?: string
-  /** Prefilled when the form is shown above an existing set of results. */
   defaultValues?: Partial<AvailabilityValues>
 }) {
   const router = useRouter()
@@ -64,9 +63,11 @@ export function AvailabilityForm({
       checkOut: format(values.checkOut, "yyyy-MM-dd"),
       adults: values.adults,
     })
+
     if (values.roomType !== ANY_ROOM_TYPE) {
       params.set("roomType", values.roomType)
     }
+
     router.push(`/accommodation?${params.toString()}`)
   }
 

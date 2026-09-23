@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useState, useSyncExternalStore, useCallback } from "react"
 import { useWindowVirtualizer } from "@tanstack/react-virtual"
 import Link from "next/link"
 import { format } from "date-fns"
@@ -24,12 +24,16 @@ const breakpoints = [
   { query: "(min-width: 640px)", columns: 2 },
 ] as const
 
-const GRID_GAP = 24 // matches `gap-6`
-const ROW_ESTIMATE = 560 // a card with two lines of description
+const GRID_GAP = 24 
+const ROW_ESTIMATE = 560 
+
+/** One card's worth of data: a room, plus the stay it was priced for. */
+type CardItem = { unit: Unit; stay?: StayContext }
 
 function subscribeToColumns(onChange: () => void) {
   const queries = breakpoints.map(({ query }) => window.matchMedia(query))
   queries.forEach((query) => query.addEventListener("change", onChange))
+
   return () =>
     queries.forEach((query) => query.removeEventListener("change", onChange))
 }
@@ -44,12 +48,19 @@ function readColumns() {
 function useColumns() {
   // useSyncExternalStore keeps this SSR-safe and avoids a setState-in-effect,
   // which the project's hooks lint rules reject.
-  return React.useSyncExternalStore(subscribeToColumns, readColumns, () => 1)
+  return useSyncExternalStore(subscribeToColumns, readColumns, () => 1)
 }
 
 export function UnitListings({ search }: { search?: AvailabilitySearch }) {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-20">
+      {/* Searching starts here as well as on the home page, so a guest who
+          lands on this page directly can check dates without leaving it. */}
+      <AvailabilityForm
+        className="mb-8"
+        defaultValues={search ? toFormDefaults(search) : undefined}
+      />
+
       {search ? <AvailabilityResults search={search} /> : <AllRooms />}
     </section>
   )
@@ -62,15 +73,6 @@ function AllRooms() {
   return (
     <>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 className="font-heading text-2xl font-extrabold sm:text-3xl">
-            Our rooms
-          </h2>
-          <p className="mt-2 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Live availability, straight from the front desk. Pick a room and
-            send us a request — we&rsquo;ll confirm by phone or WhatsApp.
-          </p>
-        </div>
         {data?.length ? (
           <p className="text-sm text-muted-foreground">
             {data.filter(isBookable).length} of {data.length} available now
@@ -122,12 +124,6 @@ function AvailabilityResults({ search }: { search: AvailabilitySearch }) {
           isError={isError}
         />
       </div>
-
-      {/* Adjust the search without going back to the home page. */}
-      <AvailabilityForm
-        className="mb-8"
-        defaultValues={toFormDefaults(search)}
-      />
 
       {isPending ? <UnitSkeletonGrid /> : null}
 
@@ -249,9 +245,6 @@ function formatStayRange(checkIn: string, checkOut: string) {
   return `${fromLabel} – ${format(to, "d MMM yyyy")}`
 }
 
-/** One card's worth of data: a room, plus the stay it was priced for. */
-type CardItem = { unit: Unit; stay?: StayContext }
-
 function VirtualUnitGrid({ items }: { items: CardItem[] }) {
   const columns = useColumns()
 
@@ -268,12 +261,12 @@ function VirtualRows({
   items: CardItem[]
   columns: number
 }) {
-  const [listTop, setListTop] = React.useState(0)
+  const [listTop, setListTop] = useState(0)
 
   // The list scrolls with the window, so the virtualizer needs the list's
   // offset from the top of the document. Measured in a ref callback (and
   // re-measured on resize) rather than an effect, per the hooks lint rules.
-  const measureList = React.useCallback((node: HTMLDivElement | null) => {
+  const measureList = useCallback((node: HTMLDivElement | null) => {
     if (!node) return
 
     const update = () =>
