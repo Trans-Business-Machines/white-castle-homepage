@@ -172,7 +172,14 @@ export function BookingForm({
   }
 
   return (
-    <div className="relative isolate overflow-hidden rounded-2xl bg-brand-wash shadow-[0_24px_48px_-32px_var(--brand-deep)] ring-1 ring-primary/15">
+    <div
+      className={cn(
+        "relative isolate overflow-hidden rounded-2xl shadow-[0_24px_48px_-32px_var(--brand-deep)]",
+        // Once confirmed the card is brand-deep edge to edge, so the rounded
+        // corners antialias against the same colour instead of a pale fringe.
+        submitted ? "bg-brand-deep" : "bg-brand-wash ring-1 ring-primary/15"
+      )}
+    >
       {/* The brand owns a whole region here rather than trimming the edges,
           and it is the same slab the confirmation expands into. */}
       <div className="bg-brand-deep bg-[radial-gradient(120%_200%_at_86%_-60%,rgb(255_255_255/0.22),transparent_62%)] px-6 py-5 sm:px-10 sm:py-6">
@@ -186,11 +193,17 @@ export function BookingForm({
           ref={successRef}
           tabIndex={-1}
           role="status"
-          className="animate-[confirm-in_620ms_cubic-bezier(0.16,1,0.3,1)_both] scroll-mt-28 border-t border-white/15 bg-brand-deep bg-[radial-gradient(90%_130%_at_8%_115%,rgb(255_255_255/0.16),transparent_62%)] px-6 py-10 text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset motion-reduce:animate-none sm:px-10 sm:py-12"
+          className="relative animate-[confirm-in_620ms_cubic-bezier(0.16,1,0.3,1)_both] scroll-mt-28 bg-brand-deep bg-[radial-gradient(90%_130%_at_8%_115%,rgb(255_255_255/0.16),transparent_62%)] px-6 py-10 text-white outline-none motion-reduce:animate-none sm:px-10 sm:py-12"
         >
+          {/* Fades out before the card's edge so it reads as a divider under
+              the header, not a frame around the confirmation. */}
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-6 top-0 h-px bg-linear-to-r from-white/0 via-white/25 to-white/0 sm:inset-x-10"
+          />
           <div>
-            <span className="inline-flex size-12 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/35">
-              <CheckCircle2 aria-hidden="true" className="size-7 text-white" />
+            <span className="inline-flex size-20 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/35">
+              <CheckCircle2 aria-hidden="true" className="size-10 text-white" />
             </span>
             <p className="mt-5 font-heading text-xl font-extrabold sm:text-2xl">
               Request sent.
