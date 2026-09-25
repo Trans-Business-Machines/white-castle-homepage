@@ -69,7 +69,7 @@ export function NearbySection() {
       </h2>
       <p className="mt-3 text-base text-muted-foreground sm:text-lg">
         Hills, water and the running country that made Eldoret&rsquo;s name.
-        Reception will arrange a driver for any of these &mdash; ask the night
+        Reception will arrange a driver for any of these ask the night
         before.
       </p>
 

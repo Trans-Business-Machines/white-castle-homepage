@@ -24,7 +24,7 @@ export function Navbar() {
             <span className="font-heading text-lg font-extrabold tracking-[0.08em] uppercase">
               {siteConfig.name}
             </span>
-            <span className="mt-1 text-[0.65rem] tracking-[0.22em] uppercase opacity-80">
+            <span className="mt-1 text-[0.65rem] tracking-[0.22em] uppercase">
               {siteConfig.tagline}
             </span>
           </span>

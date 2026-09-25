@@ -34,7 +34,7 @@ const ctaClassName = "mt-auto h-11 w-full rounded-full text-base font-semibold"
 // The primitive fades disabled buttons to half opacity and drops pointer
 // events, which left this one barely visible and hid the not-allowed cursor.
 const disabledCtaClassName =
-  "bg-slate-500 text-white hover:bg-slate-900 disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
+  "bg-slate-900/40 text-white hover:bg-slate-900 disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
 
 /**
  * A room from an availability search: the stay's cost, plus the search itself
