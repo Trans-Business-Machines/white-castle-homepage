@@ -7,6 +7,7 @@ import { ImageOff, Users } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Pill } from "@/components/pill"
+import { cn } from "@/lib/utils"
 import { UnitBadge } from "@/components/unit-badge"
 import {
   Carousel,
@@ -29,6 +30,11 @@ import type { AvailabilitySearch, AvailableUnit, Unit } from "@/lib/types"
 const VISIBLE_AMENITIES = 4
 
 const ctaClassName = "mt-auto h-11 w-full rounded-full text-base font-semibold"
+
+// The primitive fades disabled buttons to half opacity and drops pointer
+// events, which left this one barely visible and hid the not-allowed cursor.
+const disabledCtaClassName =
+  "bg-slate-500 text-white hover:bg-slate-900 disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
 
 /**
  * A room from an availability search: the stay's cost, plus the search itself
@@ -120,8 +126,7 @@ export function UnitCard({ unit, stay }: { unit: Unit; stay?: StayContext }) {
           <Button
             disabled
             size="lg"
-            variant="secondary"
-            className={ctaClassName}
+            className={cn(ctaClassName, disabledCtaClassName)}
             title={`This room is ${getStatusMeta(unit.status).label.toLowerCase()}`}
           >
             Request this room

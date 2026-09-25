@@ -136,7 +136,7 @@ export const statusMeta: Record<
   },
   maintenance: {
     label: "Under maintenance",
-    className: unavailableTone,
+    className: "bg-orange-600 text-white",
     bookable: false,
   },
   out_of_service: {

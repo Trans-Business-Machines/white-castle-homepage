@@ -1,6 +1,5 @@
 import {
   Brush,
-  Car,
   ChefHat,
   CreditCard,
   KeyRound,
@@ -15,8 +14,7 @@ const services = [
   { icon: Brush, label: "Daily housekeeping" },
   { icon: Wifi, label: "Wi-Fi throughout" },
   { icon: Lock, label: "Secure parking" },
-  { icon: CreditCard, label: "M-Pesa & card" },
-  { icon: Car, label: "Airport & town transfers" },
+  { icon: CreditCard, label: "M-Pesa or Cash" },
   { icon: Users, label: "Group & corporate rates" },
 ]
 

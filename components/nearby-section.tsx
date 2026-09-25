@@ -14,7 +14,7 @@ const places = [
     icon: Mountain,
     title: "Sergoit Hill",
     description:
-      "The rock you can see from the Terrace. A morning's climb and a wide view of the whole plateau.",
+      "The rock on the horizon. A morning's climb and a wide view of the whole plateau.",
     googleMapsURL: "https://maps.app.goo.gl/X6S7xaFFjdNyo5hPA",
   },
   {

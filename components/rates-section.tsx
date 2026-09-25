@@ -1,7 +1,7 @@
 const rates = [
   { term: "Check in", detail: "From 12:00" },
   { term: "Check out", detail: "By 10:00" },
-  { term: "Payment", detail: "M-Pesa, card or cash" },
+  { term: "Payment", detail: "M-Pesa or Cash" },
 ]
 
 export function RatesSection() {

@@ -2,12 +2,12 @@ import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
 import { HeroSection } from "@/components/hero-section"
 import { StatsSection } from "@/components/stats-section"
-import { StaySection } from "@/components/stay-section"
 import { FacilitiesSection } from "@/components/facilities-section"
 import { GallerySection } from "@/components/gallery-section"
 import { EnquiryCta } from "@/components/enquiry-cta"
 import { LocationSection } from "@/components/location-section"
 import { NearbySection } from "@/components/nearby-section"
+import { OtherSpacesSection } from "@/components/other-spaces"
 
 export const metadata: Metadata = {
   title: "White Castle Motel · Eldoret",
@@ -23,10 +23,10 @@ export default function Page() {
         <StatsSection />
       </Reveal>
       <Reveal>
-        <StaySection />
+        <FacilitiesSection />
       </Reveal>
       <Reveal>
-        <FacilitiesSection />
+        <OtherSpacesSection />
       </Reveal>
       <Reveal>
         <GallerySection />

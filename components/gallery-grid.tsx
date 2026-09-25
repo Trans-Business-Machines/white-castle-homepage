@@ -50,7 +50,7 @@ export function GalleryGrid() {
           <li key={item.id}>
             <div className="relative aspect-4/3 overflow-hidden rounded-xl">
               <Image
-                src={item.imageURL}
+                src={item.image}
                 alt={item.alt}
                 fill
                 sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 92vw"

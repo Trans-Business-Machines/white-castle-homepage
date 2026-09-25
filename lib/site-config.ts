@@ -1,7 +1,6 @@
 import { Bath, Bed, Users } from "lucide-react"
-import SingleRoom from "@/public/assets/images/single_room.jpeg"
-import Terrace from "@/public/assets/images/terrace.jpeg"
-import ConferenceHall from "@/public/assets/images/board.jpeg"
+import SingleRoom from "@/public/assets/images/single-room.jpg"
+import ConferenceHall from "@/public/assets/images/conference-setup.jpg"
 import { type StayCardProps } from "@/components/stay-card"
 
 export const siteConfig = {
@@ -38,7 +37,7 @@ export const exploreNav = [
 
 export const onSiteNav = [
   { label: "Conference hall", href: "/facilities#conference" },
-  { label: "The Terrace", href: "/facilities#terrace" },
+  { label: "Pool bar", href: "/facilities#pool-bar" },
   { label: "Main bar", href: "/facilities#bar" },
   { label: "Cafe", href: "/facilities#cafe" },
   { label: "SAMS Discotheque", href: "/facilities#discotheque" },
@@ -66,15 +65,6 @@ export const stays: StayCardProps[] = [
     href: "/facilities#conference",
     tags: ["Projector & PA", "Tea service"],
     features: [{ icon: Users, label: "20-120" }],
-    price: "On request",
-  },
-  {
-    title: "The Terrace",
-    subtitle: "Open-air · hill views",
-    image: Terrace.src,
-    href: "/facilities#terrace",
-    tags: ["Open air", "Hill views"],
-    features: [{ icon: Users, label: "10-60" }],
     price: "On request",
   },
 ]

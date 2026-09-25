@@ -1,14 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import Board from "@/public/assets/images/board.jpeg"
+import Board from "@/public/assets/images/conference-setup.jpg"
 
-const tags = [
-  "Seats 120",
-  "Projector & PA",
-  "Tea & lunch service",
-  "Delegate rooms",
-]
+const tags = ["Seats 120", "Projector & PA", "Tea & lunch service"]
 
 export function ConferenceSection() {
   return (
@@ -36,7 +31,7 @@ export function ConferenceSection() {
         </h2>
         <p className="mt-5 text-base leading-relaxed text-muted-foreground">
           Seats up to 120 in theatre style, fewer around tables. Projector, PA
-          and a flip chart come with the room; tea at ten, lunch on the Terrace,
+          and a flip chart come with the room; tea at ten, lunch in the cafe,
           and rooms upstairs for delegates who came a long way.
         </p>
 

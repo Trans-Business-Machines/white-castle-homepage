@@ -8,7 +8,7 @@ import { GuestServicesSection } from "@/components/guest-services-section"
 export const metadata: Metadata = {
   title: "Facilities & services · White Castle Motel",
   description:
-    "A conference hall for 120, the Terrace, the main bar, the cafe and SAMS Discotheque — everything on one compound in central Eldoret.",
+    "A conference hall for 120, the main bar, the pool bar, the cafe and SAMS Discotheque — everything on one compound in central Eldoret.",
 }
 
 export default function Page() {

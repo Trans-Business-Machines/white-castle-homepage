@@ -4,10 +4,11 @@ import {
   Briefcase,
   CookingPot,
   Disc3,
+  GlassWater,
   Martini,
-  Sunrise,
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ComingSoonBadge } from "@/components/coming-soon-spaces"
 
 const facilities = [
   {
@@ -23,16 +24,16 @@ const facilities = [
       "Hot bath, shower and telephone in every one of the 118 rooms, plus room service.",
   },
   {
-    icon: Sunrise,
-    title: "The Terrace",
+    icon: GlassWater,
+    title: "Pool bar",
     description:
-      "Open-air seating for breakfast and slow evenings, looking out over the town.",
+      "Pool tables and a bar along the wall, for a game and a drink after dinner.",
   },
   {
     icon: Martini,
     title: "Main bar",
     description:
-      "The room where Eldoret meets after work — cold beer, football and a long counter.",
+      "The room where Eldoret meets after work cold beer, football and a long counter.",
   },
   {
     icon: CookingPot,
@@ -45,6 +46,7 @@ const facilities = [
     title: "SAMS Discotheque",
     description:
       "Weekend nights, kept to its own wing so the rooms stay quiet.",
+    comingSoon: true,
   },
 ]
 
@@ -70,17 +72,20 @@ export function FacilitiesSection() {
         </div>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {facilities.map(({ icon: Icon, title, description }) => (
+          {facilities.map(({ icon: Icon, title, description, comingSoon }) => (
             <Card
               key={title}
               className="gap-3 ring-0 [--card-spacing:--spacing(6)]"
             >
               <CardHeader>
-                <Icon
-                  className="size-7 text-primary"
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                />
+                <div className="flex items-start justify-between gap-4">
+                  <Icon
+                    className="size-7 text-primary"
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                  />
+                  {comingSoon ? <ComingSoonBadge /> : null}
+                </div>
                 <CardTitle className="mt-4 font-heading text-lg font-bold">
                   {title}
                 </CardTitle>

@@ -84,7 +84,6 @@ export function Footer() {
             © {new Date().getFullYear()} {siteConfig.fullName}, Eldoret. All
             rights reserved.
           </p>
-          <p>Rates quoted in USD and KES · Prices include taxes</p>
         </div>
       </div>
     </footer>

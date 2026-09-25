@@ -296,8 +296,8 @@ export function BookingForm({
                             disabled={!bookable}
                           >
                             {bookable
-                              ? `Room ${unit.room_number} ${formatRoomType(unit.room_type)}`
-                              : `Room ${unit.room_number} ${formatRoomType(unit.room_type)} (${label})`}
+                              ? `Room ${unit.room_number} - ${formatRoomType(unit.room_type)}`
+                              : `Room ${unit.room_number} - ${formatRoomType(unit.room_type)} (${label})`}
                           </SelectItem>
                         )
                       })}

@@ -8,20 +8,28 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
-import SingleRoom from "@/public/assets/images/single_room.jpeg"
-import Terrace from "@/public/assets/images/terrace.jpeg"
-import ConferenceHall from "@/public/assets/images/board.jpeg"
-import Bathroom from "@/public/assets/images/bathroom1.jpeg"
-import Restaurant from "@/public/assets/images/restaurant.jpeg"
-import Bar from "@/public/assets/images/rootop_bar.jpeg"
+import DoubleRoom from "@/public/assets/images/double-room.png"
+import Restaurant from "@/public/assets/images/restaurant.jpg"
+import BartenderCocktails from "@/public/assets/images/bartender-cocktails.jpg"
+import TwinRoom from "@/public/assets/images/twin-room.png"
+import Lounge from "@/public/assets/images/lounge.jpg"
+import CafeDiningRoom from "@/public/assets/images/cafe-dining-room.png"
+import PoolRoom from "@/public/assets/images/pool-room.png"
+import ChickenAndChips from "@/public/assets/images/chicken-and-chips.jpg"
+import MainBarCounter from "@/public/assets/images/main-bar-counter.jpg"
+import Cocktails from "@/public/assets/images/cocktails.jpg"
 
 const shots = [
-  { id: 1011, imageURI: SingleRoom },
-  { id: 1043, imageURI: Terrace },
-  { id: 1076, imageURI: ConferenceHall },
-  { id: 1062, imageURI: Bathroom },
-  { id: 1031, imageURI: Restaurant },
-  { id: 1002, imageURI: Bar },
+  { id: 1, imageURI: DoubleRoom, alt: "Double room" },
+  { id: 2, imageURI: Restaurant, alt: "Restaurant" },
+  { id: 3, imageURI: BartenderCocktails, alt: "Bartender with cocktails" },
+  { id: 4, imageURI: TwinRoom, alt: "Twin room" },
+  { id: 5, imageURI: Lounge, alt: "Lounge" },
+  { id: 6, imageURI: CafeDiningRoom, alt: "Cafe" },
+  { id: 7, imageURI: PoolRoom, alt: "Pool tables" },
+  { id: 8, imageURI: ChickenAndChips, alt: "Chicken and chips" },
+  { id: 9, imageURI: MainBarCounter, alt: "Main bar counter" },
+  { id: 10, imageURI: Cocktails, alt: "Cocktails" },
 ]
 
 export function GallerySection() {
@@ -60,7 +68,7 @@ export function GallerySection() {
               >
                 <Image
                   src={shot.imageURI}
-                  alt={`Image`}
+                  alt={shot.alt}
                   fill
                   sizes="340px"
                   className="object-cover"
