@@ -13,7 +13,8 @@ export function HeroSection() {
           src={Hotel}
           alt="The road up to White Castle Motel, Eldoret"
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="(min-width: 1280px) 1216px"
           className="object-center-left object-cover"
         />

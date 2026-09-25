@@ -313,6 +313,9 @@ function VirtualRows({
                 key={item.unit.room_id}
                 unit={item.unit}
                 stay={item.stay}
+                // The first row sits right under the search form, so its
+                // cover photo is usually the page's largest paint.
+                eager={row.index === 0}
               />
             ))}
           </div>

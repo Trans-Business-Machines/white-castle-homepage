@@ -34,7 +34,8 @@ export function AboutIntro() {
           src={Hotel}
           alt="Inside the motel, looking up through the stairwell"
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="(min-width: 1024px) 560px, 92vw"
           className="object-cover"
         />

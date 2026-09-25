@@ -16,7 +16,8 @@ export function ConferenceSection() {
           src={Board}
           alt="The conference hall set for a full day"
           fill
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="(min-width: 1024px) 560px, 92vw"
           className="object-cover"
         />

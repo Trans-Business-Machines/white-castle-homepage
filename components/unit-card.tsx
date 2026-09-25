@@ -42,7 +42,16 @@ const disabledCtaClassName =
  */
 export type StayContext = { unit: AvailableUnit; search: AvailabilitySearch }
 
-export function UnitCard({ unit, stay }: { unit: Unit; stay?: StayContext }) {
+export function UnitCard({
+  unit,
+  stay,
+  eager = false,
+}: {
+  unit: Unit
+  stay?: StayContext
+  /** Load the cover photo straight away — for cards visible on first paint. */
+  eager?: boolean
+}) {
   const amenities = parseAmenities(unit.amenities)
   const shown = amenities.slice(0, VISIBLE_AMENITIES)
   const hidden = amenities.length - shown.length
@@ -52,7 +61,7 @@ export function UnitCard({ unit, stay }: { unit: Unit; stay?: StayContext }) {
 
   return (
     <Card className="h-full gap-0 overflow-hidden pt-0 shadow-sm">
-      <UnitPhotos unit={unit} showStatus={!stay} />
+      <UnitPhotos unit={unit} showStatus={!stay} eager={eager} />
 
       <CardContent className="flex flex-1 flex-col gap-4 pt-5">
         <div className="space-y-1.5">
@@ -137,7 +146,15 @@ export function UnitCard({ unit, stay }: { unit: Unit; stay?: StayContext }) {
   )
 }
 
-function UnitPhotos({ unit, showStatus }: { unit: Unit; showStatus: boolean }) {
+function UnitPhotos({
+  unit,
+  showStatus,
+  eager,
+}: {
+  unit: Unit
+  showStatus: boolean
+  eager: boolean
+}) {
   const photos = unit.photos ?? []
   const label = `${formatRoomType(unit.room_type)}, room ${unit.room_number}`
 
@@ -158,6 +175,9 @@ function UnitPhotos({ unit, showStatus }: { unit: Unit; showStatus: boolean }) {
             <UnitPhoto
               src={photo}
               alt={`${label} — photo ${index + 1} of ${photos.length}`}
+              // Only the cover can be the page's LCP; the rest of the
+              // carousel is off-screen until the guest swipes.
+              eager={eager && index === 0}
             />
           </CarouselItem>
         ))}
@@ -179,7 +199,15 @@ function UnitPhotos({ unit, showStatus }: { unit: Unit; showStatus: boolean }) {
 // Some photo URLs in the backend point at files that are no longer there, so
 // a failed load falls back to the same placeholder an empty room gets rather
 // than showing a broken image.
-function UnitPhoto({ src, alt }: { src: string; alt: string }) {
+function UnitPhoto({
+  src,
+  alt,
+  eager,
+}: {
+  src: string
+  alt: string
+  eager: boolean
+}) {
   const [failed, setFailed] = React.useState(false)
 
   return (
@@ -191,6 +219,7 @@ function UnitPhoto({ src, alt }: { src: string; alt: string }) {
           src={src}
           alt={alt}
           fill
+          loading={eager ? "eager" : "lazy"}
           sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 92vw"
           className="object-cover"
           onError={() => setFailed(true)}
