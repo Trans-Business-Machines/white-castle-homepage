@@ -115,15 +115,20 @@ export function formatRate(amount: number) {
 // or the grey placeholder alike.
 const unavailableTone = "bg-white text-neutral-700 ring-1 ring-black/10"
 
+const availableMeta = {
+  label: "Available",
+  className: "bg-primary text-primary-foreground",
+  bookable: true,
+}
+
 export const statusMeta: Record<
   string,
   { label: string; className: string; bookable: boolean }
 > = {
-  available: {
-    label: "Available",
-    className: "bg-primary text-primary-foreground",
-    bookable: true,
-  },
+  available: availableMeta,
+  // Housekeeping doesn't block a booking on the backend, so guests see the
+  // room as available.
+  housekeeping: availableMeta,
   occupied: {
     label: "Occupied",
     className: unavailableTone,
@@ -136,7 +141,7 @@ export const statusMeta: Record<
   },
   maintenance: {
     label: "Under maintenance",
-    className: "bg-orange-600 text-white",
+    className: "bg-red-500 text-white",
     bookable: false,
   },
   out_of_service: {
