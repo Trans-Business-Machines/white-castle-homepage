@@ -4,12 +4,18 @@ const steps = [
   { title: "Request", detail: "send the form with your dates." },
   {
     title: "Approval",
-    detail: "reception checks the room and calls you back.",
+    detail:
+      "once a receptionist approves your booking, we'll email you the payment instructions.",
   },
-  { title: "Payment", detail: "M-Pesa, card or on arrival, as you prefer." },
+  {
+    title: "Payment",
+    detail:
+      "pay in full, or pay a deposit to reserve the room. If the deposit isn't paid within the given time, the room is released for other bookings. A cancellation fee applies if you cancel more than 24 hours after booking.",
+  },
   {
     title: "Confirmation",
-    detail: "a digital confirmation with a reference for check-in.",
+    detail:
+      "after paying, send your transaction reference to reception by email or WhatsApp.",
   },
 ]
 
