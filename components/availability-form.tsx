@@ -18,6 +18,9 @@ import {
 import {
   ADULT_OPTIONS,
   ANY_ROOM_TYPE,
+  DEFAULT_MEAL_PLAN,
+  MEAL_PLAN_LABELS,
+  MEAL_PLAN_OPTIONS,
   ROOM_TYPE_VALUES,
   availabilitySchema,
   type AvailabilityValues,
@@ -26,6 +29,11 @@ import { formatRoomType } from "@/lib/units"
 
 const fieldLabel =
   "text-[0.7rem] font-medium tracking-[0.12em] text-muted-foreground uppercase"
+
+// The shadcn defaults sit the options flush against the menu's edge; this
+// form's larger triggers need roomier menus to match.
+const selectContent = "p-1.5"
+const selectItem = "py-2 pr-9 pl-3 text-[0.95rem]"
 
 function startOfToday() {
   const today = new Date()
@@ -51,6 +59,7 @@ export function AvailabilityForm({
     defaultValues: {
       adults: "1",
       roomType: ANY_ROOM_TYPE,
+      mealPlan: DEFAULT_MEAL_PLAN,
       ...defaultValues,
     },
   })
@@ -68,6 +77,10 @@ export function AvailabilityForm({
       params.set("roomType", values.roomType)
     }
 
+    if (values.mealPlan !== DEFAULT_MEAL_PLAN) {
+      params.set("mealPlan", values.mealPlan)
+    }
+
     router.push(`/accommodation?${params.toString()}`)
   }
 
@@ -81,7 +94,7 @@ export function AvailabilityForm({
         className
       )}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(4,minmax(0,1fr))_auto] lg:items-end lg:gap-0">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(5,minmax(0,1fr))_auto] lg:items-end lg:gap-0">
         <div className="lg:px-5 lg:first:pl-2">
           <span className={fieldLabel}>Check in</span>
           <Controller
@@ -134,9 +147,13 @@ export function AvailabilityForm({
                 >
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className={selectContent}>
                   {ADULT_OPTIONS.map((value) => (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem
+                      key={value}
+                      value={value}
+                      className={selectItem}
+                    >
                       {value === "1" ? "1 adult" : `${value} adults`}
                     </SelectItem>
                   ))}
@@ -160,12 +177,48 @@ export function AvailabilityForm({
                 >
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className={selectContent}>
                   {ROOM_TYPE_VALUES.map((value) => (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem
+                      key={value}
+                      value={value}
+                      className={selectItem}
+                    >
                       {value === ANY_ROOM_TYPE
                         ? "Any room type"
                         : formatRoomType(value)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+        </div>
+
+        {/* Spans both columns on small screens so the odd fifth field
+            doesn't leave a gap beside it. */}
+        <div className="sm:col-span-2 lg:col-span-1 lg:border-l lg:px-5">
+          <span className={fieldLabel}>Meal plan</span>
+          <Controller
+            control={control}
+            name="mealPlan"
+            render={({ field }) => (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger
+                  size="default"
+                  aria-label="Meal plan"
+                  className="mt-1 h-10 w-full border-0 px-0 text-base shadow-none data-[size=default]:h-10 dark:bg-transparent"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className={selectContent}>
+                  {MEAL_PLAN_OPTIONS.map((value) => (
+                    <SelectItem
+                      key={value}
+                      value={value}
+                      className={selectItem}
+                    >
+                      {MEAL_PLAN_LABELS[value]}
                     </SelectItem>
                   ))}
                 </SelectContent>

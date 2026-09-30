@@ -7,7 +7,7 @@ import { Reveal } from "@/components/reveal"
 
 export function HeroSection() {
   return (
-    <section>
+    <section className="pb-10 sm:pb-12">
       <div className="relative isolate overflow-hidden">
         <Image
           src={Hotel}

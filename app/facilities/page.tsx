@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
+import { SectionBand } from "@/components/section-band"
 import { PageHeader } from "@/components/page-header"
 import { ConferenceSection } from "@/components/conference-section"
 import { VenuesSection } from "@/components/venues-section"
@@ -19,15 +20,21 @@ export default function Page() {
         title="Eat, meet and unwind without leaving"
         lead="Six things share the compound with the rooms. Between them they cover a working breakfast, a county workshop, a Friday night and everything in between."
       />
-      <Reveal>
-        <ConferenceSection />
-      </Reveal>
-      <Reveal>
-        <VenuesSection />
-      </Reveal>
-      <Reveal>
-        <GuestServicesSection />
-      </Reveal>
+      <SectionBand tinted>
+        <Reveal>
+          <ConferenceSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand>
+        <Reveal>
+          <VenuesSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand tinted>
+        <Reveal>
+          <GuestServicesSection />
+        </Reveal>
+      </SectionBand>
     </>
   )
 }

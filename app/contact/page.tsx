@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
+import { SectionBand } from "@/components/section-band"
 import { PageHeader } from "@/components/page-header"
 import { ContactMethods } from "@/components/contact-methods"
 import { BookingForm } from "@/components/booking-form"
@@ -18,11 +19,12 @@ interface Props {
     checkIn?: string
     checkOut?: string
     adults?: string
+    mealPlan?: string
   }>
 }
 
 export default async function Page({ searchParams }: Props) {
-  const { roomId, checkIn, checkOut, adults } = await searchParams
+  const { roomId, checkIn, checkOut, adults, mealPlan } = await searchParams
 
   return (
     <>
@@ -31,26 +33,31 @@ export default async function Page({ searchParams }: Props) {
         title="Send a booking request"
         lead="Fill in the form and we will confirm your room by phone or email, usually within the hour. In a rush? WhatsApp is faster."
       />
-      <Reveal>
-        <ContactMethods />
-      </Reveal>
+      <SectionBand tinted>
+        <Reveal>
+          <ContactMethods />
+        </Reveal>
+      </SectionBand>
 
-      <Reveal>
-        <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
-          <div className="grid items-start gap-8 *:min-w-0 lg:grid-cols-2 lg:gap-10">
-            <BookingForm
-              roomId={roomId}
-              checkIn={checkIn}
-              checkOut={checkOut}
-              adults={adults}
-            />
-            <div className="flex flex-col gap-8">
-              <MapCard />
-              <BookingSteps />
+      <SectionBand>
+        <Reveal>
+          <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
+            <div className="grid items-start gap-8 *:min-w-0 lg:grid-cols-2 lg:gap-10">
+              <BookingForm
+                roomId={roomId}
+                checkIn={checkIn}
+                checkOut={checkOut}
+                adults={adults}
+                mealPlan={mealPlan}
+              />
+              <div className="flex flex-col gap-8">
+                <MapCard />
+                <BookingSteps />
+              </div>
             </div>
-          </div>
-        </section>
-      </Reveal>
+          </section>
+        </Reveal>
+      </SectionBand>
     </>
   )
 }

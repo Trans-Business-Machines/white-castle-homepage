@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
+import { SectionBand } from "@/components/section-band"
 import { AboutIntro } from "@/components/about-intro"
 import { AboutStats } from "@/components/about-stats"
 import { AboutHistory } from "@/components/about-history"
@@ -16,18 +17,26 @@ export default function Page() {
   return (
     <>
       <AboutIntro />
-      <Reveal>
-        <AboutStats />
-      </Reveal>
-      <Reveal>
-        <AboutHistory />
-      </Reveal>
-      <Reveal>
-        <NearbySection />
-      </Reveal>
-      <Reveal>
-        <AboutCta />
-      </Reveal>
+      <SectionBand tinted>
+        <Reveal>
+          <AboutStats />
+        </Reveal>
+      </SectionBand>
+      <SectionBand>
+        <Reveal>
+          <AboutHistory />
+        </Reveal>
+      </SectionBand>
+      <SectionBand tinted>
+        <Reveal>
+          <NearbySection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand>
+        <Reveal>
+          <AboutCta />
+        </Reveal>
+      </SectionBand>
     </>
   )
 }

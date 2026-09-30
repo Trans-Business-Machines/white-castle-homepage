@@ -1,8 +1,11 @@
 import {
   ADULT_OPTIONS,
   ANY_ROOM_TYPE,
+  DEFAULT_MEAL_PLAN,
+  MEAL_PLAN_OPTIONS,
   ROOM_TYPE_OPTIONS,
   type AvailabilityValues,
+  type MealPlan,
 } from "@/lib/schemas/availability"
 import type { AvailabilitySearch } from "@/lib/types"
 
@@ -12,6 +15,10 @@ export function isAdultOption(
   value: string
 ): value is AvailabilityValues["adults"] {
   return (ADULT_OPTIONS as readonly string[]).includes(value)
+}
+
+export function isMealPlan(value: string): value is MealPlan {
+  return (MEAL_PLAN_OPTIONS as readonly string[]).includes(value)
 }
 
 function isRoomType(
@@ -26,8 +33,9 @@ export function parseAvailabilitySearch(params: {
   checkOut?: string
   adults?: string
   roomType?: string
+  mealPlan?: string
 }): AvailabilitySearch | undefined {
-  const { checkIn, checkOut, adults, roomType } = params
+  const { checkIn, checkOut, adults, roomType, mealPlan } = params
 
   if (!checkIn || !checkOut) return undefined
   if (!DATE_PATTERN.test(checkIn) || !DATE_PATTERN.test(checkOut)) {
@@ -39,6 +47,7 @@ export function parseAvailabilitySearch(params: {
     checkOut,
     adults: adults && isAdultOption(adults) ? adults : "1",
     ...(roomType && isRoomType(roomType) ? { roomType } : {}),
+    mealPlan: mealPlan && isMealPlan(mealPlan) ? mealPlan : DEFAULT_MEAL_PLAN,
   }
 }
 
@@ -54,6 +63,7 @@ export function toFormDefaults(
       search.roomType && isRoomType(search.roomType)
         ? search.roomType
         : ANY_ROOM_TYPE,
+    mealPlan: search.mealPlan,
   }
 }
 

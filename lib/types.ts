@@ -1,3 +1,5 @@
+import type { MealPlan } from "@/lib/schemas/availability"
+
 export interface Unit {
   room_id: string
   room_number: string
@@ -10,6 +12,9 @@ export interface Unit {
   photos: string[]
   active: boolean
   created_at: string
+  bb_available: boolean
+  /** Breakfast, per adult per night. Null when the room doesn't offer it. */
+  bb_rate: number | null
 }
 
 export interface BookingEnquiryPayload {
@@ -17,10 +22,12 @@ export interface BookingEnquiryPayload {
   check_in_date: string
   check_out_date: string
   adults: number
+  children: number
   guest_name: string
   guest_phone: string
   guest_email?: string
-  message?: string
+  special_requests?: string
+  meal_plan: MealPlan
 }
 
 /**
@@ -38,4 +45,6 @@ export interface AvailabilitySearch {
   checkOut: string
   adults: string
   roomType?: string
+  /** Not sent to the backend — it prices breakfast on top of the stay. */
+  mealPlan: MealPlan
 }

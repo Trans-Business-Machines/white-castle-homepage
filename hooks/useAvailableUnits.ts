@@ -4,8 +4,10 @@ import { getApiErrorStatus } from "@/lib/api/errors"
 import type { AvailabilitySearch } from "@/lib/types"
 
 export const AvailabilityKeys = {
-  search: (search: AvailabilitySearch) =>
-    ["units", "available", search] as const,
+  // Only what the request sends: the meal plan is priced client-side, so
+  // switching it shouldn't refetch.
+  search: ({ checkIn, checkOut, adults, roomType }: AvailabilitySearch) =>
+    ["units", "available", { checkIn, checkOut, adults, roomType }] as const,
 }
 
 export function useAvailableUnits(search?: AvailabilitySearch) {

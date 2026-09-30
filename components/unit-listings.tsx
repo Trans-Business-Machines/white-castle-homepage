@@ -14,6 +14,7 @@ import { useAvailableUnits } from "@/hooks/useAvailableUnits"
 import { getApiErrorMessage } from "@/lib/api/errors"
 import { formatRoomType, isBookable } from "@/lib/units"
 import { siteConfig } from "@/lib/site-config"
+import { MEAL_PLAN_LABELS } from "@/lib/schemas/availability"
 import { parseSearchDate, toFormDefaults } from "@/lib/availability"
 import type { AvailabilitySearch, Unit } from "@/lib/types"
 
@@ -24,8 +25,8 @@ const breakpoints = [
   { query: "(min-width: 640px)", columns: 2 },
 ] as const
 
-const GRID_GAP = 24 
-const ROW_ESTIMATE = 560 
+const GRID_GAP = 24
+const ROW_ESTIMATE = 560
 
 /** One card's worth of data: a room, plus the stay it was priced for. */
 type CardItem = { unit: Unit; stay?: StayContext }
@@ -151,7 +152,10 @@ function AvailabilityResults({ search }: { search: AvailabilitySearch }) {
   )
 }
 
-/** "23–27 Sep · 4 nights · 1 adult · Deluxe" — the context the totals need. */
+/**
+ * "23–27 Sep · 4 nights · 1 adult · Deluxe · Bed & breakfast" — the context
+ * the totals need.
+ */
 function StaySummary({
   search,
   nights,
@@ -168,6 +172,7 @@ function StaySummary({
   if (nights) parts.push(nights === 1 ? "1 night" : `${nights} nights`)
   parts.push(search.adults === "1" ? "1 adult" : `${search.adults} adults`)
   if (search.roomType) parts.push(formatRoomType(search.roomType))
+  parts.push(MEAL_PLAN_LABELS[search.mealPlan])
 
   return (
     <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-muted-foreground">
@@ -198,7 +203,7 @@ function StaySummary({
 
 function NoAvailability({ search }: { search: AvailabilitySearch }) {
   return (
-    <div className="rounded-2xl bg-muted p-6 sm:p-10">
+    <div className="rounded-2xl bg-background p-6 sm:p-10">
       <p className="font-heading text-lg font-bold">
         No rooms free for those dates
       </p>
@@ -358,7 +363,7 @@ function ErrorState({
   return (
     <div
       role="alert"
-      className="flex flex-col items-start gap-4 rounded-2xl bg-muted p-6 sm:p-10"
+      className="flex flex-col items-start gap-4 rounded-2xl bg-background p-6 sm:p-10"
     >
       <p className="flex items-center gap-3 text-base">
         <CircleAlert className="size-5 shrink-0" strokeWidth={1.5} />
@@ -379,7 +384,7 @@ function ErrorState({
 
 function EmptyState() {
   return (
-    <div className="rounded-2xl bg-muted p-6 text-base text-muted-foreground sm:p-10">
+    <div className="rounded-2xl bg-background p-6 text-base text-muted-foreground sm:p-10">
       No rooms are listed at the moment. Call the front desk on{" "}
       <span className="whitespace-nowrap">{siteConfig.phone}</span> and
       we&rsquo;ll find you one.

@@ -8,7 +8,7 @@ const stats = [
 export function AboutStats() {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-20">
-      <dl className="grid gap-8 rounded-2xl bg-muted p-6 sm:grid-cols-2 sm:p-10 lg:grid-cols-4 lg:p-14">
+      <dl className="grid gap-8 rounded-2xl bg-background p-6 sm:grid-cols-2 sm:p-10 lg:grid-cols-4 lg:p-14">
         {stats.map((stat) => (
           <div key={stat.value}>
             <dt className="font-heading text-2xl font-extrabold text-primary sm:text-3xl">

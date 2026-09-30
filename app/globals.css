@@ -44,6 +44,10 @@
   --brand-ink: oklch(from var(--primary) 0.45 0.045 h);
   --brand-deep: oklch(from var(--primary) 0.38 0.105 h);
   --error-ink: oklch(from var(--destructive) 0.5 c h);
+  /* Tinted section bands: a shallow grey wash, deepest at the top edge. Both
+     stops stay clearly off-white so each band edge reads as a boundary. */
+  --band-from: oklch(0.955 0 0);
+  --band-to: oklch(0.978 0 0);
 }
 
 .dark {
@@ -138,6 +142,14 @@
   --color-brand-ink: var(--brand-ink);
   --color-brand-deep: var(--brand-deep);
   --color-error-ink: var(--error-ink);
+}
+
+@utility bg-band {
+  background-image: linear-gradient(
+    to bottom,
+    var(--band-from),
+    var(--band-to)
+  );
 }
 
 @layer base {

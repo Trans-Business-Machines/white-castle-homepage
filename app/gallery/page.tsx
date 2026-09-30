@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
+import { SectionBand } from "@/components/section-band"
 import { PageHeader } from "@/components/page-header"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { GalleryCta } from "@/components/gallery-cta"
@@ -21,9 +22,12 @@ export default function Page() {
       <Reveal>
         <GalleryGrid />
       </Reveal>
-      <Reveal>
-        <GalleryCta />
-      </Reveal>
+
+      <SectionBand>
+        <Reveal>
+          <GalleryCta />
+        </Reveal>
+      </SectionBand>
     </>
   )
 }

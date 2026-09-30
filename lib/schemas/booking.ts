@@ -1,5 +1,7 @@
 import { z } from "zod"
-import { ADULT_OPTIONS } from "@/lib/schemas/availability"
+import { ADULT_OPTIONS, MEAL_PLAN_OPTIONS } from "@/lib/schemas/availability"
+
+export const CHILD_OPTIONS = ["0", "1", "2", "3", "4", "5", "6"] as const
 
 export const bookingSchema = z
   .object({
@@ -23,6 +25,8 @@ export const bookingSchema = z
     checkIn: z.date({ error: "Pick a check-in date" }),
     checkOut: z.date({ error: "Pick a check-out date" }),
     adults: z.enum(ADULT_OPTIONS, { error: "Choose how many adults" }),
+    children: z.enum(CHILD_OPTIONS, { error: "Choose how many children" }),
+    mealPlan: z.enum(MEAL_PLAN_OPTIONS, { error: "Choose a meal plan" }),
     message: z
       .string()
       .trim()

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
+import { SectionBand } from "@/components/section-band"
 import { HeroSection } from "@/components/hero-section"
 import { StatsSection } from "@/components/stats-section"
 import { FacilitiesSection } from "@/components/facilities-section"
@@ -19,27 +20,41 @@ export default function Page() {
   return (
     <>
       <HeroSection />
-      <Reveal>
-        <StatsSection />
-      </Reveal>
-      <Reveal>
-        <FacilitiesSection />
-      </Reveal>
-      <Reveal>
-        <OtherSpacesSection />
-      </Reveal>
-      <Reveal>
-        <GallerySection />
-      </Reveal>
-      <Reveal>
-        <EnquiryCta />
-      </Reveal>
-      <Reveal>
-        <LocationSection />
-      </Reveal>
-      <Reveal>
-        <NearbySection />
-      </Reveal>
+      <SectionBand>
+        <Reveal>
+          <StatsSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand>
+        <Reveal>
+          <FacilitiesSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand tinted>
+        <Reveal>
+          <OtherSpacesSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand>
+        <Reveal>
+          <GallerySection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand tinted>
+        <Reveal>
+          <EnquiryCta />
+        </Reveal>
+      </SectionBand>
+      <SectionBand>
+        <Reveal>
+          <LocationSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand tinted>
+        <Reveal>
+          <NearbySection />
+        </Reveal>
+      </SectionBand>
     </>
   )
 }

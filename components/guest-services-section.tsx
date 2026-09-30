@@ -21,7 +21,7 @@ const services = [
 export function GuestServicesSection() {
   return (
     <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
-      <div className="rounded-2xl bg-muted p-6 sm:p-10 lg:p-14">
+      <div className="rounded-2xl bg-background p-6 sm:p-10 lg:p-14">
         <h2 className="font-heading text-2xl font-extrabold sm:text-3xl">
           Guest services
         </h2>

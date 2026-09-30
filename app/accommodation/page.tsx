@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Reveal } from "@/components/reveal"
+import { SectionBand } from "@/components/section-band"
 import { PageHeader } from "@/components/page-header"
 import { RatesSection } from "@/components/rates-section"
 import { OtherSpacesSection } from "@/components/other-spaces"
@@ -18,6 +19,7 @@ interface Props {
     checkOut?: string
     adults?: string
     roomType?: string
+    mealPlan?: string
   }>
 }
 
@@ -34,12 +36,16 @@ export default async function Page({ searchParams }: Props) {
 
       <UnitListings search={search} />
 
-      <Reveal>
-        <RatesSection />
-      </Reveal>
-      <Reveal>
-        <OtherSpacesSection />
-      </Reveal>
+      <SectionBand>
+        <Reveal>
+          <RatesSection />
+        </Reveal>
+      </SectionBand>
+      <SectionBand tinted>
+        <Reveal>
+          <OtherSpacesSection />
+        </Reveal>
+      </SectionBand>
     </>
   )
 }

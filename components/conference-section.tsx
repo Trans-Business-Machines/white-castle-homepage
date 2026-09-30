@@ -40,7 +40,7 @@ export function ConferenceSection() {
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-full bg-muted px-4 py-2 text-[0.85rem]"
+              className="rounded-full bg-background px-4 py-2 text-[0.85rem]"
             >
               {tag}
             </li>

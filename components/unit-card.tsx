@@ -17,9 +17,12 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import {
+  breakfastCost,
+  effectiveMealPlan,
   formatRate,
   formatRoomType,
   getStatusMeta,
+  offersBreakfast,
   parseAmenities,
   requestRoomHref,
 } from "@/lib/units"
@@ -33,8 +36,10 @@ const ctaClassName = "mt-auto h-11 w-full rounded-full text-base font-semibold"
 
 // The primitive fades disabled buttons to half opacity and drops pointer
 // events, which left this one barely visible and hid the not-allowed cursor.
+// Restoring pointer events also re-enables the primitive's hover colour, so
+// the hover state is pinned to the same grey.
 const disabledCtaClassName =
-  "bg-slate-900/40 text-white disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
+  "bg-slate-900/40 text-white hover:bg-slate-900/40 disabled:pointer-events-auto disabled:cursor-not-allowed disabled:opacity-100"
 
 /**
  * A room from an availability search: the stay's cost, plus the search itself
@@ -59,19 +64,28 @@ export function UnitCard({
   // status badge has nothing left to say.
   const bookable = stay ? true : getStatusMeta(unit.status).bookable
 
+  // The backend prices the room only; breakfast for a bed & breakfast search
+  // is added here, for every adult on every night.
+  const withBreakfast =
+    stay &&
+    effectiveMealPlan(unit, stay.search.mealPlan) === "bed_and_breakfast"
+  const breakfastTotal = withBreakfast
+    ? breakfastCost(unit, Number(stay.search.adults) || 1, stay.unit.nights)
+    : 0
+
   return (
     <Card className="h-full gap-0 overflow-hidden pt-0 shadow-sm">
       <UnitPhotos unit={unit} showStatus={!stay} eager={eager} />
 
       <CardContent className="flex flex-1 flex-col gap-4 pt-5">
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h3 className="font-heading text-xl font-bold">
-              {formatRoomType(unit.room_type)}
+              Room {unit.room_number}
             </h3>
             <p className="font-heading text-lg font-bold whitespace-nowrap">
               {stay ? (
-                formatRate(stay.unit.total_price)
+                formatRate(stay.unit.total_price + breakfastTotal)
               ) : (
                 <>
                   {formatRate(unit.base_rate)}
@@ -84,7 +98,7 @@ export function UnitCard({
             </p>
           </div>
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <span>Room {unit.room_number}</span>
+            <span>{formatRoomType(unit.room_type)}</span>
             {stay ? (
               <span className="whitespace-nowrap">
                 {stay.unit.nights === 1
@@ -96,15 +110,17 @@ export function UnitCard({
           {stay ? (
             <p className="text-sm text-muted-foreground">
               {formatRate(unit.base_rate)} / night
+              {withBreakfast
+                ? ` + ${formatRate(breakfastTotal)} breakfast`
+                : null}
             </p>
           ) : null}
+          <BreakfastNote
+            unit={unit}
+            stay={stay}
+            included={Boolean(withBreakfast)}
+          />
         </div>
-
-        {unit.description ? (
-          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-            {unit.description}
-          </p>
-        ) : null}
 
         <div className="flex flex-wrap gap-2">
           <Pill
@@ -143,6 +159,41 @@ export function UnitCard({
         )}
       </CardContent>
     </Card>
+  )
+}
+
+function BreakfastNote({
+  unit,
+  stay,
+  included,
+}: {
+  unit: Unit
+  stay?: StayContext
+  included: boolean
+}) {
+  if (!offersBreakfast(unit)) {
+    // Only worth saying when the guest asked for breakfast.
+    return stay?.search.mealPlan === "bed_and_breakfast" ? (
+      <p className="text-sm text-muted-foreground">
+        Breakfast isn&rsquo;t served with this room, so it&rsquo;s priced room
+        only.
+      </p>
+    ) : null
+  }
+
+  const adults = Number(stay?.search.adults) || 1
+
+  return (
+    <div className="text-sm">
+      <p className="text-foreground">
+        {included
+          ? `Bed & breakfast for ${adults === 1 ? "1 adult" : `${adults} adults`}`
+          : "Bed & breakfast available"}
+      </p>
+      <p className="text-muted-foreground">
+        {formatRate(unit.bb_rate)} per adult / night
+      </p>
+    </div>
   )
 }
 

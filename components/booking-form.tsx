@@ -3,9 +3,9 @@
 import * as React from "react"
 import { useForm, useWatch, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { format } from "date-fns"
+import { differenceInCalendarDays, format } from "date-fns"
 import toast from "react-hot-toast"
-import { AlertCircle, CheckCircle2, ShieldCheck } from "lucide-react"
+import { AlertCircle, CheckCircle2, Coffee, ShieldCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { WhatsappIcon } from "@/components/whatsapp-icon"
@@ -19,13 +19,29 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { siteConfig } from "@/lib/site-config"
-import { ADULT_OPTIONS } from "@/lib/schemas/availability"
-import { bookingSchema, type BookingValues } from "@/lib/schemas/booking"
+import {
+  ADULT_OPTIONS,
+  DEFAULT_MEAL_PLAN,
+  MEAL_PLAN_LABELS,
+  MEAL_PLAN_OPTIONS,
+} from "@/lib/schemas/availability"
+import {
+  CHILD_OPTIONS,
+  bookingSchema,
+  type BookingValues,
+} from "@/lib/schemas/booking"
 import { useUnits } from "@/hooks/useUnits"
 import { useBookingEnquiry } from "@/hooks/useBookingEnquiry"
 import { getApiErrorMessage } from "@/lib/api/errors"
-import { formatRoomType, getStatusMeta, isBookable } from "@/lib/units"
-import { isAdultOption, parseSearchDate } from "@/lib/availability"
+import {
+  breakfastCost,
+  formatRate,
+  formatRoomType,
+  getStatusMeta,
+  isBookable,
+  offersBreakfast,
+} from "@/lib/units"
+import { isAdultOption, isMealPlan, parseSearchDate } from "@/lib/availability"
 
 const labelClass = "block text-sm font-semibold text-foreground"
 
@@ -70,6 +86,35 @@ function FieldError({ message }: { message?: string }) {
   )
 }
 
+/** "KES 800 per adult / night · KES 3,200 for 2 adults × 2 nights" */
+function BreakfastEstimate({
+  rate,
+  adults,
+  nights,
+  total,
+}: {
+  rate: number
+  adults: number
+  nights?: number
+  total?: number
+}) {
+  return (
+    <p className="mt-2 flex items-start gap-1.5 text-sm text-brand-ink">
+      <Coffee
+        aria-hidden="true"
+        className="mt-0.5 size-4 shrink-0 text-primary"
+        strokeWidth={1.75}
+      />
+      <span>
+        Breakfast is {formatRate(rate)} per adult / night
+        {nights && total !== undefined
+          ? ` · ${formatRate(total)} for ${adults === 1 ? "1 adult" : `${adults} adults`} × ${nights === 1 ? "1 night" : `${nights} nights`}`
+          : null}
+      </span>
+    </p>
+  )
+}
+
 function startOfToday() {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -77,19 +122,22 @@ function startOfToday() {
 }
 
 /**
- * All four come from the "Request this room" links on the accommodation page.
- * The dates are only present when the room came from an availability search.
+ * All five come from the "Request this room" links on the accommodation page.
+ * The dates and meal plan are only present when the room came from an
+ * availability search.
  */
 export function BookingForm({
   roomId,
   checkIn: checkInParam,
   checkOut: checkOutParam,
   adults: adultsParam,
+  mealPlan: mealPlanParam,
 }: {
   roomId?: string
   checkIn?: string
   checkOut?: string
   adults?: string
+  mealPlan?: string
 }) {
   const [submitted, setSubmitted] = React.useState(false)
   const successRef = React.useRef<HTMLDivElement>(null)
@@ -119,11 +167,19 @@ export function BookingForm({
       checkIn: checkInParam ? parseSearchDate(checkInParam) : undefined,
       checkOut: checkOutParam ? parseSearchDate(checkOutParam) : undefined,
       adults: adultsParam && isAdultOption(adultsParam) ? adultsParam : "1",
+      children: "0",
+      mealPlan:
+        mealPlanParam && isMealPlan(mealPlanParam)
+          ? mealPlanParam
+          : DEFAULT_MEAL_PLAN,
       message: "",
     },
   })
 
   const checkIn = useWatch({ control, name: "checkIn" })
+  const checkOut = useWatch({ control, name: "checkOut" })
+  const adults = useWatch({ control, name: "adults" })
+  const mealPlan = useWatch({ control, name: "mealPlan" })
   const selectedRoomId = useWatch({ control, name: "roomId" })
 
   // A link can go stale between the accommodation page and here, so flag a
@@ -131,6 +187,19 @@ export function BookingForm({
   // reject the request.
   const selectedUnit = units?.find((unit) => unit.room_id === selectedRoomId)
   const selectedUnavailable = Boolean(selectedUnit && !isBookable(selectedUnit))
+
+  const nights =
+    checkIn && checkOut && checkOut > checkIn
+      ? differenceInCalendarDays(checkOut, checkIn)
+      : undefined
+
+  // Switching rooms after choosing breakfast can land on one that doesn't
+  // serve it, so catch that here rather than on the backend.
+  const breakfastUnavailable = Boolean(
+    mealPlan === "bed_and_breakfast" &&
+    selectedUnit &&
+    !offersBreakfast(selectedUnit)
+  )
 
   const roomPlaceholder = unitsPending
     ? "Loading rooms…"
@@ -153,10 +222,12 @@ export function BookingForm({
         check_in_date: format(values.checkIn, "yyyy-MM-dd"),
         check_out_date: format(values.checkOut, "yyyy-MM-dd"),
         adults: Number(values.adults),
+        children: Number(values.children),
         guest_name: values.fullName,
         guest_phone: values.phone,
         guest_email: values.email,
-        message: values.message || undefined,
+        special_requests: values.message || undefined,
+        meal_plan: values.mealPlan,
       })
 
       toast.success("Request sent. Reception will confirm your room shortly.")
@@ -308,9 +379,9 @@ export function BookingForm({
                             value={unit.room_id}
                             disabled={!bookable}
                           >
-                            {bookable
-                              ? `Room ${unit.room_number} - ${formatRoomType(unit.room_type)}`
-                              : `Room ${unit.room_number} - ${formatRoomType(unit.room_type)} (${label})`}
+                            {`Room ${unit.room_number} - ${formatRoomType(unit.room_type)}`}
+                            {offersBreakfast(unit) ? " · B&B" : null}
+                            {bookable ? null : ` (${label})`}
                           </SelectItem>
                         )
                       })}
@@ -368,26 +439,106 @@ export function BookingForm({
               </div>
             </div>
 
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <span className={labelClass}>Adults</span>
+                <Controller
+                  control={control}
+                  name="adults"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        aria-label="Adults"
+                        className={triggerClass}
+                      >
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {ADULT_OPTIONS.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+
+              <div>
+                <span className={labelClass}>Children</span>
+                <Controller
+                  control={control}
+                  name="children"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        aria-label="Children"
+                        className={triggerClass}
+                      >
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CHILD_OPTIONS.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+            </div>
+
             <div>
-              <span className={labelClass}>Adults</span>
+              <span className={labelClass}>Meal plan</span>
               <Controller
                 control={control}
-                name="adults"
+                name="mealPlan"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger aria-label="Adults" className={triggerClass}>
+                    <SelectTrigger
+                      aria-label="Meal plan"
+                      aria-invalid={
+                        Boolean(errors.mealPlan) || breakfastUnavailable
+                      }
+                      className={triggerClass}
+                    >
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {ADULT_OPTIONS.map((option) => (
+                      {MEAL_PLAN_OPTIONS.map((option) => (
                         <SelectItem key={option} value={option}>
-                          {option}
+                          {MEAL_PLAN_LABELS[option]}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 )}
               />
+              <FieldError
+                message={
+                  errors.mealPlan?.message ??
+                  (breakfastUnavailable
+                    ? `Room ${selectedUnit?.room_number} doesn't serve breakfast. Choose room only or another room.`
+                    : undefined)
+                }
+              />
+              {mealPlan === "bed_and_breakfast" &&
+              selectedUnit &&
+              offersBreakfast(selectedUnit) ? (
+                <BreakfastEstimate
+                  rate={selectedUnit.bb_rate}
+                  adults={Number(adults) || 1}
+                  nights={nights}
+                  total={
+                    nights
+                      ? breakfastCost(selectedUnit, Number(adults) || 1, nights)
+                      : undefined
+                  }
+                />
+              ) : null}
             </div>
 
             <div>
@@ -414,7 +565,9 @@ export function BookingForm({
             <Button
               type="submit"
               size="lg"
-              disabled={enquiry.isPending || selectedUnavailable}
+              disabled={
+                enquiry.isPending || selectedUnavailable || breakfastUnavailable
+              }
               aria-busy={enquiry.isPending}
               className="h-12 rounded-full px-7 text-base font-semibold shadow-lg shadow-primary/30 hover:shadow-primary/40 sm:flex-2"
             >

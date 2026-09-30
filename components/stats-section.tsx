@@ -21,7 +21,7 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+    <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-20">
       <dl className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <div key={stat.value}>

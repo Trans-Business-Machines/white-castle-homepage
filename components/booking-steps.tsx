@@ -34,9 +34,9 @@ export function BookingSteps() {
         </ol>
 
         <div className="mt-6 border-t border-foreground/10 pt-5 leading-relaxed">
-          <p className="font-semibold">Walk-ins welcome</p>
+          <p className="font-semibold">Walk-in bookings are also welcome</p>
           <p className="mt-1 text-muted-foreground">
-            No booking needed. Reception is open around the clock; just carry
+            No booking needed. Reception is open around the clock, just carry
             your National ID or passport for check-in.
           </p>
         </div>

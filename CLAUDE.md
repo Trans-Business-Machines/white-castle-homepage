@@ -71,6 +71,15 @@ The site is **light-only**: `app/layout.tsx` passes
 stored or system preference. Dark-mode tokens exist but are not
 exercised, so don't rely on them looking right.
 
+**Section bands.** Pages wrap each section after the header in
+`<SectionBand>` (`components/section-band.tsx`), alternating plain and
+`tinted`, so every background change marks a new section. The tint is the
+`bg-band` gradient, set by `--band-from` / `--band-to` in `globals.css`. The
+band supplies top padding; sections keep only their bottom padding. Put
+`Reveal` inside the band. A `bg-muted` panel or chip sitting in a tinted band
+disappears into it, so those use `bg-background` instead. When adding or
+reordering sections, keep the alternation.
+
 Headings use `font-heading` (Manrope); body text inherits Inter.
 
 **Card borders.** shadcn `Card` ships a default `ring-1`. Passing `ring-0` is

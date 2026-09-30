@@ -16,6 +16,7 @@ import {
   Wine,
   type LucideIcon,
 } from "lucide-react"
+import type { MealPlan } from "@/lib/schemas/availability"
 import type { AvailabilitySearch, Unit } from "@/lib/types"
 
 // The backend stores amenities as free text, so the same feature arrives
@@ -131,7 +132,7 @@ export const statusMeta: Record<
   housekeeping: availableMeta,
   occupied: {
     label: "Occupied",
-    className: unavailableTone,
+    className: "bg-[crimson] text-white",
     bookable: false,
   },
   reserved: {
@@ -141,7 +142,7 @@ export const statusMeta: Record<
   },
   maintenance: {
     label: "Under maintenance",
-    className: "bg-red-500 text-white",
+    className: "bg-orange-600 text-white",
     bookable: false,
   },
   out_of_service: {
@@ -165,6 +166,28 @@ export function isBookable(unit: Unit) {
   return getStatusMeta(unit.status).bookable
 }
 
+/** Breakfast is offered only when it is switched on *and* priced. */
+export function offersBreakfast(
+  unit: Unit
+): unit is Unit & { bb_available: true; bb_rate: number } {
+  return Boolean(unit.bb_available) && typeof unit.bb_rate === "number"
+}
+
+/** Breakfast for the whole stay: adults × per-adult rate × nights. */
+export function breakfastCost(unit: Unit, adults: number, nights: number) {
+  return offersBreakfast(unit) ? adults * unit.bb_rate * nights : 0
+}
+
+/**
+ * The meal plan a stay actually gets in this room: breakfast is dropped for
+ * rooms that don't serve it rather than hiding the room from the results.
+ */
+export function effectiveMealPlan(unit: Unit, requested: MealPlan): MealPlan {
+  return requested === "bed_and_breakfast" && offersBreakfast(unit)
+    ? "bed_and_breakfast"
+    : "room_only"
+}
+
 /**
  * Where "Request this room" sends the guest. Read back on the contact page.
  * A stay is carried through when the room came from an availability search,
@@ -177,6 +200,7 @@ export function requestRoomHref(unit: Unit, stay?: AvailabilitySearch) {
     params.set("checkIn", stay.checkIn)
     params.set("checkOut", stay.checkOut)
     params.set("adults", stay.adults)
+    params.set("mealPlan", effectiveMealPlan(unit, stay.mealPlan))
   }
 
   return `/contact?${params.toString()}`
