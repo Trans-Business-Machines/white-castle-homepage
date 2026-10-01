@@ -17,12 +17,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import {
-  breakfastCost,
   effectiveMealPlan,
   formatRate,
+  formatRateUsd,
   formatRoomType,
   getStatusMeta,
-  offersBreakfast,
+  mealPlanSurcharge,
+  getPlanRate,
   parseAmenities,
   requestRoomHref,
 } from "@/lib/units"
@@ -64,13 +65,12 @@ export function UnitCard({
   // status badge has nothing left to say.
   const bookable = stay ? true : getStatusMeta(unit.status).bookable
 
-  // The backend prices the room only; breakfast for a bed & breakfast search
-  // is added here, for every adult on every night.
-  const withBreakfast =
-    stay &&
-    effectiveMealPlan(unit, stay.search.mealPlan) === "bed_and_breakfast"
-  const breakfastTotal = withBreakfast
-    ? breakfastCost(unit, Number(stay.search.adults) || 1, stay.unit.nights)
+  // The backend prices the room at the plan rate; show total_price directly.
+  // For display purposes, mealPlanSurcharge shows the extra above room-only.
+  const activeMealPlan = stay ? effectiveMealPlan(unit, stay.search.mealPlan) : "room_only"
+  const currency = stay?.search.currency ?? "KES"
+  const mealSurcharge = stay && activeMealPlan !== "room_only"
+    ? mealPlanSurcharge(unit, activeMealPlan, currency, stay.unit.nights)
     : 0
 
   return (
@@ -85,7 +85,7 @@ export function UnitCard({
             </h3>
             <p className="font-heading text-lg font-bold whitespace-nowrap">
               {stay ? (
-                formatRate(stay.unit.total_price + breakfastTotal)
+                formatRate(stay.unit.total_price)
               ) : (
                 <>
                   {formatRate(unit.base_rate)}
@@ -109,17 +109,11 @@ export function UnitCard({
           </div>
           {stay ? (
             <p className="text-sm text-muted-foreground">
-              {formatRate(unit.base_rate)} / night
-              {withBreakfast
-                ? ` + ${formatRate(breakfastTotal)} breakfast`
-                : null}
+              {formatRate(stay.unit.total_price / stay.unit.nights)} / night
+              {mealSurcharge > 0 ? ` (incl. meal plan)` : null}
             </p>
           ) : null}
-          <BreakfastNote
-            unit={unit}
-            stay={stay}
-            included={Boolean(withBreakfast)}
-          />
+          <RatesTable unit={unit} currency={currency} />
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -162,37 +156,44 @@ export function UnitCard({
   )
 }
 
-function BreakfastNote({
-  unit,
-  stay,
-  included,
-}: {
-  unit: Unit
-  stay?: StayContext
-  included: boolean
-}) {
-  if (!offersBreakfast(unit)) {
-    // Only worth saying when the guest asked for breakfast.
-    return stay?.search.mealPlan === "bed_and_breakfast" ? (
-      <p className="text-sm text-muted-foreground">
-        Breakfast isn&rsquo;t served with this room, so it&rsquo;s priced room
-        only.
-      </p>
-    ) : null
-  }
+/**
+ * Rate table matching the spreadsheet layout:
+ *   BO    BB    HB    FB
+ *  2,000 2,500 3,500 4,500
+ */
+function RatesTable({ unit, currency }: { unit: Unit; currency: string }) {
+  const usd = currency === "USD"
+  const fmt = usd ? formatRateUsd : formatRate
 
-  const adults = Number(stay?.search.adults) || 1
+  const plans = [
+    { label: "Bed Only",         rate: usd ? unit.base_rate_usd : unit.base_rate },
+    { label: "Bed & Breakfast",  rate: usd ? unit.bb_rate_usd   : unit.bb_rate   },
+    { label: "Half Board",       rate: usd ? unit.hb_rate_usd   : unit.hb_rate   },
+    { label: "Full Board",       rate: usd ? unit.fb_rate_usd   : unit.fb_rate   },
+  ]
 
   return (
-    <div className="text-sm">
-      <p className="text-foreground">
-        {included
-          ? `Bed & breakfast for ${adults === 1 ? "1 adult" : `${adults} adults`}`
-          : "Bed & breakfast available"}
-      </p>
-      <p className="text-muted-foreground">
-        {formatRate(unit.bb_rate)} per adult / night
-      </p>
+    <div className="mt-1">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="text-muted-foreground">
+            {plans.map(({ label }) => (
+              <th key={label} className="pr-3 pb-0.5 text-left font-medium text-xs tracking-wide">
+                {label}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {plans.map(({ label, rate }) => (
+              <td key={label} className="pr-3 font-mono text-xs text-foreground">
+                {rate != null ? fmt(rate) : "—"}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
