@@ -1,4 +1,4 @@
-import type { MealPlan } from "@/lib/schemas/availability"
+import type { BookingCurrency, MealPlan } from "@/lib/schemas/availability"
 
 export interface Unit {
   room_id: string
@@ -6,15 +6,27 @@ export interface Unit {
   room_type: string
   description: string
   max_occupancy: number
+  /** Room Only rate (KES). */
   base_rate: number
+  /** Bed & Breakfast rate (KES). */
+  bb_rate: number | null
+  /** Half Board rate (KES). */
+  hb_rate: number | null
+  /** Full Board rate (KES). */
+  fb_rate: number | null
+  /** Room Only rate (USD). */
+  base_rate_usd: number | null
+  /** Bed & Breakfast rate (USD). */
+  bb_rate_usd: number | null
+  /** Half Board rate (USD). */
+  hb_rate_usd: number | null
+  /** Full Board rate (USD). */
+  fb_rate_usd: number | null
   status: string
   amenities: string
   photos: string[]
   active: boolean
   created_at: string
-  bb_available: boolean
-  /** Breakfast, per adult per night. Null when the room doesn't offer it. */
-  bb_rate: number | null
 }
 
 export interface BookingEnquiryPayload {
@@ -22,12 +34,14 @@ export interface BookingEnquiryPayload {
   check_in_date: string
   check_out_date: string
   adults: number
-  children: number
+  children_under_5: number
+  children_6_to_12: number
   guest_name: string
   guest_phone: string
   guest_email?: string
   special_requests?: string
   meal_plan: MealPlan
+  currency: BookingCurrency
 }
 
 /**
@@ -37,6 +51,7 @@ export interface BookingEnquiryPayload {
 export interface AvailableUnit extends Unit {
   nights: number
   total_price: number
+  display_currency: BookingCurrency
 }
 
 /** A stay search, as it travels through the URL. Dates are `yyyy-MM-dd`. */
@@ -45,6 +60,7 @@ export interface AvailabilitySearch {
   checkOut: string
   adults: string
   roomType?: string
-  /** Not sent to the backend — it prices breakfast on top of the stay. */
   mealPlan: MealPlan
+  /** KES = resident, USD = non-resident. */
+  currency: BookingCurrency
 }

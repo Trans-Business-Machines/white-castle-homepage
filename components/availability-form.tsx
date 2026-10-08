@@ -18,6 +18,9 @@ import {
 import {
   ADULT_OPTIONS,
   ANY_ROOM_TYPE,
+  CURRENCY_LABELS,
+  CURRENCY_OPTIONS,
+  DEFAULT_CURRENCY,
   DEFAULT_MEAL_PLAN,
   MEAL_PLAN_LABELS,
   MEAL_PLAN_OPTIONS,
@@ -60,6 +63,7 @@ export function AvailabilityForm({
       adults: "1",
       roomType: ANY_ROOM_TYPE,
       mealPlan: DEFAULT_MEAL_PLAN,
+      currency: DEFAULT_CURRENCY,
       ...defaultValues,
     },
   })
@@ -81,6 +85,10 @@ export function AvailabilityForm({
       params.set("mealPlan", values.mealPlan)
     }
 
+    if (values.currency !== DEFAULT_CURRENCY) {
+      params.set("currency", values.currency)
+    }
+
     router.push(`/accommodation?${params.toString()}`)
   }
 
@@ -94,7 +102,7 @@ export function AvailabilityForm({
         className
       )}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(5,minmax(0,1fr))_auto] lg:items-end lg:gap-0">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(6,minmax(0,1fr))_auto] lg:items-end lg:gap-0">
         <div className="lg:px-5 lg:first:pl-2">
           <span className={fieldLabel}>Check in</span>
           <Controller
@@ -219,6 +227,36 @@ export function AvailabilityForm({
                       className={selectItem}
                     >
                       {MEAL_PLAN_LABELS[value]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+        </div>
+
+        <div className="sm:col-span-2 lg:col-span-1 lg:border-l lg:px-5">
+          <span className={fieldLabel}>Residency</span>
+          <Controller
+            control={control}
+            name="currency"
+            render={({ field }) => (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger
+                  size="default"
+                  aria-label="Residency"
+                  className="mt-1 h-10 w-full border-0 px-0 text-base shadow-none data-[size=default]:h-10 dark:bg-transparent"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className={selectContent}>
+                  {CURRENCY_OPTIONS.map((value) => (
+                    <SelectItem
+                      key={value}
+                      value={value}
+                      className={selectItem}
+                    >
+                      {CURRENCY_LABELS[value]}
                     </SelectItem>
                   ))}
                 </SelectContent>

@@ -1,12 +1,13 @@
 import { z } from "zod"
-import { ADULT_OPTIONS, MEAL_PLAN_OPTIONS } from "@/lib/schemas/availability"
+import { CURRENCY_OPTIONS, DEFAULT_CURRENCY, MEAL_PLAN_OPTIONS } from "@/lib/schemas/availability"
 
 export const CHILD_OPTIONS = ["0", "1", "2", "3", "4", "5", "6"] as const
 
+const childCount = (label: string) =>
+  z.enum(CHILD_OPTIONS, { error: `Choose number of ${label}.` })
+
 export const bookingSchema = z
   .object({
-    // The room the enquiry is for. Values are room UUIDs; the backend rejects
-    // anything that isn't one.
     roomId: z.uuid({ error: "Choose the room you'd like" }),
     fullName: z
       .string()
@@ -24,9 +25,11 @@ export const bookingSchema = z
     email: z.email({ error: "Add an email we can reply to" }),
     checkIn: z.date({ error: "Pick a check-in date" }),
     checkOut: z.date({ error: "Pick a check-out date" }),
-    adults: z.enum(ADULT_OPTIONS, { error: "Choose how many adults" }),
-    children: z.enum(CHILD_OPTIONS, { error: "Choose how many children" }),
+    adults: z.enum(["1", "2", "3", "4", "5", "6"] as const, { error: "Choose how many adults" }),
+    childrenUnder5: childCount("children under 5"),
+    children6To12: childCount("children aged 6–12"),
     mealPlan: z.enum(MEAL_PLAN_OPTIONS, { error: "Choose a meal plan" }),
+    currency: z.enum(CURRENCY_OPTIONS, { error: "Choose residency" }),
     message: z
       .string()
       .trim()

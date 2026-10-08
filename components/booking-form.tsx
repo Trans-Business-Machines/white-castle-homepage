@@ -21,25 +21,28 @@ import {
 import { siteConfig } from "@/lib/site-config"
 import {
   ADULT_OPTIONS,
+  CURRENCY_LABELS,
+  CURRENCY_OPTIONS,
+  DEFAULT_CURRENCY,
   DEFAULT_MEAL_PLAN,
   MEAL_PLAN_LABELS,
   MEAL_PLAN_OPTIONS,
 } from "@/lib/schemas/availability"
 import {
-  CHILD_OPTIONS,
   bookingSchema,
+  CHILD_OPTIONS,
   type BookingValues,
 } from "@/lib/schemas/booking"
 import { useUnits } from "@/hooks/useUnits"
 import { useBookingEnquiry } from "@/hooks/useBookingEnquiry"
 import { getApiErrorMessage } from "@/lib/api/errors"
 import {
-  breakfastCost,
   formatRate,
   formatRoomType,
+  getPlanRate,
   getStatusMeta,
   isBookable,
-  offersBreakfast,
+  mealPlanSurcharge,
 } from "@/lib/units"
 import { isAdultOption, isMealPlan, parseSearchDate } from "@/lib/availability"
 
@@ -86,18 +89,17 @@ function FieldError({ message }: { message?: string }) {
   )
 }
 
-/** "KES 800 per adult / night · KES 3,200 for 2 adults × 2 nights" */
-function BreakfastEstimate({
-  rate,
-  adults,
+/** "KES 500 extra for bed & breakfast · KES 1,000 total surcharge for 2 nights" */
+function MealPlanEstimate({
+  surcharge,
   nights,
-  total,
+  mealPlanLabel,
 }: {
-  rate: number
-  adults: number
+  surcharge: number
   nights?: number
-  total?: number
+  mealPlanLabel: string
 }) {
+  if (surcharge <= 0) return null
   return (
     <p className="mt-2 flex items-start gap-1.5 text-sm text-brand-ink">
       <Coffee
@@ -106,9 +108,9 @@ function BreakfastEstimate({
         strokeWidth={1.75}
       />
       <span>
-        Breakfast is {formatRate(rate)} per adult / night
-        {nights && total !== undefined
-          ? ` · ${formatRate(total)} for ${adults === 1 ? "1 adult" : `${adults} adults`} × ${nights === 1 ? "1 night" : `${nights} nights`}`
+        {mealPlanLabel} adds {formatRate(surcharge / (nights ?? 1))} / night
+        {nights && nights > 1
+          ? ` · ${formatRate(surcharge)} total for ${nights} nights`
           : null}
       </span>
     </p>
@@ -122,9 +124,9 @@ function startOfToday() {
 }
 
 /**
- * All five come from the "Request this room" links on the accommodation page.
- * The dates and meal plan are only present when the room came from an
- * availability search.
+ * All six come from the "Request this room" links on the accommodation page.
+ * The dates, meal plan and currency are only present when the room came from
+ * an availability search.
  */
 export function BookingForm({
   roomId,
@@ -132,12 +134,14 @@ export function BookingForm({
   checkOut: checkOutParam,
   adults: adultsParam,
   mealPlan: mealPlanParam,
+  currency: currencyParam,
 }: {
   roomId?: string
   checkIn?: string
   checkOut?: string
   adults?: string
   mealPlan?: string
+  currency?: string
 }) {
   const [submitted, setSubmitted] = React.useState(false)
   const successRef = React.useRef<HTMLDivElement>(null)
@@ -157,29 +161,33 @@ export function BookingForm({
     formState: { errors },
   } = useForm<BookingValues>({
     resolver: zodResolver(bookingSchema),
-    defaultValues: {
-      // Pre-selecting from the query params needs no effect — they are known
-      // before the room list arrives.
-      roomId: roomId ?? "",
-      fullName: "",
-      phone: "",
-      email: "",
-      checkIn: checkInParam ? parseSearchDate(checkInParam) : undefined,
-      checkOut: checkOutParam ? parseSearchDate(checkOutParam) : undefined,
-      adults: adultsParam && isAdultOption(adultsParam) ? adultsParam : "1",
-      children: "0",
-      mealPlan:
-        mealPlanParam && isMealPlan(mealPlanParam)
-          ? mealPlanParam
-          : DEFAULT_MEAL_PLAN,
-      message: "",
-    },
+      defaultValues: {
+        roomId: roomId ?? "",
+        fullName: "",
+        phone: "",
+        email: "",
+        checkIn: checkInParam ? parseSearchDate(checkInParam) : undefined,
+        checkOut: checkOutParam ? parseSearchDate(checkOutParam) : undefined,
+        adults: adultsParam && isAdultOption(adultsParam) ? adultsParam : "1",
+        childrenUnder5: "0",
+        children6To12: "0",
+        mealPlan:
+          mealPlanParam && isMealPlan(mealPlanParam)
+            ? mealPlanParam
+            : DEFAULT_MEAL_PLAN,
+        currency:
+          currencyParam && (CURRENCY_OPTIONS as readonly string[]).includes(currencyParam)
+            ? (currencyParam as "KES" | "USD")
+            : DEFAULT_CURRENCY,
+        message: "",
+      },
   })
 
   const checkIn = useWatch({ control, name: "checkIn" })
   const checkOut = useWatch({ control, name: "checkOut" })
   const adults = useWatch({ control, name: "adults" })
   const mealPlan = useWatch({ control, name: "mealPlan" })
+  const currency = useWatch({ control, name: "currency" })
   const selectedRoomId = useWatch({ control, name: "roomId" })
 
   // A link can go stale between the accommodation page and here, so flag a
@@ -193,12 +201,11 @@ export function BookingForm({
       ? differenceInCalendarDays(checkOut, checkIn)
       : undefined
 
-  // Switching rooms after choosing breakfast can land on one that doesn't
-  // serve it, so catch that here rather than on the backend.
+  // Warn if the selected room doesn't have a rate for the chosen meal plan
   const breakfastUnavailable = Boolean(
-    mealPlan === "bed_and_breakfast" &&
+    mealPlan !== "room_only" &&
     selectedUnit &&
-    !offersBreakfast(selectedUnit)
+    getPlanRate(selectedUnit, mealPlan, currency ?? "KES") === 0
   )
 
   const roomPlaceholder = unitsPending
@@ -217,17 +224,17 @@ export function BookingForm({
     try {
       await enquiry.mutateAsync({
         room_id: values.roomId,
-        // The backend takes plain dates, so send the day the guest picked
-        // rather than a UTC-shifted timestamp.
         check_in_date: format(values.checkIn, "yyyy-MM-dd"),
         check_out_date: format(values.checkOut, "yyyy-MM-dd"),
         adults: Number(values.adults),
-        children: Number(values.children),
+        children_under_5: Number(values.childrenUnder5),
+        children_6_to_12: Number(values.children6To12),
         guest_name: values.fullName,
         guest_phone: values.phone,
         guest_email: values.email,
         special_requests: values.message || undefined,
         meal_plan: values.mealPlan,
+        currency: values.currency,
       })
 
       toast.success("Request sent. Reception will confirm your room shortly.")
@@ -380,7 +387,6 @@ export function BookingForm({
                             disabled={!bookable}
                           >
                             {`Room ${unit.room_number} - ${formatRoomType(unit.room_type)}`}
-                            {offersBreakfast(unit) ? " · B&B" : null}
                             {bookable ? null : ` (${label})`}
                           </SelectItem>
                         )
@@ -466,14 +472,45 @@ export function BookingForm({
               </div>
 
               <div>
-                <span className={labelClass}>Children</span>
+                <span className={labelClass}>
+                  Children under 5{" "}
+                  <span className="text-sm font-normal text-brand-hint">(free)</span>
+                </span>
                 <Controller
                   control={control}
-                  name="children"
+                  name="childrenUnder5"
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger
-                        aria-label="Children"
+                        aria-label="Children under 5"
+                        className={triggerClass}
+                      >
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CHILD_OPTIONS.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+
+              <div>
+                <span className={labelClass}>
+                  Children 6–12{" "}
+                  <span className="text-sm font-normal text-brand-hint">(50% of plan rate)</span>
+                </span>
+                <Controller
+                  control={control}
+                  name="children6To12"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger
+                        aria-label="Children aged 6 to 12"
                         className={triggerClass}
                       >
                         <SelectValue />
@@ -521,22 +558,15 @@ export function BookingForm({
                 message={
                   errors.mealPlan?.message ??
                   (breakfastUnavailable
-                    ? `Room ${selectedUnit?.room_number} doesn't serve breakfast. Choose room only or another room.`
+                    ? `Room ${selectedUnit?.room_number} doesn't have a rate for that meal plan. Choose Bed Only or another room.`
                     : undefined)
                 }
               />
-              {mealPlan === "bed_and_breakfast" &&
-              selectedUnit &&
-              offersBreakfast(selectedUnit) ? (
-                <BreakfastEstimate
-                  rate={selectedUnit.bb_rate}
-                  adults={Number(adults) || 1}
+              {mealPlan !== "room_only" && selectedUnit ? (
+                <MealPlanEstimate
+                  surcharge={nights ? mealPlanSurcharge(selectedUnit, mealPlan, currency ?? "KES", nights) : 0}
                   nights={nights}
-                  total={
-                    nights
-                      ? breakfastCost(selectedUnit, Number(adults) || 1, nights)
-                      : undefined
-                  }
+                  mealPlanLabel={MEAL_PLAN_LABELS[mealPlan] ?? mealPlan}
                 />
               ) : null}
             </div>

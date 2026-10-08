@@ -108,8 +108,27 @@ const rateFormatter = new Intl.NumberFormat("en-KE", {
   maximumFractionDigits: 0,
 })
 
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  currencyDisplay: "code",
+  maximumFractionDigits: 0,
+})
+
 export function formatRate(amount: number) {
   return rateFormatter.format(amount).replace(/\u00a0/g, " ")
+}
+
+export function formatRateUsd(amount: number) {
+  return usdFormatter.format(amount).replace(/\u00a0/g, " ")
+}
+
+/**
+ * Format a rate in the given currency.
+ * currency = "KES" → "KES 2,500"; "USD" → "USD 40".
+ */
+export function formatRateInCurrency(amount: number, currency: string) {
+  return currency === "USD" ? formatRateUsd(amount) : formatRate(amount)
 }
 
 // A fixed white chip so the status stays legible over a photo, a dark photo
@@ -166,41 +185,61 @@ export function isBookable(unit: Unit) {
   return getStatusMeta(unit.status).bookable
 }
 
-/** Breakfast is offered only when it is switched on *and* priced. */
-export function offersBreakfast(
-  unit: Unit
-): unit is Unit & { bb_available: true; bb_rate: number } {
-  return Boolean(unit.bb_available) && typeof unit.bb_rate === "number"
-}
-
-/** Breakfast for the whole stay: adults × per-adult rate × nights. */
-export function breakfastCost(unit: Unit, adults: number, nights: number) {
-  return offersBreakfast(unit) ? adults * unit.bb_rate * nights : 0
-}
-
 /**
- * The meal plan a stay actually gets in this room: breakfast is dropped for
- * rooms that don't serve it rather than hiding the room from the results.
+ * Returns the plan rate for a given meal plan and currency.
+ * All rooms support all plans — the rate columns are always populated.
  */
-export function effectiveMealPlan(unit: Unit, requested: MealPlan): MealPlan {
-  return requested === "bed_and_breakfast" && offersBreakfast(unit)
-    ? "bed_and_breakfast"
-    : "room_only"
+export function getPlanRate(unit: Unit, mealPlan: MealPlan, currency: string): number {
+  const usd = currency === "USD"
+  switch (mealPlan) {
+    case "bed_and_breakfast":
+      return (usd ? unit.bb_rate_usd : unit.bb_rate) ?? (usd ? unit.base_rate_usd : unit.base_rate) ?? 0
+    case "half_board":
+      return (usd ? unit.hb_rate_usd : unit.hb_rate) ?? (usd ? unit.base_rate_usd : unit.base_rate) ?? 0
+    case "full_board":
+      return (usd ? unit.fb_rate_usd : unit.fb_rate) ?? (usd ? unit.base_rate_usd : unit.base_rate) ?? 0
+    default:
+      return (usd ? unit.base_rate_usd : unit.base_rate) ?? 0
+  }
+}
+
+/** Total stay cost: plan_rate × nights. */
+export function planCost(unit: Unit, mealPlan: MealPlan, currency: string, nights: number) {
+  return getPlanRate(unit, mealPlan, currency) * nights
 }
 
 /**
- * Where "Request this room" sends the guest. Read back on the contact page.
- * A stay is carried through when the room came from an availability search,
- * so the booking form opens with the dates already chosen.
+ * Extra cost of a meal plan vs room only, for the whole stay.
+ * Used to show "Adds KES X to your stay."
+ */
+export function mealPlanSurcharge(unit: Unit, mealPlan: MealPlan, currency: string, nights: number) {
+  if (mealPlan === "room_only") return 0
+  const base = (currency === "USD" ? unit.base_rate_usd : unit.base_rate) ?? 0
+  const plan = getPlanRate(unit, mealPlan, currency)
+  return Math.max(0, (plan - base) * nights)
+}
+
+/**
+ * The meal plan a stay actually gets — honours the request only if the
+ * room has a non-zero rate for that plan. Falls back to room_only.
+ */
+export function effectiveMealPlan(unit: Unit, requested: MealPlan, currency = "KES"): MealPlan {
+  if (requested === "room_only") return "room_only"
+  return getPlanRate(unit, requested, currency) > 0 ? requested : "room_only"
+}
+
+/**
+ * Where "Request this room" sends the guest.
  */
 export function requestRoomHref(unit: Unit, stay?: AvailabilitySearch) {
   const params = new URLSearchParams({ roomId: unit.room_id })
 
   if (stay) {
-    params.set("checkIn", stay.checkIn)
+    params.set("checkIn",  stay.checkIn)
     params.set("checkOut", stay.checkOut)
-    params.set("adults", stay.adults)
-    params.set("mealPlan", effectiveMealPlan(unit, stay.mealPlan))
+    params.set("adults",   stay.adults)
+    params.set("mealPlan", effectiveMealPlan(unit, stay.mealPlan, stay.currency))
+    params.set("currency", stay.currency ?? "KES")
   }
 
   return `/contact?${params.toString()}`

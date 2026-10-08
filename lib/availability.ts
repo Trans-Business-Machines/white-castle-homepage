@@ -1,10 +1,13 @@
 import {
   ADULT_OPTIONS,
   ANY_ROOM_TYPE,
+  CURRENCY_OPTIONS,
+  DEFAULT_CURRENCY,
   DEFAULT_MEAL_PLAN,
   MEAL_PLAN_OPTIONS,
   ROOM_TYPE_OPTIONS,
   type AvailabilityValues,
+  type BookingCurrency,
   type MealPlan,
 } from "@/lib/schemas/availability"
 import type { AvailabilitySearch } from "@/lib/types"
@@ -27,6 +30,10 @@ function isRoomType(
   return (ROOM_TYPE_OPTIONS as readonly string[]).includes(value)
 }
 
+function isCurrency(value: string): value is BookingCurrency {
+  return (CURRENCY_OPTIONS as readonly string[]).includes(value)
+}
+
 /** Query params are user-editable, so anything unrecognised is dropped. */
 export function parseAvailabilitySearch(params: {
   checkIn?: string
@@ -34,8 +41,9 @@ export function parseAvailabilitySearch(params: {
   adults?: string
   roomType?: string
   mealPlan?: string
+  currency?: string
 }): AvailabilitySearch | undefined {
-  const { checkIn, checkOut, adults, roomType, mealPlan } = params
+  const { checkIn, checkOut, adults, roomType, mealPlan, currency } = params
 
   if (!checkIn || !checkOut) return undefined
   if (!DATE_PATTERN.test(checkIn) || !DATE_PATTERN.test(checkOut)) {
@@ -45,9 +53,10 @@ export function parseAvailabilitySearch(params: {
   return {
     checkIn,
     checkOut,
-    adults: adults && isAdultOption(adults) ? adults : "1",
+    adults:   adults && isAdultOption(adults) ? adults : "1",
     ...(roomType && isRoomType(roomType) ? { roomType } : {}),
     mealPlan: mealPlan && isMealPlan(mealPlan) ? mealPlan : DEFAULT_MEAL_PLAN,
+    currency: currency && isCurrency(currency) ? currency : DEFAULT_CURRENCY,
   }
 }
 
@@ -56,14 +65,15 @@ export function toFormDefaults(
   search: AvailabilitySearch
 ): Partial<AvailabilityValues> {
   return {
-    checkIn: parseSearchDate(search.checkIn),
+    checkIn:  parseSearchDate(search.checkIn),
     checkOut: parseSearchDate(search.checkOut),
-    adults: isAdultOption(search.adults) ? search.adults : "1",
+    adults:   isAdultOption(search.adults) ? search.adults : "1",
     roomType:
       search.roomType && isRoomType(search.roomType)
         ? search.roomType
         : ANY_ROOM_TYPE,
     mealPlan: search.mealPlan,
+    currency: search.currency ?? DEFAULT_CURRENCY,
   }
 }
 
