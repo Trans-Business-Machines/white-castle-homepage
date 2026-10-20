@@ -8,7 +8,6 @@ import { GallerySection } from "@/components/gallery-section"
 import { EnquiryCta } from "@/components/enquiry-cta"
 import { LocationSection } from "@/components/location-section"
 import { NearbySection } from "@/components/nearby-section"
-import { OtherSpacesSection } from "@/components/other-spaces"
 
 export const metadata: Metadata = {
   title: "White Castle Motel · Eldoret",
@@ -20,7 +19,7 @@ export default function Page() {
   return (
     <>
       <HeroSection />
-      <SectionBand>
+      <SectionBand tinted>
         <Reveal>
           <StatsSection />
         </Reveal>
@@ -32,25 +31,20 @@ export default function Page() {
       </SectionBand>
       <SectionBand tinted>
         <Reveal>
-          <OtherSpacesSection />
-        </Reveal>
-      </SectionBand>
-      <SectionBand>
-        <Reveal>
           <GallerySection />
         </Reveal>
       </SectionBand>
-      <SectionBand tinted>
+      <SectionBand>
         <Reveal>
           <EnquiryCta />
         </Reveal>
       </SectionBand>
-      <SectionBand>
+      <SectionBand tinted>
         <Reveal>
           <LocationSection />
         </Reveal>
       </SectionBand>
-      <SectionBand tinted>
+      <SectionBand>
         <Reveal>
           <NearbySection />
         </Reveal>

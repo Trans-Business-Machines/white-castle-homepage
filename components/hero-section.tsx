@@ -16,9 +16,9 @@ export function HeroSection() {
           loading="eager"
           fetchPriority="high"
           sizes="(min-width: 1280px) 1216px"
-          className="object-center-left object-cover"
+          className="object-bottom object-cover"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-black/25" />
+        <div className="absolute inset-0 bg-linear-to-t from-black via-black/60 to-black/45" />
 
         <Reveal>
           <div className="relative flex min-h-136 flex-col justify-center p-6 pb-16 sm:min-h-160 sm:p-10 sm:pb-20 lg:min-h-176 lg:p-14 lg:pb-24">
@@ -50,7 +50,9 @@ export function HeroSection() {
         </Reveal>
       </div>
 
-      <AvailabilityForm className="relative z-10 mx-auto -mt-8 max-w-7xl px-5 py-16 sm:-mt-10" />
+      <div className="relative z-10 mx-auto -mt-8 max-w-7xl px-5 sm:-mt-10 sm:px-8">
+        <AvailabilityForm />
+      </div>
     </section>
   )
 }

@@ -1,4 +1,3 @@
-import { Disc3 } from "lucide-react"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import {
   FacilityCarousel,
@@ -20,11 +19,15 @@ import SteamBath from "@/public/assets/images/health-club-steam-bath.jpg"
 import HealthClubLounge from "@/public/assets/images/health-club-lounge.jpg"
 import MassageRoom from "@/public/assets/images/health-club-massage-room.jpg"
 import Lockers from "@/public/assets/images/health-club-lockers.jpg"
+import LoungeDanceFloor from "@/public/assets/images/the-lounge-dance-floor.jpg"
+import LoungeBooths from "@/public/assets/images/the-lounge-booths.jpg"
+import LoungeBar from "@/public/assets/images/the-lounge-bar.jpg"
+import LoungeSeating from "@/public/assets/images/the-lounge-seating.jpg"
 
 const venues: {
   id: string
   title: string
-  photos?: FacilityPhoto[]
+  photos: FacilityPhoto[]
   description: string
 }[] = [
   {
@@ -79,10 +82,16 @@ const venues: {
       "A timber-lined steam bath and sauna, a massage room and a quiet lounge to cool down in, with lockers for your things. Sweat out a long drive before dinner.",
   },
   {
-    id: "discotheque",
-    title: "SAMS Discotheque",
+    id: "lounge",
+    title: "The Lounge",
+    photos: [
+      { src: LoungeDanceFloor, alt: "The Lounge dance floor under the lights" },
+      { src: LoungeBooths, alt: "Red and black booths beneath painted murals" },
+      { src: LoungeBar, alt: "The Lounge bar with its row of stools" },
+      { src: LoungeSeating, alt: "Booth seating along the length of the room" },
+    ],
     description:
-      "Opening soon for weekend nights, in its own wing away from the bedrooms so the music stays where the dancing is.",
+      "Booths, murals and its own bar around a dance floor, in a wing away from the bedrooms so the music stays where the dancing is.",
   },
 ]
 
@@ -100,23 +109,12 @@ export function VenuesSection() {
             id={venue.id}
             className="scroll-mt-24 gap-0 border-0 bg-transparent p-0 py-1.5 ring-0"
           >
-            {venue.photos ? (
-              <FacilityCarousel
-                photos={venue.photos}
-                sizes="(min-width: 640px) 45vw, 92vw"
-                className="rounded-xl"
-                slideClassName="aspect-16/10"
-              />
-            ) : (
-              <div className="flex aspect-16/10 flex-col items-center justify-center gap-3 rounded-xl bg-muted text-center">
-                <Disc3
-                  className="size-10 text-primary"
-                  strokeWidth={1.25}
-                  aria-hidden="true"
-                />
-                <p className="font-heading text-lg font-bold">Coming soon</p>
-              </div>
-            )}
+            <FacilityCarousel
+              photos={venue.photos}
+              sizes="(min-width: 640px) 45vw, 92vw"
+              className="rounded-xl"
+              slideClassName="aspect-16/10"
+            />
             <CardTitle className="mt-4 font-heading text-xl font-bold">
               {venue.title}
             </CardTitle>

@@ -8,28 +8,32 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
-import DoubleRoom from "@/public/assets/images/double-room.png"
+import DeluxeDoubleRoom from "@/public/assets/images/deluxe-double-room.jpg"
 import Restaurant from "@/public/assets/images/restaurant.jpg"
 import BartenderCocktails from "@/public/assets/images/bartender-cocktails.jpg"
-import TwinRoom from "@/public/assets/images/twin-room.png"
+import CarpetedDoubleRoom from "@/public/assets/images/carpeted-double-room.jpg"
 import Lounge from "@/public/assets/images/lounge.jpg"
 import CafeDiningRoom from "@/public/assets/images/cafe-dining-room.png"
 import PoolRoom from "@/public/assets/images/pool-room.png"
 import ChickenAndChips from "@/public/assets/images/chicken-and-chips.jpg"
 import MainBarCounter from "@/public/assets/images/main-bar-counter.jpg"
 import Cocktails from "@/public/assets/images/cocktails.jpg"
+import LoungeDanceFloor from "@/public/assets/images/the-lounge-dance-floor.jpg"
+import LoungeBooths from "@/public/assets/images/the-lounge-booths.jpg"
 
 const shots = [
-  { id: 1, imageURI: DoubleRoom, alt: "Double room" },
+  { id: 1, imageURI: DeluxeDoubleRoom, alt: "Deluxe double room" },
   { id: 2, imageURI: Restaurant, alt: "Restaurant" },
   { id: 3, imageURI: BartenderCocktails, alt: "Bartender with cocktails" },
-  { id: 4, imageURI: TwinRoom, alt: "Twin room" },
+  { id: 4, imageURI: CarpetedDoubleRoom, alt: "Carpeted room with two beds" },
   { id: 5, imageURI: Lounge, alt: "Lounge" },
   { id: 6, imageURI: CafeDiningRoom, alt: "Cafe" },
   { id: 7, imageURI: PoolRoom, alt: "Pool tables" },
   { id: 8, imageURI: ChickenAndChips, alt: "Chicken and chips" },
   { id: 9, imageURI: MainBarCounter, alt: "Main bar counter" },
   { id: 10, imageURI: Cocktails, alt: "Cocktails" },
+  { id: 11, imageURI: LoungeDanceFloor, alt: "The Lounge dance floor" },
+  { id: 12, imageURI: LoungeBooths, alt: "Booths in The Lounge" },
 ]
 
 export function GallerySection() {

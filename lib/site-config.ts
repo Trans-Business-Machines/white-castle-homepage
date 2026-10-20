@@ -41,7 +41,7 @@ export const onSiteNav = [
   { label: "Main bar", href: "/facilities#bar" },
   { label: "Cafe", href: "/facilities#cafe" },
   { label: "Health club & sauna", href: "/facilities#health-club" },
-  { label: "SAMS Discotheque", href: "/facilities#discotheque" },
+  { label: "The Lounge", href: "/facilities#lounge" },
 ] as const
 
 export const stays: StayCardProps[] = [

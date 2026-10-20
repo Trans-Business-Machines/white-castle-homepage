@@ -102,8 +102,12 @@ export function AvailabilityForm({
         className
       )}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(6,minmax(0,1fr))_auto] lg:items-end lg:gap-0">
-        <div className="lg:px-5 lg:first:pl-2">
+      {/* One row only from xl: below that the six fields can't all show
+          their longest value ("Non-resident (USD)", "Standard Double"), so
+          they wrap into a grid. The row's tracks are weighted to those
+          longest values rather than split evenly, so nothing truncates. */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,0.75fr)_minmax(0,1.2fr)_minmax(0,1.15fr)_minmax(0,1.35fr)_auto] xl:items-end xl:gap-0">
+        <div className="xl:px-4 xl:first:pl-2">
           <span className={fieldLabel}>Check in</span>
           <Controller
             control={control}
@@ -122,7 +126,7 @@ export function AvailabilityForm({
           />
         </div>
 
-        <div className="lg:border-l lg:px-5">
+        <div className="xl:border-l xl:px-4">
           <span className={fieldLabel}>Check out</span>
           <Controller
             control={control}
@@ -141,7 +145,7 @@ export function AvailabilityForm({
           />
         </div>
 
-        <div className="lg:border-l lg:px-5">
+        <div className="xl:border-l xl:px-4">
           <span className={fieldLabel}>Adults</span>
           <Controller
             control={control}
@@ -171,7 +175,7 @@ export function AvailabilityForm({
           />
         </div>
 
-        <div className="lg:border-l lg:px-5">
+        <div className="xl:border-l xl:px-4">
           <span className={fieldLabel}>Room type</span>
           <Controller
             control={control}
@@ -203,9 +207,7 @@ export function AvailabilityForm({
           />
         </div>
 
-        {/* Spans both columns on small screens so the odd fifth field
-            doesn't leave a gap beside it. */}
-        <div className="sm:col-span-2 lg:col-span-1 lg:border-l lg:px-5">
+        <div className="xl:border-l xl:px-4">
           <span className={fieldLabel}>Meal plan</span>
           <Controller
             control={control}
@@ -235,7 +237,7 @@ export function AvailabilityForm({
           />
         </div>
 
-        <div className="sm:col-span-2 lg:col-span-1 lg:border-l lg:px-5">
+        <div className="xl:border-l xl:px-4">
           <span className={fieldLabel}>Residency</span>
           <Controller
             control={control}
@@ -269,15 +271,17 @@ export function AvailabilityForm({
           type="submit"
           size="lg"
           disabled={isSubmitting}
-          className="h-12 rounded-full px-6 text-base font-semibold sm:col-span-2 lg:col-span-1 lg:ml-5"
+          className="h-12 rounded-full px-6 text-base font-semibold sm:col-span-2 lg:col-span-3 xl:col-span-1 xl:ml-4"
         >
           <Search />
-          Check availability
+          {/* The row has no room for the full label beside six fields. */}
+          <span className="xl:hidden">Check availability</span>
+          <span className="hidden xl:inline">Search</span>
         </Button>
       </div>
 
       {errors.checkIn || errors.checkOut ? (
-        <p role="alert" className="mt-3 text-sm text-destructive lg:px-2">
+        <p role="alert" className="mt-3 text-sm text-destructive xl:px-2">
           {errors.checkIn?.message ?? errors.checkOut?.message}
         </p>
       ) : null}

@@ -1,12 +1,14 @@
 import type { StaticImageData } from "next/image"
-import SingleRoom from "@/public/assets/images/single-room.jpg"
-import DoubleRoom from "@/public/assets/images/double-room.png"
-import DoubleRoom2 from "@/public/assets/images/double-room-2.png"
-import DoubleRoom3 from "@/public/assets/images/double-room-3.jpg"
-import TwinRoom from "@/public/assets/images/twin-room.png"
-import TwinRoom2 from "@/public/assets/images/twin-room-2.jpg"
-import RoomInterior from "@/public/assets/images/room-interior.jpg"
-import Bathroom from "@/public/assets/images/bathroom.png"
+import DeluxeDoubleRoom from "@/public/assets/images/deluxe-double-room.jpg"
+import DeluxeDoubleTeaTray from "@/public/assets/images/deluxe-double-tea-tray.jpg"
+import CarpetedDoubleRoom from "@/public/assets/images/carpeted-double-room.jpg"
+import CarpetedDoubleSittingArea from "@/public/assets/images/carpeted-double-sitting-area.jpg"
+import SingleRoomWindow from "@/public/assets/images/single-room-window.jpg"
+import SingleRoomArmchair from "@/public/assets/images/single-room-armchair.jpg"
+import DeluxeSingleRoom from "@/public/assets/images/deluxe-single-room.jpg"
+import DeluxeSingleBathroom from "@/public/assets/images/deluxe-single-bathroom.jpg"
+import BnbRoom from "@/public/assets/images/bnb-room.jpg"
+import RoomSittingArea from "@/public/assets/images/room-sitting-area.jpg"
 import Restaurant from "@/public/assets/images/restaurant.jpg"
 import RestaurantBuffet from "@/public/assets/images/restaurant-buffet.jpg"
 import Buffet from "@/public/assets/images/buffet.jpg"
@@ -22,6 +24,10 @@ import BartenderCocktail from "@/public/assets/images/bartender-cocktail.jpg"
 import Cocktails from "@/public/assets/images/cocktails.jpg"
 import Lounge from "@/public/assets/images/lounge.jpg"
 import LoungeSeating from "@/public/assets/images/lounge-seating.png"
+import LoungeDanceFloor from "@/public/assets/images/the-lounge-dance-floor.jpg"
+import LoungeBooths from "@/public/assets/images/the-lounge-booths.jpg"
+import LoungeBar from "@/public/assets/images/the-lounge-bar.jpg"
+import LoungeSeatingNew from "@/public/assets/images/the-lounge-seating.jpg"
 import PoolRoom from "@/public/assets/images/pool-room.png"
 import PoolTableGame from "@/public/assets/images/pool-table-game.jpg"
 import ConferenceSetup from "@/public/assets/images/conference-setup.jpg"
@@ -52,7 +58,12 @@ export type GalleryItem = {
 }
 
 export const galleryItems: GalleryItem[] = [
-  { id: 1, category: "rooms", image: DoubleRoom, alt: "Double room" },
+  {
+    id: 1,
+    category: "rooms",
+    image: DeluxeDoubleRoom,
+    alt: "Deluxe double room",
+  },
   { id: 2, category: "eat-drink", image: Restaurant, alt: "Restaurant" },
   {
     id: 3,
@@ -60,10 +71,26 @@ export const galleryItems: GalleryItem[] = [
     image: BartenderCocktails,
     alt: "Bartender with a row of cocktails",
   },
-  { id: 4, category: "rooms", image: TwinRoom, alt: "Twin room" },
+  {
+    id: 4,
+    category: "rooms",
+    image: CarpetedDoubleRoom,
+    alt: "Carpeted room with two beds",
+  },
   { id: 5, category: "lounge", image: Lounge, alt: "Lounge" },
+  {
+    id: 34,
+    category: "lounge",
+    image: LoungeDanceFloor,
+    alt: "The Lounge dance floor",
+  },
   { id: 6, category: "eat-drink", image: CafeDiningRoom, alt: "Cafe" },
-  { id: 7, category: "rooms", image: SingleRoom, alt: "Single room" },
+  {
+    id: 7,
+    category: "rooms",
+    image: SingleRoomWindow,
+    alt: "Single room by the window",
+  },
   { id: 8, category: "lounge", image: PoolRoom, alt: "Pool tables" },
   {
     id: 9,
@@ -71,7 +98,18 @@ export const galleryItems: GalleryItem[] = [
     image: ChickenAndChips,
     alt: "Chicken and chips",
   },
-  { id: 10, category: "rooms", image: Bathroom, alt: "Bathroom" },
+  {
+    id: 10,
+    category: "rooms",
+    image: DeluxeSingleBathroom,
+    alt: "Bathroom in a deluxe single",
+  },
+  {
+    id: 35,
+    category: "lounge",
+    image: LoungeBooths,
+    alt: "Booths in The Lounge",
+  },
   {
     id: 11,
     category: "eat-drink",
@@ -84,7 +122,12 @@ export const galleryItems: GalleryItem[] = [
     image: ConferenceSetup,
     alt: "Conference hall set for a meeting",
   },
-  { id: 13, category: "rooms", image: DoubleRoom2, alt: "Double room" },
+  {
+    id: 13,
+    category: "rooms",
+    image: DeluxeSingleRoom,
+    alt: "Deluxe single room",
+  },
   { id: 14, category: "eat-drink", image: Cocktails, alt: "Cocktails" },
   {
     id: 15,
@@ -98,7 +141,12 @@ export const galleryItems: GalleryItem[] = [
     image: RestaurantBuffet,
     alt: "Restaurant with the buffet laid out",
   },
-  { id: 17, category: "rooms", image: TwinRoom2, alt: "Twin room" },
+  {
+    id: 17,
+    category: "rooms",
+    image: CarpetedDoubleSittingArea,
+    alt: "Sofa, desk and TV in a carpeted room",
+  },
   {
     id: 18,
     category: "eat-drink",
@@ -106,8 +154,14 @@ export const galleryItems: GalleryItem[] = [
     alt: "Waitress serving a guest",
   },
   { id: 19, category: "lounge", image: LoungeSeating, alt: "Lounge seating" },
+  { id: 36, category: "lounge", image: LoungeBar, alt: "The Lounge bar" },
   { id: 20, category: "eat-drink", image: Buffet, alt: "Buffet" },
-  { id: 21, category: "rooms", image: RoomInterior, alt: "Room" },
+  {
+    id: 21,
+    category: "rooms",
+    image: SingleRoomArmchair,
+    alt: "Single room with an armchair",
+  },
   {
     id: 22,
     category: "eat-drink",
@@ -115,8 +169,19 @@ export const galleryItems: GalleryItem[] = [
     alt: "Bartender holding a cocktail",
   },
   { id: 23, category: "eat-drink", image: CafeSeating, alt: "Cafe seating" },
-  { id: 24, category: "rooms", image: DoubleRoom3, alt: "Double room" },
+  {
+    id: 24,
+    category: "rooms",
+    image: BnbRoom,
+    alt: "Room with a kitchenette and dining table",
+  },
   { id: 25, category: "eat-drink", image: FreshJuice, alt: "Fresh juice" },
+  {
+    id: 37,
+    category: "lounge",
+    image: LoungeSeatingNew,
+    alt: "Booth seating in The Lounge",
+  },
   {
     id: 26,
     category: "eat-drink",
@@ -128,6 +193,12 @@ export const galleryItems: GalleryItem[] = [
     category: "conference",
     image: ConferenceUShape,
     alt: "Meeting room set in a U-shape",
+  },
+  {
+    id: 38,
+    category: "rooms",
+    image: DeluxeDoubleTeaTray,
+    alt: "Tea tray and water in a deluxe double",
   },
   {
     id: 28,
@@ -153,6 +224,12 @@ export const galleryItems: GalleryItem[] = [
     category: "eat-drink",
     image: CitrusCocktail,
     alt: "Cocktail with a slice of lime",
+  },
+  {
+    id: 39,
+    category: "rooms",
+    image: RoomSittingArea,
+    alt: "Sitting area by a bedroom window",
   },
   {
     id: 33,

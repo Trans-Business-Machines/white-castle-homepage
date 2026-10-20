@@ -3,7 +3,6 @@ import { Reveal } from "@/components/reveal"
 import { SectionBand } from "@/components/section-band"
 import { PageHeader } from "@/components/page-header"
 import { RatesSection } from "@/components/rates-section"
-import { OtherSpacesSection } from "@/components/other-spaces"
 import { UnitListings } from "@/components/unit-listings"
 import { parseAvailabilitySearch } from "@/lib/availability"
 
@@ -39,11 +38,6 @@ export default async function Page({ searchParams }: Props) {
       <SectionBand>
         <Reveal>
           <RatesSection />
-        </Reveal>
-      </SectionBand>
-      <SectionBand tinted>
-        <Reveal>
-          <OtherSpacesSection />
         </Reveal>
       </SectionBand>
     </>
