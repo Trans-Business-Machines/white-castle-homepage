@@ -12,9 +12,8 @@ import RoomSittingArea from "@/public/assets/images/room-sitting-area.jpg"
 import Restaurant from "@/public/assets/images/restaurant.jpg"
 import RestaurantBuffet from "@/public/assets/images/restaurant-buffet.jpg"
 import Buffet from "@/public/assets/images/buffet.jpg"
-import CafeDiningRoom from "@/public/assets/images/cafe-dining-room.png"
-import CafeSeating from "@/public/assets/images/cafe-seating.png"
-import CafeTableDetail from "@/public/assets/images/cafe-table-detail.jpg"
+import Cafeteria from "@/public/assets/images/cafeteria.jpg"
+import CafeGuestSmoothie from "@/public/assets/images/cafe-guest-smoothie.jpg"
 import CafeTableService from "@/public/assets/images/cafe-table-service.png"
 import ChickenAndChips from "@/public/assets/images/chicken-and-chips.jpg"
 import FreshJuice from "@/public/assets/images/fresh-juice.jpg"
@@ -32,8 +31,8 @@ import PoolRoom from "@/public/assets/images/pool-room.png"
 import PoolTableGame from "@/public/assets/images/pool-table-game.jpg"
 import ConferenceSetup from "@/public/assets/images/conference-setup.jpg"
 import ConferenceUShape from "@/public/assets/images/conference-u-shape.jpg"
-import ConferenceTables from "@/public/assets/images/conference-tables.jpg"
-import ConferenceClassroom from "@/public/assets/images/conference-classroom.jpg"
+import ConferenceHallTables from "@/public/assets/images/conference-hall-tables.jpg"
+import ConferenceHall from "@/public/assets/images/conference-hall.jpg"
 import Smoothies from "@/public/assets/images/smoothies.jpg"
 import BartenderServingCocktail from "@/public/assets/images/bartender-serving-cocktail.jpg"
 import Milkshake from "@/public/assets/images/milkshake.jpg"
@@ -84,7 +83,7 @@ export const galleryItems: GalleryItem[] = [
     image: LoungeDanceFloor,
     alt: "The Lounge dance floor",
   },
-  { id: 6, category: "eat-drink", image: CafeDiningRoom, alt: "Cafe" },
+  { id: 6, category: "eat-drink", image: Cafeteria, alt: "Cafe" },
   {
     id: 7,
     category: "rooms",
@@ -168,7 +167,12 @@ export const galleryItems: GalleryItem[] = [
     image: BartenderCocktail,
     alt: "Bartender holding a cocktail",
   },
-  { id: 23, category: "eat-drink", image: CafeSeating, alt: "Cafe seating" },
+  {
+    id: 23,
+    category: "eat-drink",
+    image: CafeGuestSmoothie,
+    alt: "Guest with a smoothie in the cafe",
+  },
   {
     id: 24,
     category: "rooms",
@@ -181,12 +185,6 @@ export const galleryItems: GalleryItem[] = [
     category: "lounge",
     image: LoungeSeatingNew,
     alt: "Booth seating in The Lounge",
-  },
-  {
-    id: 26,
-    category: "eat-drink",
-    image: CafeTableDetail,
-    alt: "Cafe table",
   },
   {
     id: 27,
@@ -215,8 +213,8 @@ export const galleryItems: GalleryItem[] = [
   {
     id: 30,
     category: "conference",
-    image: ConferenceTables,
-    alt: "Meeting room tables laid with water",
+    image: ConferenceHallTables,
+    alt: "Conference tables dressed in white and blue",
   },
   { id: 31, category: "eat-drink", image: Milkshake, alt: "Milkshake" },
   {
@@ -234,7 +232,7 @@ export const galleryItems: GalleryItem[] = [
   {
     id: 33,
     category: "conference",
-    image: ConferenceClassroom,
-    alt: "Conference hall set classroom-style",
+    image: ConferenceHall,
+    alt: "Conference hall set with rows of tables",
   },
 ]

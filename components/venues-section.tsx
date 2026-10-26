@@ -3,8 +3,6 @@ import {
   FacilityCarousel,
   type FacilityPhoto,
 } from "@/components/facility-carousel"
-import CafeDiningRoom from "@/public/assets/images/cafe-dining-room.png"
-import CafeSeating from "@/public/assets/images/cafe-seating.png"
 import CafeTableService from "@/public/assets/images/cafe-table-service.png"
 import Cafeteria from "@/public/assets/images/cafeteria.jpg"
 import PoolRoom from "@/public/assets/images/pool-room.png"
@@ -34,10 +32,8 @@ const venues: {
     id: "cafe",
     title: "Cafe",
     photos: [
-      { src: CafeDiningRoom, alt: "The cafe dining room" },
-      { src: CafeTableService, alt: "Lunch being served at a cafe table" },
-      { src: CafeSeating, alt: "Cafe tables by the windows" },
       { src: Cafeteria, alt: "The cafeteria seating" },
+      { src: CafeTableService, alt: "Lunch being served at a cafe table" },
     ],
     description:
       "Breakfast from six, chai all day, and plates that arrive quickly when you have a bus to catch. Open to guests and to town.",

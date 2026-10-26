@@ -6,14 +6,14 @@ import {
 } from "@/components/facility-carousel"
 import ConferenceSetup from "@/public/assets/images/conference-setup.jpg"
 import ConferenceUShape from "@/public/assets/images/conference-u-shape.jpg"
-import ConferenceTables from "@/public/assets/images/conference-tables.jpg"
-import ConferenceClassroom from "@/public/assets/images/conference-classroom.jpg"
+import ConferenceHallTables from "@/public/assets/images/conference-hall-tables.jpg"
+import ConferenceHall from "@/public/assets/images/conference-hall.jpg"
 
 const photos: FacilityPhoto[] = [
   { src: ConferenceSetup, alt: "The conference hall set for a full day" },
   { src: ConferenceUShape, alt: "The hall in a U-shape layout" },
-  { src: ConferenceTables, alt: "The hall set with tables" },
-  { src: ConferenceClassroom, alt: "The hall in classroom layout" },
+  { src: ConferenceHallTables, alt: "Tables dressed in white and blue" },
+  { src: ConferenceHall, alt: "The hall set with rows of tables" },
 ]
 
 const tags = ["Seats 120", "Projector & PA", "Tea & lunch service"]

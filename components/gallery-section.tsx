@@ -13,7 +13,7 @@ import Restaurant from "@/public/assets/images/restaurant.jpg"
 import BartenderCocktails from "@/public/assets/images/bartender-cocktails.jpg"
 import CarpetedDoubleRoom from "@/public/assets/images/carpeted-double-room.jpg"
 import Lounge from "@/public/assets/images/lounge.jpg"
-import CafeDiningRoom from "@/public/assets/images/cafe-dining-room.png"
+import Cafeteria from "@/public/assets/images/cafeteria.jpg"
 import PoolRoom from "@/public/assets/images/pool-room.png"
 import ChickenAndChips from "@/public/assets/images/chicken-and-chips.jpg"
 import MainBarCounter from "@/public/assets/images/main-bar-counter.jpg"
@@ -27,7 +27,7 @@ const shots = [
   { id: 3, imageURI: BartenderCocktails, alt: "Bartender with cocktails" },
   { id: 4, imageURI: CarpetedDoubleRoom, alt: "Carpeted room with two beds" },
   { id: 5, imageURI: Lounge, alt: "Lounge" },
-  { id: 6, imageURI: CafeDiningRoom, alt: "Cafe" },
+  { id: 6, imageURI: Cafeteria, alt: "Cafe" },
   { id: 7, imageURI: PoolRoom, alt: "Pool tables" },
   { id: 8, imageURI: ChickenAndChips, alt: "Chicken and chips" },
   { id: 9, imageURI: MainBarCounter, alt: "Main bar counter" },
