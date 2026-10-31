@@ -7,6 +7,8 @@ import type { NextConfig } from "next"
 const API_PROXY_TARGET = process.env.API_PROXY_TARGET
 
 const nextConfig: NextConfig = {
+  // Hides the framework fingerprint from responses.
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       // Cloudflare R2 — room photos and media

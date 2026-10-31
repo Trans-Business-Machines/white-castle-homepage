@@ -5,12 +5,20 @@ import { PageHeader } from "@/components/page-header"
 import { ConferenceSection } from "@/components/conference-section"
 import { VenuesSection } from "@/components/venues-section"
 import { GuestServicesSection } from "@/components/guest-services-section"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Facilities & services · White Castle Motel",
+export const metadata: Metadata = pageMetadata({
+  title: "Facilities & services",
   description:
     "A conference hall for 120, the main bar, the pool bar, the cafe, a health club with sauna and The Lounge, everything on one compound in central Eldoret.",
-}
+  path: "/facilities",
+  keywords: [
+    "conference hall Eldoret",
+    "Eldoret bar and restaurant",
+    "sauna Eldoret",
+    "event venue Eldoret",
+  ],
+})
 
 export default function Page() {
   return (

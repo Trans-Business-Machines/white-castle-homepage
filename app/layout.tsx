@@ -3,19 +3,76 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { TooltipProvider } from "@/components/ui/tooltip"
-import { Metadata } from "next"
+import { Metadata, Viewport } from "next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { QueryProvider } from "@/providers/query-provider"
 import { Toaster } from "react-hot-toast"
+import { JsonLd } from "@/components/json-ld"
+import { siteConfig } from "@/lib/site-config"
+import { websiteJsonLd } from "@/lib/structured-data"
+import {
+  baseKeywords,
+  defaultDescription,
+  defaultTitle,
+  ogImage,
+  siteUrl,
+  titleTemplate,
+} from "@/lib/seo"
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "White Castle Motel · Eldoret",
-    template: "%s",
+    default: defaultTitle,
+    template: titleTemplate,
   },
-  keywords: ["Motel", "Hotel", "Eldoret", "Bookings"],
-  description: "Eldoret white castle motel ltd",
+  description: defaultDescription,
+  applicationName: siteConfig.fullName,
+  category: "travel",
+  keywords: baseKeywords,
+  authors: [{ name: siteConfig.fullName, url: siteUrl }],
+  creator: siteConfig.fullName,
+  publisher: siteConfig.fullName,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: "/",
+    siteName: siteConfig.fullName,
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [ogImage.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff",
 }
 
 const manropeHeading = Manrope({
@@ -32,7 +89,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-KE"
       suppressHydrationWarning
       className={cn(
         "antialiased",
@@ -42,6 +99,7 @@ export default function RootLayout({
       )}
     >
       <body>
+        <JsonLd data={websiteJsonLd()} />
         <ThemeProvider forcedTheme="light" enableSystem={false}>
           <QueryProvider>
             <TooltipProvider>

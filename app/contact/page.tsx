@@ -6,12 +6,20 @@ import { ContactMethods } from "@/components/contact-methods"
 import { BookingForm } from "@/components/booking-form"
 import { BookingSteps } from "@/components/booking-steps"
 import { MapCard } from "@/components/map-card"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Contact & enquiries · White Castle Motel",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact & booking enquiries",
   description:
     "Send a booking request to White Castle Motel, Uganda Road, Eldoret. Reception is answered 24 hours, and WhatsApp is fastest for same-day rooms.",
-}
+  path: "/contact",
+  keywords: [
+    "White Castle Motel contacts",
+    "Eldoret motel booking",
+    "Eldoret hotel phone number",
+    "Uganda Road Eldoret accommodation",
+  ],
+})
 
 interface Props {
   searchParams: Promise<{

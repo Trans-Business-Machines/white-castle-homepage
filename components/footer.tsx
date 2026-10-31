@@ -14,18 +14,34 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-neutral-300">
               <li className="inline-flex items-center gap-5">
                 <Phone size={20} />
-                <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
-                  {siteConfig.phone}
-                </a>
+                <div>
+                  <a href={`tel:${siteConfig.phoneIntl}`}>
+                    {siteConfig.phone}
+                  </a>
+                  <span className="block text-sm text-neutral-400">
+                    Alternative:{" "}
+                    <a href={`tel:${siteConfig.altPhoneIntl}`}>
+                      {siteConfig.altPhone}
+                    </a>
+                  </span>
+                </div>
               </li>
               <li className="inline-flex items-center gap-5">
                 <Mail size={20} />
-                <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="wrap-anywhere"
+                >
+                  {siteConfig.email}
+                </a>
               </li>
               <li className="inline-flex items-center gap-5">
                 <MapPin size={20} />
                 <p className="leading-relaxed">
                   {siteConfig.address.street}
+                  <br />
+                  {siteConfig.address.poBox}, {siteConfig.address.city}{" "}
+                  {siteConfig.address.postalCode}
                   <br />
                   {siteConfig.address.region}
                 </p>

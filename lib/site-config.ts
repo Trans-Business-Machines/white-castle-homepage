@@ -9,13 +9,29 @@ export const siteConfig = {
   tagline: "Motel · Eldoret",
   description:
     "118 self-contained rooms in the middle of Eldoret town, with the Sergoit and Nandi hills on the horizon. Quiet, warm and open around the clock.",
-  phone: "+254 700 000 000",
-  email: "stay@whitecastlemotel.co.ke",
+  phone: "0741 884 833",
+  phoneIntl: "+254741884833",
+  altPhone: "0758 821 763",
+  altPhoneIntl: "+254758821763",
+  email: "reservations@eldoretwhitecastle.com",
   address: {
     street: "Uganda Road, Eldoret CBD",
+    poBox: "P.O. Box 566",
+    postalCode: "30100",
+    city: "Eldoret",
     region: "Uasin Gishu County, Kenya",
   },
-  whatsapp: "https://wa.me/254700000000",
+  whatsapp: "https://wa.me/254741884833",
+  // Used for local-business structured data and the embedded map.
+  geo: {
+    latitude: 0.518402,
+    longitude: 35.270575,
+  },
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=Eldoret+White+Castle+Motel",
+  checkIn: "12:00",
+  checkOut: "10:00",
+  numberOfRooms: 118,
+  locale: "en_KE",
 } as const
 
 export const mainNav = [

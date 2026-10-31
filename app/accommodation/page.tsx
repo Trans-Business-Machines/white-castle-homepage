@@ -5,12 +5,20 @@ import { PageHeader } from "@/components/page-header"
 import { RatesSection } from "@/components/rates-section"
 import { UnitListings } from "@/components/unit-listings"
 import { parseAvailabilitySearch } from "@/lib/availability"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Accommodation · White Castle Motel",
+export const metadata: Metadata = pageMetadata({
+  title: "Accommodation & room rates",
   description:
     "Single, standard, deluxe, family rooms and suites in central Eldoret, each self-contained with a hot shower. Check live availability and request a room.",
-}
+  path: "/accommodation",
+  keywords: [
+    "Eldoret room rates",
+    "self-contained rooms Eldoret",
+    "family rooms Eldoret",
+    "book accommodation Eldoret",
+  ],
+})
 
 interface Props {
   searchParams: Promise<{

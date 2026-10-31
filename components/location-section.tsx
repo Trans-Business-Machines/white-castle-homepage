@@ -27,6 +27,10 @@ export function LocationSection() {
               <div>
                 <dt className="font-medium">{siteConfig.address.street}</dt>
                 <dd className="text-muted-foreground">
+                  {siteConfig.address.poBox}, {siteConfig.address.city}{" "}
+                  {siteConfig.address.postalCode}
+                </dd>
+                <dd className="text-muted-foreground">
                   {siteConfig.address.region}
                 </dd>
               </div>
@@ -35,12 +39,23 @@ export function LocationSection() {
               <MessageCircle className="mt-1 size-5 shrink-0 text-primary" />
               <div>
                 <dt className="font-medium">
-                  <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
+                  <a href={`tel:${siteConfig.phoneIntl}`}>
                     {siteConfig.phone}
                   </a>
                 </dt>
                 <dd className="text-muted-foreground">
-                  <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+                  Alternative:{" "}
+                  <a href={`tel:${siteConfig.altPhoneIntl}`}>
+                    {siteConfig.altPhone}
+                  </a>
+                </dd>
+                <dd className="text-muted-foreground">
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="wrap-anywhere"
+                  >
+                    {siteConfig.email}
+                  </a>
                 </dd>
               </div>
             </div>

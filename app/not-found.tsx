@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/page-header"
 
 export const metadata: Metadata = {
-  title: "Page not found · White Castle Motel",
+  title: "Page not found",
   description: "The page you were looking for isn't here.",
+  robots: { index: false, follow: true },
 }
 
 export default function NotFound() {

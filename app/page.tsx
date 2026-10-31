@@ -8,16 +8,28 @@ import { GallerySection } from "@/components/gallery-section"
 import { EnquiryCta } from "@/components/enquiry-cta"
 import { LocationSection } from "@/components/location-section"
 import { NearbySection } from "@/components/nearby-section"
+import { JsonLd } from "@/components/json-ld"
+import { hotelJsonLd } from "@/lib/structured-data"
+import { defaultTitle, pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "White Castle Motel · Eldoret",
+export const metadata: Metadata = pageMetadata({
+  title: defaultTitle,
   description:
     "118 self-contained rooms in the middle of Eldoret town, with hot showers, room service and a conference hall. Open around the clock.",
-}
+  path: "/",
+  absoluteTitle: true,
+  keywords: [
+    "hotels in Eldoret town",
+    "Eldoret motel rooms",
+    "conference hall Eldoret",
+    "book a room in Eldoret",
+  ],
+})
 
 export default function Page() {
   return (
     <>
+      <JsonLd data={hotelJsonLd()} />
       <HeroSection />
       <SectionBand tinted>
         <Reveal>

@@ -6,8 +6,8 @@ const methods = [
   {
     label: "Call reception",
     value: siteConfig.phone,
-    note: "Answered 24 hours",
-    href: `tel:${siteConfig.phone.replace(/\s/g, "")}`,
+    note: `Answered 24 hours · Alternative ${siteConfig.altPhone}`,
+    href: `tel:${siteConfig.phoneIntl}`,
     highlight: false,
   },
   {
@@ -27,7 +27,7 @@ const methods = [
   {
     label: "Visit",
     value: siteConfig.address.street,
-    note: siteConfig.address.region,
+    note: `${siteConfig.address.poBox}, ${siteConfig.address.city} ${siteConfig.address.postalCode}`,
     href: "#map",
     highlight: false,
   },
