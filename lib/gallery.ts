@@ -5,7 +5,6 @@ import CarpetedDoubleRoom from "@/public/assets/images/carpeted-double-room.jpg"
 import CarpetedDoubleSittingArea from "@/public/assets/images/carpeted-double-sitting-area.jpg"
 import SingleRoomWindow from "@/public/assets/images/single-room-window.jpg"
 import SingleRoomArmchair from "@/public/assets/images/single-room-armchair.jpg"
-import DeluxeSingleRoom from "@/public/assets/images/deluxe-single-room.jpg"
 import DeluxeSingleBathroom from "@/public/assets/images/deluxe-single-bathroom.jpg"
 import BnbRoom from "@/public/assets/images/bnb-room.jpg"
 import RoomSittingArea from "@/public/assets/images/room-sitting-area.jpg"
@@ -13,7 +12,6 @@ import Restaurant from "@/public/assets/images/restaurant.jpg"
 import RestaurantBuffet from "@/public/assets/images/restaurant-buffet.jpg"
 import Buffet from "@/public/assets/images/buffet.jpg"
 import Cafeteria from "@/public/assets/images/cafeteria.jpg"
-import CafeTableService from "@/public/assets/images/cafe-table-service.png"
 import ChickenAndChips from "@/public/assets/images/chicken-and-chips.jpg"
 import FreshJuice from "@/public/assets/images/fresh-juice.jpg"
 import MainBarCounter from "@/public/assets/images/main-bar-counter.jpg"
@@ -31,7 +29,6 @@ import PoolTableGame from "@/public/assets/images/pool-table-game.jpg"
 import ConferenceSetup from "@/public/assets/images/conference-setup.jpg"
 import ConferenceUShape from "@/public/assets/images/conference-u-shape.jpg"
 import ConferenceHallTables from "@/public/assets/images/conference-hall-tables.jpg"
-import ConferenceHall from "@/public/assets/images/conference-hall.jpg"
 import Smoothies from "@/public/assets/images/smoothies.jpg"
 import BartenderServingCocktail from "@/public/assets/images/bartender-serving-cocktail.jpg"
 import Milkshake from "@/public/assets/images/milkshake.jpg"
@@ -120,12 +117,6 @@ export const galleryItems: GalleryItem[] = [
     image: ConferenceSetup,
     alt: "Conference hall set for a meeting",
   },
-  {
-    id: 13,
-    category: "rooms",
-    image: DeluxeSingleRoom,
-    alt: "Deluxe single room",
-  },
   { id: 14, category: "eat-drink", image: Cocktails, alt: "Cocktails" },
   {
     id: 15,
@@ -144,12 +135,6 @@ export const galleryItems: GalleryItem[] = [
     category: "rooms",
     image: CarpetedDoubleSittingArea,
     alt: "Sofa, desk and TV in a carpeted room",
-  },
-  {
-    id: 18,
-    category: "eat-drink",
-    image: CafeTableService,
-    alt: "Waitress serving a guest",
   },
   { id: 19, category: "lounge", image: LoungeSeating, alt: "Lounge seating" },
   { id: 36, category: "lounge", image: LoungeBar, alt: "The Lounge bar" },
@@ -221,11 +206,5 @@ export const galleryItems: GalleryItem[] = [
     category: "rooms",
     image: RoomSittingArea,
     alt: "Sitting area by a bedroom window",
-  },
-  {
-    id: 33,
-    category: "conference",
-    image: ConferenceHall,
-    alt: "Conference hall set with rows of tables",
   },
 ]
