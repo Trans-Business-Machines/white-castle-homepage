@@ -13,7 +13,6 @@ import Restaurant from "@/public/assets/images/restaurant.jpg"
 import RestaurantBuffet from "@/public/assets/images/restaurant-buffet.jpg"
 import Buffet from "@/public/assets/images/buffet.jpg"
 import Cafeteria from "@/public/assets/images/cafeteria.jpg"
-import CafeGuestSmoothie from "@/public/assets/images/cafe-guest-smoothie.jpg"
 import CafeTableService from "@/public/assets/images/cafe-table-service.png"
 import ChickenAndChips from "@/public/assets/images/chicken-and-chips.jpg"
 import FreshJuice from "@/public/assets/images/fresh-juice.jpg"
@@ -166,12 +165,6 @@ export const galleryItems: GalleryItem[] = [
     category: "eat-drink",
     image: BartenderCocktail,
     alt: "Bartender holding a cocktail",
-  },
-  {
-    id: 23,
-    category: "eat-drink",
-    image: CafeGuestSmoothie,
-    alt: "Guest with a smoothie in the cafe",
   },
   {
     id: 24,
