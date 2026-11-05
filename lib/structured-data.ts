@@ -65,6 +65,10 @@ export function hotelJsonLd() {
       longitude: siteConfig.geo.longitude,
     },
     hasMap: siteConfig.mapUrl,
+    sameAs: [siteConfig.mapUrl, siteConfig.whatsapp],
+    priceRange: "KES 2,000 - KES 7,500 per night",
+    smokingAllowed: false,
+    petsAllowed: false,
     numberOfRooms: siteConfig.numberOfRooms,
     checkinTime: siteConfig.checkIn,
     checkoutTime: siteConfig.checkOut,
@@ -96,5 +100,37 @@ export function websiteJsonLd() {
     description: siteConfig.description,
     inLanguage: "en-KE",
     publisher: { "@id": hotelId },
+  }
+}
+
+
+/** Breadcrumb trail for an inner page. */
+export function breadcrumbJsonLd(
+  items: readonly { name: string; path: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteUrl}${item.path}`,
+    })),
+  }
+}
+
+/** FAQ rich result — must mirror the FAQ text rendered on the page. */
+export function faqJsonLd(
+  items: readonly { question: string; answer: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
   }
 }

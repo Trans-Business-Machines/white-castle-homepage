@@ -17,6 +17,9 @@ export const metadata: Metadata = pageMetadata({
     "White Castle Motel history",
     "Eldoret motel since 1985",
     "motel near Sergoit Hill",
+    "Uganda Road motel Eldoret",
+    "Nandi Hills view hotel Eldoret",
+    "Eldoret town centre motel",
   ],
 })
 

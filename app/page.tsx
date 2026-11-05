@@ -21,8 +21,11 @@ export const metadata: Metadata = pageMetadata({
   keywords: [
     "hotels in Eldoret town",
     "Eldoret motel rooms",
+    "Eldoret motel rates",
+    "affordable accommodation Eldoret",
     "conference hall Eldoret",
     "book a room in Eldoret",
+    "White Castle Motel Eldoret",
   ],
 })
 

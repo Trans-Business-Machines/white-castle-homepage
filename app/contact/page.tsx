@@ -7,6 +7,10 @@ import { BookingForm } from "@/components/booking-form"
 import { BookingSteps } from "@/components/booking-steps"
 import { MapCard } from "@/components/map-card"
 import { pageMetadata } from "@/lib/seo"
+import { faqJsonLd } from "@/lib/structured-data"
+import { faqs } from "@/lib/faq"
+import { JsonLd } from "@/components/json-ld"
+import { FaqSection } from "@/components/faq-section"
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact & booking enquiries",
@@ -17,7 +21,9 @@ export const metadata: Metadata = pageMetadata({
     "White Castle Motel contacts",
     "Eldoret motel booking",
     "Eldoret hotel phone number",
+    "WhatsApp hotel booking Eldoret",
     "Uganda Road Eldoret accommodation",
+    "White Castle Motel reservations",
   ],
 })
 
@@ -36,6 +42,7 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
+      <JsonLd data={faqJsonLd(faqs)} />
       <PageHeader
         eyebrow="Contact"
         title="Send a booking request"
@@ -64,6 +71,12 @@ export default async function Page({ searchParams }: Props) {
               </div>
             </div>
           </section>
+        </Reveal>
+      </SectionBand>
+
+      <SectionBand tinted>
+        <Reveal>
+          <FaqSection />
         </Reveal>
       </SectionBand>
     </>

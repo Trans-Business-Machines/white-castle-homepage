@@ -14,8 +14,13 @@ export const metadata: Metadata = pageMetadata({
   path: "/facilities",
   keywords: [
     "conference hall Eldoret",
+    "conference venue Eldoret",
+    "wedding venue Eldoret",
     "Eldoret bar and restaurant",
+    "Eldoret restaurant",
     "sauna Eldoret",
+    "health club Eldoret",
+    "pool bar Eldoret",
     "event venue Eldoret",
   ],
 })

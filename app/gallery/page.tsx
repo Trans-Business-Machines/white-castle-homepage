@@ -15,6 +15,8 @@ export const metadata: Metadata = pageMetadata({
     "White Castle Motel photos",
     "Eldoret hotel gallery",
     "Eldoret motel rooms pictures",
+    "Eldoret hotel pictures",
+    "conference hall photos Eldoret",
   ],
 })
 
