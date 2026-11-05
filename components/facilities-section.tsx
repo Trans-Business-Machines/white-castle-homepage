@@ -20,7 +20,7 @@ const facilities = [
     icon: BedDouble,
     title: "Self-contained rooms",
     description:
-      "Hot bath, shower and telephone in every one of the 118 rooms, plus room service.",
+      "Hot bath, shower and free wi-fi in every one of the 118 rooms, plus room service.",
   },
   {
     icon: GlassWater,
