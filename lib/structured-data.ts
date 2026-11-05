@@ -49,7 +49,7 @@ export function hotelJsonLd() {
       `${siteUrl}/assets/images/conference-setup.jpg`,
       `${siteUrl}/assets/images/cafeteria.jpg`,
     ],
-    logo: `${siteUrl}/favicon.ico`,
+    logo: `${siteUrl}/icon.png`,
     address: {
       "@type": "PostalAddress",
       streetAddress: "Uganda Road",
@@ -72,6 +72,17 @@ export function hotelJsonLd() {
     numberOfRooms: siteConfig.numberOfRooms,
     checkinTime: siteConfig.checkIn,
     checkoutTime: siteConfig.checkOut,
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday", "Tuesday", "Wednesday", "Thursday",
+          "Friday", "Saturday", "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+    ],
     currenciesAccepted: "KES, USD",
     paymentAccepted: "Cash, M-Pesa",
     amenityFeature: [
