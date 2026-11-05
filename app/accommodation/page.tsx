@@ -6,6 +6,8 @@ import { RatesSection } from "@/components/rates-section"
 import { UnitListings } from "@/components/unit-listings"
 import { parseAvailabilitySearch } from "@/lib/availability"
 import { pageMetadata } from "@/lib/seo"
+import { JsonLd } from "@/components/json-ld"
+import { breadcrumbJsonLd } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata({
   title: "Accommodation & room rates",
@@ -39,6 +41,12 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Accommodation", path: "/accommodation" },
+        ])}
+      />
       <PageHeader
         eyebrow="Accommodation"
         title="Rooms at an honest rate"

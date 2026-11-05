@@ -5,6 +5,8 @@ import { PageHeader } from "@/components/page-header"
 import { GalleryGrid } from "@/components/gallery-grid"
 import { GalleryCta } from "@/components/gallery-cta"
 import { pageMetadata } from "@/lib/seo"
+import { JsonLd } from "@/components/json-ld"
+import { breadcrumbJsonLd } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata({
   title: "Photo gallery",
@@ -23,6 +25,12 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Gallery", path: "/gallery" },
+        ])}
+      />
       <PageHeader
         eyebrow="Gallery"
         title="The motel, room by room"

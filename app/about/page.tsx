@@ -7,6 +7,8 @@ import { AboutHistory } from "@/components/about-history"
 import { NearbySection } from "@/components/nearby-section"
 import { AboutCta } from "@/components/about-cta"
 import { pageMetadata } from "@/lib/seo"
+import { JsonLd } from "@/components/json-ld"
+import { breadcrumbJsonLd } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata({
   title: "About the motel",
@@ -26,6 +28,12 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <AboutIntro />
       <SectionBand tinted>
         <Reveal>

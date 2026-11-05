@@ -6,6 +6,8 @@ import { ConferenceSection } from "@/components/conference-section"
 import { VenuesSection } from "@/components/venues-section"
 import { GuestServicesSection } from "@/components/guest-services-section"
 import { pageMetadata } from "@/lib/seo"
+import { JsonLd } from "@/components/json-ld"
+import { breadcrumbJsonLd } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata({
   title: "Facilities & services",
@@ -28,6 +30,12 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Facilities", path: "/facilities" },
+        ])}
+      />
       <PageHeader
         eyebrow="Facilities & services"
         title="Eat, meet and unwind without leaving"

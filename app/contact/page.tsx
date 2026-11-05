@@ -10,6 +10,7 @@ import { pageMetadata } from "@/lib/seo"
 import { faqJsonLd } from "@/lib/structured-data"
 import { faqs } from "@/lib/faq"
 import { JsonLd } from "@/components/json-ld"
+import { breadcrumbJsonLd } from "@/lib/structured-data"
 import { FaqSection } from "@/components/faq-section"
 
 export const metadata: Metadata = pageMetadata({
@@ -42,6 +43,12 @@ export default async function Page({ searchParams }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <JsonLd data={faqJsonLd(faqs)} />
       <PageHeader
         eyebrow="Contact"
