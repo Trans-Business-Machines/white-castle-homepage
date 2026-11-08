@@ -8,7 +8,7 @@ import { NearbySection } from "@/components/nearby-section"
 import { AboutCta } from "@/components/about-cta"
 import { pageMetadata } from "@/lib/seo"
 import { JsonLd } from "@/components/json-ld"
-import { breadcrumbJsonLd } from "@/lib/structured-data"
+import { breadcrumbJsonLd, hotelJsonLd } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata({
   title: "About White Castle Motel, Eldoret — Since 1985",
@@ -33,6 +33,7 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <>
+      <JsonLd data={hotelJsonLd()} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },
