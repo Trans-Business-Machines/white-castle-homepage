@@ -24,7 +24,7 @@ export function HeroSection() {
           <div className="relative flex min-h-136 flex-col justify-center p-6 pb-16 sm:min-h-160 sm:p-10 sm:pb-20 lg:min-h-176 lg:p-14 lg:pb-24">
 
             <span className="w-fit rounded-full bg-white/15 px-4 py-2 text-xs tracking-[0.14em] text-white uppercase backdrop-blur-sm">
-              Central Eldoret · Since the town grew up around us
+              White Castle Motel · Eldoret, Kenya
             </span>
 
             <h1 className="mt-6 max-w-3xl font-heading text-4xl leading-[1.05] font-extrabold text-white sm:text-5xl lg:text-6xl">

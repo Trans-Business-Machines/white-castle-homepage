@@ -8,7 +8,7 @@ export function AboutIntro() {
       <Reveal>
         <div>
           <p className="text-[0.75rem] font-semibold tracking-[0.16em] text-primary uppercase">
-            About
+            White Castle Motel · Eldoret, Kenya
           </p>
           <h1 className="mt-3 max-w-md font-heading text-4xl leading-[1.1] font-extrabold sm:text-5xl">
             A town-centre motel that stays quiet

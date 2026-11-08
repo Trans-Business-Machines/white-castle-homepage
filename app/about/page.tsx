@@ -11,11 +11,16 @@ import { JsonLd } from "@/components/json-ld"
 import { breadcrumbJsonLd } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata({
-  title: "About the motel",
+  title: "About White Castle Motel, Eldoret — Since 1985",
   description:
-    "A town-centre motel in Eldoret since 1985, 320 km northwest of Nairobi, with 118 self-contained rooms and a view of Sergoit Hill and the Nandi Hills.",
+    "White Castle Motel is a town-centre motel in Eldoret since 1985, 320 km northwest of Nairobi, with 118 self-contained rooms and views of Sergoit Hill and the Nandi Hills.",
   path: "/about",
+  absoluteTitle: true,
   keywords: [
+    "White Castle Motel",
+    "White Castle Motel Eldoret",
+    "White Castle Hotel Eldoret",
+    "White Castle Motel Kenya",
     "White Castle Motel history",
     "Eldoret motel since 1985",
     "motel near Sergoit Hill",
