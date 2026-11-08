@@ -11,7 +11,7 @@ const routes: Array<{
     path: "/",
     changeFrequency: "weekly",
     priority: 1,
-    images: ["/assets/images/hero.png", "/assets/images/og-image.jpg"],
+    images: ["/assets/images/hero.png", "/assets/images/og-image-2026.jpg"],
   },
   {
     path: "/accommodation",

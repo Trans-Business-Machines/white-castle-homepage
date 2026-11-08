@@ -18,7 +18,10 @@ export const titleTemplate = "%s | White Castle Motel, Eldoret"
 export const defaultDescription = siteConfig.description
 
 export const ogImage = {
-  url: "/assets/images/og-image.jpg",
+  // Keep the filename versioned: WhatsApp/Facebook cache OG images by URL,
+  // so a new path is the reliable way to force a fresh 200 response.
+  url: "/assets/images/og-image-2026.jpg",
+  type: "image/jpeg",
   width: 1200,
   height: 630,
   alt: "White Castle Motel, Eldoret",
@@ -106,7 +109,7 @@ export function pageMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [ogImage.url],
+      images: [{ url: ogImage.url, alt: ogImage.alt }],
     },
   }
 }
